@@ -24,8 +24,8 @@ SECRET_KEY = '=2i%u$ja1b_+sshmzyade0tz%u#c14ln45f1za9c7t=5+b8j!r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+CURRENT_HOST = 'http://127.0.0.1:8000'
+ALLOWED_HOSTS = ['http://127.0.0.1:8000']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'utils',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -66,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'utils.context_processors.loggedin_user',
             ],
         },
     },
@@ -128,3 +130,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# VKontakte
+
+VKONTAKTE_APP = {
+    'SECRET': '8C6BjXZii7PDzryIX2QG',
+    'APPID': '5551024'
+}

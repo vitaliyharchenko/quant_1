@@ -29,6 +29,8 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
 
+    vkuserid = models.IntegerField(unique=True, null=True, blank=True)
+
     bdate = models.DateField()
     first_name = models.CharField(u'Имя', max_length=120)
     last_name = models.CharField(u'Фамилия', max_length=120)
