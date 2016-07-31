@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load globaltags %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-xs-12 text-xs-center">
+                            <h1>Регистрация</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <form action="" method="post" enctype='multipart/form-data' action="{% url 'reg_view' %}")>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="btn btn-primary btn-block" type="submit">Зарегистрироваться</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

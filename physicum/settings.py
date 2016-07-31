@@ -115,9 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True
 
@@ -138,3 +138,11 @@ VKONTAKTE_APP = {
     'SECRET': '8C6BjXZii7PDzryIX2QG',
     'APPID': '5551024'
 }
+
+# EMail
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'info@sportcourts.ru'
+EMAIL_HOST_PASSWORD = 'courtssport2'
+EMAIL_SUBJECT_PREFIX = '[PHYSICUM] '

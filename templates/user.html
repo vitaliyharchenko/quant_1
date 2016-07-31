@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h1>{{ user }}</h1>
+        {% if not my_profile %}
+            <small> Последний раз заходил{% ifequal user.sex 'f' %}a{% endifequal %}: {{ user.last_login }}</small>
+        {% else %}
+            <a href="{% url 'user_update_view' %}">Редактировать</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

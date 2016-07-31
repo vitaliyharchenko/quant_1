@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.utils import timezone
 
 
 class UserManager(BaseUserManager):
@@ -34,6 +35,7 @@ class User(AbstractBaseUser):
     bdate = models.DateField()
     first_name = models.CharField(u'Имя', max_length=120)
     last_name = models.CharField(u'Фамилия', max_length=120)
+    sex = models.CharField(max_length=1, choices=(('m', 'мужской'), ('f', 'женский')), verbose_name='Пол')
 
     is_active = models.BooleanField(u'Активный', default=True)
     is_staff = models.BooleanField(u'Доступ к админке', default=False)
@@ -41,11 +43,16 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'bdate']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'bdate', 'sex']
+    REGISTRATION_FIELDS = ['email'] + ['first_name', 'last_name', 'bdate', 'sex']
+    UPDATE_FIELDS = REQUIRED_FIELDS
 
     class Meta:
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
+
+    def get_absolute_url(self):
+        return "/users/%i" % self.id
 
     def get_full_name(self):
         return u'{} {}'.format(self.first_name, self.last_name)
@@ -65,3 +72,19 @@ class User(AbstractBaseUser):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
+
+
+class UserActivation(models.Model):
+    user = models.OneToOneField(User)
+    activation_key = models.CharField(max_length=100, blank=True)
+    request_time = models.DateTimeField(default=timezone.now)
+    confirm_time = models.DateTimeField('Дата активации', blank=True, null=True)
+
+    def __str__(self):
+        return self.user.email
+
+    def __unicode__(self):
+        return self.user.email
+
+    class Meta:
+        verbose_name_plural = u'Активации'

@@ -1,35 +1,16 @@
+{% extends "base.html" %}
 {% load globaltags %}
 
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<p>Привет! Это проект Физикум</p>
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-3">Привет, салаги!</h1>
 
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert">
-            <strong>Упс! &nbsp;{{ message }}</strong>
-        </div>
-    {% endfor %}
-{% endif %}
+        <p class="lead">Время учиться и думать головой! Гамарджоба, жи есть!</p>
+        <hr class="m-y-2">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
 
-<p>
-    <a href="/admin">Админка</a>
-</p>
-{% if is_logged_in %}
-<p>Current user: {{ current_user }}</p>
-<p>
-    <a href="/logout">Выйти</a>
-</p>
-{% else %}
-<p>
-    {% url 'login_view' as login_url %}
-    <a href="{% vkontakte_auth_link login_url %}">Войти через Вконтакте</a>
-</p>
-{% endif %}
-</body>
-</html>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Узнайте больше</a>
+        </p>
+    </div>
+{% endblock %}

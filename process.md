@@ -28,3 +28,11 @@ python manage.py migrate
 python manage.py createsuperuser
 create user - harchenko.grape@gmail.com, Oleinik1
 ```
+
+# Развертываем фронтенд #
+```
+npm install --save-dev gulp - в директории проекта
+npm init
+
+npm install bootstrap@4.0.0-alpha.3
+```
