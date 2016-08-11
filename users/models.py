@@ -83,8 +83,5 @@ class UserActivation(models.Model):
     def __str__(self):
         return self.user.email
 
-    def __unicode__(self):
-        return self.user.email
-
     class Meta:
         verbose_name_plural = u'Активации'

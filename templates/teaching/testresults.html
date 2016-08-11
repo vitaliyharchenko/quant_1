@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h1>Результаты тестов</h1>
+        <hr/>
+        {% for result in results %}
+            <div class="card">
+                <div class="card-block">
+                    <p class="lead"><a href="{% url 'test_view' result.test.id %}">Тест #{{ result.test.id }}</a>&nbsp;&nbsp;&nbsp;<small class="text-muted">{{ result.date }}</small></p>
+
+                    <a class="lead">Результат: {{ result.score }} из {{ result.max_score }} ({% widthratio result.score result.max_score 100 %}%)</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

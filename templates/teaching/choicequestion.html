@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-block">
+                <p class="lead">Тестовый вопрос #{{ choicequestion.id }}</p>
+                <p>{{ choicequestion.question_text }}</p>
+                <hr/>
+                <form id="exerciseFrom" method="post" action="">
+                    {% csrf_token %}
+                    <p>Варианты ответов:</p>
+                    {% for option in choicequestionoptions %}
+                        <div class="checkbox {% if option.id in correct_choices%}has-success{% endif %} {% if option.id in false_choices%}has-danger{% endif %} {% if option.id in false_not_choices%}has-warning{% endif %}">
+                            <label for="">
+                                <input type="checkbox" name="choices" value="{{ option.id }}" {% if option.id in correct_choices or option.id in false_choices %}checked{% endif %} {% if is_answered %}disabled{% endif %}/>
+                                {{ option.option_text }}
+                                {% if option.id in correct_choices %}
+                                    ВЕРНЫЙ ВЫБОР {% if option.help_text %}({{ option.help_text }}){% endif %}
+                                {% elif option.id in false_choices %}
+                                    НЕПРАВИЛЬНЫЙ ВЫБОР {% if option.help_text %}({{ option.help_text }}){% endif %}
+                                {% elif option.id in false_not_choices %}
+                                    НЕ ВЫБРАН {% if option.help_text %}({{ option.help_text }}){% endif %}
+                                {% endif %}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    <hr/>
+                    {% if is_answered %}
+                        {% if last_block %}
+                            {% if test_id %}
+                                <a href="{% url 'test_final_view' test_id %}" class="btn btn-primary">Конец теста</a>
+                            {% else %}
+                                <a href="" class="btn btn-primary">Конец главы</a>
+                            {% endif %}
+                        {% else %}
+                            {% if test_id %}
+                                <a href="{% url 'test_block_view' test_id next_block_num %}" class="btn btn-primary">Следующий вопрос ></a>
+                            {% else %}
+                                <a href="">Повторить</a>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        <button class="btn btn-warning" type="submit">Ответить</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

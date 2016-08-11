@@ -8,6 +8,7 @@ CREATE DATABASE physdb OWNER physuser;
 ALTER USER physuser CREATEDB;
 
 pip install psycopg2
+pip install django-markdown
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load lessontags %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>{{ group.title }}</h2>
+
+            <p>Преподаватель: <a href="{% url 'user_view' 1 %}">{{ group.teacher }}</a></p>
+
+            <div id="accordion" aria-multiselectable="true">
+                {% for studygrouplesson in studygrouplessons %}
+                    <div class="card {% if studygrouplesson.is_next %}card-outline-warning{% endif %}{% if studygrouplesson.time_status == 'WAS' %}card-outline-success{% endif %}">
+                        {% studentstudygrouplesson current_user studygrouplesson as studentstudygrouplesson %}
+                        {% if not studygrouplesson.is_next and studygrouplesson.time_status == 'WILL BE' %}
+                            <div class="card-header" role="tab">
+                                <a>Урок {{ forloop.counter }}. {{ studygrouplesson.lesson.title }}. {{ studygrouplesson.datetime }}</a>
+                            </div>
+                        {% else %}
+                            <div class="card-header" role="tab">
+                                {% if not studygrouplesson.is_next and studygrouplesson.time_status == 'WILL BE' %}
+                                    <a>Урок {{ forloop.counter }}. {{ studygrouplesson.lesson.title }}. {{ studygrouplesson.datetime }}</a>
+                                {% else %}
+                                    <a data-toggle="collapse" href="#collapse{{ studygrouplesson.lesson.pk }}"
+                                       aria-expanded="true"
+                                       aria-controls="collapse{{ studygrouplesson.lesson.pk }}">
+                                        Урок {{ forloop.counter }}. {{ studygrouplesson.lesson.title }}. {{ studygrouplesson.datetime }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div id="collapse{{ studygrouplesson.lesson.pk }}"
+                                 class="card-collapse collapse {% if studygrouplesson.is_next %}in{% endif %}"
+                                 role="tabpanel">
+                                <div class="card-block">
+                                    {% if studygrouplesson.time_status == 'WAS' %}
+                                        {% if studentstudygrouplesson.is_finished %}
+                                            <p>Урок пройден</p>
+                                            <a class="btn btn-secondary">Повторить тему</a>
+                                        {% else %}
+                                            <p>Урок был пропущен</p>
+                                            <a class="btn btn-secondary" href="{% url 'grouplesson_view' group.pk studygrouplesson.lesson.pk %}">Приступить к занятию</a>
+                                        {% endif %}
+                                    {% else %}
+                                        <a class="btn btn-secondary">Приступить к уроку</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

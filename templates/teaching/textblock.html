@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load django_markdown %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Группа</a></li>
+                <li class="breadcrumb-item"><a href="">{{ textblock.title }}</a></li>
+            </ol>
+            <div class="card">
+                <div class="card-block">
+                    <h2 class="m-t-5">{{ textblock.title }}</h2>
+                    <br/>
+                    <div class="paragraph-body">{{ textblock.rendered_content|safe }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

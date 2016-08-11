@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_markdown',
     'users',
+    'teaching',
     'utils',
 ]
 
@@ -78,6 +80,7 @@ WSGI_APPLICATION = 'physicum.wsgi.application'
 
 # Authorization
 AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = '/login'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
