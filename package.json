@@ -7,7 +7,11 @@
     "bootstrap-sass": "^3.3.7",
     "gulp": "^3.9.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "bootstrap": "^4.0.0-alpha.3",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

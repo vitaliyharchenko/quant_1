@@ -1,16 +1,127 @@
 {% extends "base.html" %}
 {% load globaltags %}
 
-{% block content %}
-    <div class="jumbotron">
-        <h1 class="display-3">Привет, салаги!</h1>
+{% block content-fluid %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Привет всем!</h1>
 
-        <p class="lead">Время учиться и думать головой! Гамарджоба, жи есть!</p>
-        <hr class="m-y-2">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <p class="lead">Физикум - это тестовая платформа, которая призвана сделать обучение веселее и легче!</p>
+            <hr class="m-y-2">
+            <p>Присоединяйтесь к нам!</p>
 
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Узнайте больше</a>
-        </p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Узнайте больше</a>
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Изучаемые предметы</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <div class="card">
+                    <div class="card-block text-xs-center">
+                        <img src="http://dummyimage.com/460x160" width="100%"/>
+                        <hr/>
+                        <h3>Физика</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="page-header">Почему Stepee?</h2><br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-3 col-md-3 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
+
+                <p class="lead">100%</p>
+
+                <p class="lead">Сдают экзамены</p>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
+
+                <p class="lead">100%</p>
+
+                <p class="lead">Сдают экзамены</p>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
+
+                <p class="lead">100%</p>
+
+                <p class="lead">Сдают экзамены</p>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
+
+                <p class="lead">100%</p>
+
+                <p class="lead">Сдают экзамены</p>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="page-header">Как это работает?</h2>
+
+                <div class="text-center"><img src="http://dummyimage.com/1200x600" alt="" width="100%"></div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="page-header">Отзывы</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 offset-md-1 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
+                <h3>Вася Пупкин</h3>
+
+                <p>Екатеринбург</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem ratione fuga, minus doloribus, culpa
+                    veritatis facilis earum qui illo quis praesentium, laudantium porro placeat, maiores!</p>
+            </div>
+            <div class="col-sm-6 col-md-4 offset-md-1 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
+                <h3>Вася Пупкин</h3>
+
+                <p>Екатеринбург</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio quos harum blanditiis error molestiae
+                    ipsum, provident est aliquid dignissimos, omnis ab rerum laborum non eligendi.</p>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="container-fluid bg-info">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 text-xs-center"><br>
+
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <h2 class="h1">Лозунг компании или призыв</h2>
+
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita est inventore
+                                    dolor.</p><a href="" class="btn btn-primary">Выбрать курс</a><br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

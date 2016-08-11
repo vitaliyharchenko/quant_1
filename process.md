@@ -1,6 +1,6 @@
-cd Dev/Django/physenv
+cd ~/Dev/Django/physenv
 source bin/activate
-cd Dev/Django/physicum
+cd ~/Dev/Django/physicum
 
 psql
 CREATE USER physuser WITH PASSWORD '$$$$';
