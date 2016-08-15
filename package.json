@@ -1,7 +1,6 @@
 {
   "name": "physicum",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
@@ -24,5 +23,6 @@
   "bugs": {
     "url": "https://github.com/vitaliyharchenko/physicum/issues"
   },
-  "homepage": "https://github.com/vitaliyharchenko/physicum#readme"
+  "homepage": "https://github.com/vitaliyharchenko/physicum#readme",
+  "description": ""
 }
