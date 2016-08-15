@@ -79,7 +79,7 @@ class StudyGroupLesson(models.Model):
     @property
     def is_next(self):
         query = StudyGroupLesson.objects.filter(studygroup=self.studygroup).filter(datetime_to__gt=timezone.now())
-        if query[0] == self:
+        if query and query[0] == self:
             return True
         else:
             return False
@@ -115,7 +115,6 @@ class TextBlock(Block):
     @property
     def rendered_content(self):
         return markdown.markdown(self.body, extensions=['markdown.extensions.extra', PyEmbedMarkdown(), 'mdx_math'])
-
 
 
 class ChoiceQuestion(Block):
