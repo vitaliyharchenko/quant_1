@@ -5,33 +5,55 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <h2>{{ group.title }}</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'groups_view' %}">Мои группы</a></li>
+                <li class="breadcrumb-item active">{{ group.title }}</li>
+            </ol>
 
-            <p>Преподаватель: <a href="{% url 'user_view' 1 %}">{{ group.teacher }}</a></p>
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h1>{{ group.title }}</h1>
+                        <p>Преподаватель: <a href="{% url 'user_view' 1 %}">{{ group.teacher }}</a></p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                <h4>Рейтинг учеников</h4>
+                                <ol>
+                                    <li>Вася Пупкин</li>
+                                    <li>Вася Пупкин</li>
+                                    <li>Вася Пупкин</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div id="accordion" aria-multiselectable="true">
                 {% for studygrouplesson in studygrouplessons %}
-                    <div class="card {% if studygrouplesson.is_next %}card-outline-warning{% endif %}{% if studygrouplesson.time_status == 'WAS' %}card-outline-success{% endif %}">
+                    <div class="card">
                         {% studentstudygrouplesson current_user studygrouplesson as studentstudygrouplesson %}
                         {% if not studygrouplesson.is_next and studygrouplesson.time_status == 'WILL BE' %}
                             <div class="card-header" role="tab">
-                                <a>Урок {{ forloop.counter }}. {{ studygrouplesson.lesson.title }}. {{ studygrouplesson.datetime }}</a>
+                                <a>
+                                    <span class="text-muted">
+                                        Урок {{ forloop.counter }}. {{ studygrouplesson.lesson.title }}. {{ studygrouplesson.datetime }}
+                                    </span>
+                                </a>
                             </div>
                         {% else %}
                             <div class="card-header" role="tab">
                                 {% if not studygrouplesson.is_next and studygrouplesson.time_status == 'WILL BE' %}
                                     <a>Урок {{ forloop.counter }}. {{ studygrouplesson.lesson.title }}. {{ studygrouplesson.datetime }}</a>
                                 {% else %}
-                                    <a data-toggle="collapse" href="#collapse{{ studygrouplesson.lesson.pk }}"
-                                       aria-expanded="true"
-                                       aria-controls="collapse{{ studygrouplesson.lesson.pk }}">
+                                    <a data-toggle="collapse" href="#collapse{{ studygrouplesson.lesson.pk }}" aria-expanded="true" aria-controls="collapse{{ studygrouplesson.lesson.pk }}">
                                         Урок {{ forloop.counter }}. {{ studygrouplesson.lesson.title }}. {{ studygrouplesson.datetime }}
                                     </a>
                                 {% endif %}
                             </div>
-                            <div id="collapse{{ studygrouplesson.lesson.pk }}"
-                                 class="card-collapse collapse {% if studygrouplesson.is_next %}in{% endif %}"
-                                 role="tabpanel">
+                            <div id="collapse{{ studygrouplesson.lesson.pk }}" class="card-collapse collapse {% if studygrouplesson.is_next %}in{% endif %}" role="tabpanel">
                                 <div class="card-block">
                                     {% if studygrouplesson.time_status == 'WAS' %}
                                         {% if studentstudygrouplesson.is_finished %}
