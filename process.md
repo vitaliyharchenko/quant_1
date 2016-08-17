@@ -34,6 +34,6 @@ create user - harchenko.grape@gmail.com, Oleinik1
 ```
 npm install --save-dev gulp - в директории проекта
 npm init
-
+npm
 npm install bootstrap@4.0.0-alpha.3
 ```

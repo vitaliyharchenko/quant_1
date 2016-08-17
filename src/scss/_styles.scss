@@ -2,8 +2,12 @@ img {
   max-width: 100%;
 }
 
-body {
-  padding-top: 50px;
+body > .container {
+  padding-top: 80px;
+}
+
+body > .jumbotron {
+  margin-top: 50px;
 }
 
 /* Sticky footer styles
@@ -15,7 +19,7 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 
 .footer {

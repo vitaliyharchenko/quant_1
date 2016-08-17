@@ -4,7 +4,9 @@
 
 var
     gulp = require('gulp'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    uglify = require('gulp-uglify'),
+    rigger = require('gulp-rigger');
 
 // source and distribution folder
 var
@@ -35,6 +37,13 @@ var scss = {
     }
 };
 
+// Our js source folder: .js files
+var js = {
+    in: source + 'js/main.js',
+    out: dest + 'js/',
+    watch: source + 'js/**/*'
+};
+
 // copy bootstrap required fonts to dest
 gulp.task('fonts', function () {
     return gulp
@@ -49,7 +58,16 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(scss.out));
 });
 
+// compile js
+gulp.task('js', function () {
+    return gulp.src(js.in)
+        .pipe(rigger())
+        .pipe(uglify())
+        .pipe(gulp.dest(js.out));
+});
+
 // default task
-gulp.task('default', ['sass'], function () {
+gulp.task('default', ['sass', 'js'], function () {
      gulp.watch(scss.watch, ['sass']);
+     gulp.watch(js.watch, ['js']);
 });
