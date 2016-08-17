@@ -1,15 +1,14 @@
 # coding=utf-8
 from django import template
-from teaching.models import StudentStudyGroupLesson
+from teaching.models import StudentLesson
 
 register = template.Library()
 
 
-# находит объект подписи на игру для заданной игры и пользователя
 @register.assignment_tag
-def studentstudygrouplesson(user, studygrouplesson):
+def studentlesson(user, lesson):
     try:
-        studentstudygrouplesson = StudentStudyGroupLesson.objects.get(studygrouplesson=studygrouplesson, student=user)
-    except StudentStudyGroupLesson.DoesNotExist:
+        studentlesson = StudentLesson.objects.get(lesson=lesson, student=user)
+    except StudentLesson.DoesNotExist:
         return None
-    return studentstudygrouplesson
+    return studentlesson

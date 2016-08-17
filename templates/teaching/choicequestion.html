@@ -32,14 +32,14 @@
                         {% if last_block %}
                             {% if test_id %}
                                 <a href="{% url 'test_final_view' test_id %}" class="btn btn-primary">Конец теста</a>
-                            {% else %}
-                                <a href="" class="btn btn-primary">Конец главы</a>
+                            {% elif lesson %}
+                                <a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary">Конец урока</a>
                             {% endif %}
                         {% else %}
                             {% if test_id %}
                                 <a href="{% url 'test_block_view' test_id next_block_num %}" class="btn btn-primary">Следующий вопрос ></a>
-                            {% else %}
-                                <a href="">Повторить</a>
+                            {% elif lesson %}
+                                <a href="{% url 'lesson_block_view' lesson.id next_block_num %}">Следующий блок в уроке</a>
                             {% endif %}
                         {% endif %}
                     {% else %}

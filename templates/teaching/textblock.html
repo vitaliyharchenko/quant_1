@@ -5,15 +5,29 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">Группа</a></li>
-                <li class="breadcrumb-item"><a href="">{{ textblock.title }}</a></li>
-            </ol>
             <div class="card">
                 <div class="card-block">
-                    <h2 class="m-t-5">{{ textblock.title }}</h2>
+                    {% if is_answered %}
+                        {% if last_block %}
+                            {% if lesson %}
+                                <a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Конец урока</a>
+                            {% endif %}
+                        {% else %}
+                            {% if lesson %}
+                                <a href="{% url 'lesson_block_view' lesson.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок в уроке</a>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    <h1 class="display-4">{{ textblock.title }}</h1>
                     <br/>
                     <div class="paragraph-body">{{ textblock.rendered_content|safe }}</div>
+                    <hr>
+                    {% if not is_answered %}
+                        <form id="textForm" method="post" action="">
+                            {% csrf_token %}
+                            <button class="btn btn-warning btn-lg" type="submit">Я прочитал</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

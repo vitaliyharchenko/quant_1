@@ -6,6 +6,7 @@ var
     gulp = require('gulp'),
     sass = require('gulp-sass'),
     uglify = require('gulp-uglify'),
+    clean = require('gulp-clean'),
     rigger = require('gulp-rigger');
 
 // source and distribution folder
@@ -29,6 +30,7 @@ var scss = {
     in: source + 'scss/main.scss',
     out: dest + 'css/',
     watch: source + 'scss/**/*',
+    clean: dest + 'css/',
     sassOpts: {
         outputStyle: 'nested',
         precison: 3,
@@ -41,7 +43,8 @@ var scss = {
 var js = {
     in: source + 'js/main.js',
     out: dest + 'js/',
-    watch: source + 'js/**/*'
+    watch: source + 'js/**/*',
+    clean: dest + 'js/'
 };
 
 // copy bootstrap required fonts to dest
@@ -65,6 +68,8 @@ gulp.task('js', function () {
         .pipe(uglify())
         .pipe(gulp.dest(js.out));
 });
+
+// TODO: clear task
 
 // default task
 gulp.task('default', ['sass', 'js'], function () {

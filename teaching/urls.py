@@ -11,4 +11,8 @@ urlpatterns = [
     url(r'^groups$', views.groups_view, name="groups_view"),
     url(r'^group/(?P<group_id>\d+)$', views.group_view, name="group_view"),
     url(r'^group/(?P<group_id>\d+)/lesson/(?P<lesson_id>\d+)$', views.grouplesson_view, name="grouplesson_view"),
+
+    url(r'^lesson/(?P<lesson_id>\d+)$', views.lesson_view, name="lesson_view"),
+    url(r'^lesson/(?P<lesson_id>\d+)/(?P<block_num>\d+)$', views.lesson_block_view, name="lesson_block_view"),
+    url(r'^lesson/(?P<lesson_id>\d+)/final$', views.lesson_final_view, name="lesson_final_view"),
 ]

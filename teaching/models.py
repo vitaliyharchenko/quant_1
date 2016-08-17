@@ -7,6 +7,17 @@ from pyembed.markdown import PyEmbedMarkdown
 from users.models import User
 
 
+class Subject(models.Model):
+    class Meta():
+        verbose_name = 'Предмет'
+        verbose_name_plural = 'Предметы'
+
+    title = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+
 # учебный день
 class Lesson(models.Model):
     class Meta():
@@ -15,6 +26,7 @@ class Lesson(models.Model):
 
     title = models.CharField('Название урока', max_length=300)
     has_homework = models.BooleanField('Есть домашка?')
+    blocks = ArrayField(models.IntegerField())
 
     def __str__(self):
         return self.title
@@ -23,7 +35,7 @@ class Lesson(models.Model):
 # ==============
 # УЧЕБНЫЕ ГРУППЫ
 # ==============
-class StudyGroup(models.Model):
+class Group(models.Model):
     class Meta():
         verbose_name = 'Учебная группа'
         verbose_name_plural = 'Учебные группы'
@@ -40,13 +52,13 @@ class StudyGroup(models.Model):
 
 
 # Привязка студента к группе
-class StudentStudyGroup(models.Model):
+class StudentGroup(models.Model):
     class Meta():
         verbose_name = 'Участие студента в группе'
         verbose_name_plural = 'Участие студента в группе'
         unique_together = ('group', 'student')
 
-    group = models.ForeignKey(StudyGroup)
+    group = models.ForeignKey(Group)
     student = models.ForeignKey(User)
 
     def __str__(self):
@@ -54,17 +66,17 @@ class StudentStudyGroup(models.Model):
 
 
 # Связь группы с уроками, с указанием порядкового номера урока
-class StudyGroupLesson(models.Model):
+class GroupLesson(models.Model):
     class Meta():
         verbose_name = 'Порядковое включение урока в группу'
 
     lesson = models.ForeignKey(Lesson)
-    studygroup = models.ForeignKey(StudyGroup)
+    group = models.ForeignKey(Group)
     datetime = models.DateTimeField(null=True, blank=True)
     datetime_to = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return u'{} in "{}"'.format(self.lesson, self.studygroup.title)
+        return u'{} in "{}"'.format(self.lesson, self.group.title)
 
     @property
     def time_status(self):
@@ -78,21 +90,22 @@ class StudyGroupLesson(models.Model):
 
     @property
     def is_next(self):
-        query = StudyGroupLesson.objects.filter(studygroup=self.studygroup).filter(datetime_to__gt=timezone.now())
+        query = GroupLesson.objects.filter(group=self.group).filter(datetime_to__gt=timezone.now())
         if query and query[0] == self:
             return True
         else:
             return False
 
 
-# Связь ученика с уроком в группе
-class StudentStudyGroupLesson(models.Model):
+# Связь ученика с уроком
+class StudentLesson(models.Model):
     class Meta():
-        verbose_name = 'Связь ученика с уроком в группе'
+        verbose_name = 'Связь ученика с уроком'
 
-    studygrouplesson = models.ForeignKey(StudyGroupLesson)
+    lesson = models.ForeignKey(Lesson)
     student = models.ForeignKey(User)
     is_finished = models.BooleanField('Закончил?')
+    has_perm = models.BooleanField('Имеет право начать?')
 
 
 # Блоки, из которых строится занятие (контент, тест, опрос итд)

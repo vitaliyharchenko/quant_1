@@ -4,12 +4,9 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'groups_view' %}">Мои группы</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'group_view' group.id %}">{{ group.title }}</a></li>
-                <li class="breadcrumb-item active">{{ lesson.title }}</li>
-            </ol>
             <h2>{{ lesson.title }}</h2>
+            <p>Всего блоков в занятии: {{ lesson.blocks|length }}</p>
+            <a href="{% url 'lesson_block_view' lesson.pk 1 %}">Начать</a>
         </div>
     </div>
 

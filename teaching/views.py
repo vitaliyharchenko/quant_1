@@ -2,29 +2,103 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import ChoiceQuestion, ChoiceQuestionOption, Block, BlockResult, ChoiceQuestionResult, Test, TestResult, \
-    StudentStudyGroup, StudyGroup, StudyGroupLesson, Lesson
+    StudentGroup, Group, Lesson, GroupLesson
 
 
 def groups_view(request):
-    my_studentgroups = StudentStudyGroup.objects.filter(student=request.user)
+    my_studentgroups = StudentGroup.objects.filter(student=request.user)
     args = {'studentgroups': my_studentgroups}
     return render(request, 'teaching/groups.html', args)
 
 
 def group_view(request, group_id):
-    group = StudyGroup.objects.get(id=group_id)
-    studygrouplessons = StudyGroupLesson.objects.filter(studygroup=group)
+    group = Group.objects.get(id=group_id)
+    grouplessons = GroupLesson.objects.filter(group=group)
+    students = StudentGroup.objects.filter(group=group)
     args = {'group': group,
-            'studygrouplessons': studygrouplessons}
+            'grouplessons': grouplessons,
+            'students': students}
     return render(request, 'teaching/group.html', args)
 
 
 def grouplesson_view(request, group_id, lesson_id):
-    group = StudyGroup.objects.get(id=group_id)
+    group = Group.objects.get(id=group_id)
     lesson = Lesson.objects.get(id=lesson_id)
     args = {'group': group,
             'lesson': lesson}
+    return render(request, 'teaching/grouplesson.html', args)
+
+
+def lesson_view(request, lesson_id):
+    lesson = Lesson.objects.get(id=lesson_id)
+    args = {'lesson': lesson}
     return render(request, 'teaching/lesson.html', args)
+
+
+@login_required
+def lesson_final_view(request, lesson_id):
+    args = {}
+    try:
+        lesson = Lesson.objects.get(id=lesson_id)
+        args['lesson'] = lesson
+        results = []
+        summ = 0
+        max_summ = 0
+
+        args['summ'] = summ
+        args['max_summ'] = max_summ
+
+        return render(request, 'teaching/lessonfinal.html', args)
+    except Test.DoesNotExist:
+        # TODO: add 404 page
+        messages.warning(request, "Такого объекта нет =(")
+        return redirect('index_view')
+
+
+@login_required
+def lesson_block_view(request, lesson_id, block_num):
+    block_num = int(block_num)
+    try:
+        lesson = Lesson.objects.get(id=lesson_id)
+    except Lesson.DoesNotExist:
+        # TODO: add 404 page
+        messages.warning(request, "Такого объекта нет =(")
+
+    try:
+        block_id = lesson.blocks[block_num - 1]
+    except IndexError:
+        messages.warning(request, "Такого объекта нет =(")
+        # TODO return 404
+
+    try:
+        block = Block.objects.get(id=block_id)
+    except Block.DoesNotExist:
+        messages.warning(request, "Такого объекта нет =(")
+
+    if block_num == len(lesson.blocks):
+        extra_args = {'last_block': True}
+    else:
+        extra_args = {'next_block_num': block_num + 1}
+
+    extra_args['lesson'] = lesson
+
+    return block_handler(request, block, extra_args)
+
+
+def block_handler(request, block, extra_args):
+    # Works if choicequestion
+    try:
+        choicequestion = block.choicequestion
+        return choicequestion_handler(request, choicequestion, extra_args)
+    except AttributeError:
+        pass
+
+    # Works if textblock
+    try:
+        textblock = block.textblock
+        return textblock_handler(request, textblock, extra_args)
+    except AttributeError:
+        pass
 
 
 def choicequestion_handler(request, choicequestion, extra_args):
@@ -105,11 +179,17 @@ def choicequestion_handler(request, choicequestion, extra_args):
 
 def textblock_handler(request, textblock, extra_args):
     if request.method == "POST":
-        return None
+        result = BlockResult(user=request.user, block=textblock, score=1, max_score=1)
+        result.save()
+
+        extra_args['textblock'] = textblock
+        extra_args['is_answered'] = True
+
+        return render(request, 'teaching/textblock.html', extra_args)
     else:
         # Works if we want simple view
-        args = {'textblock': textblock}
-        return render(request, 'teaching/textblock.html', args)
+        extra_args['textblock'] = textblock
+        return render(request, 'teaching/textblock.html', extra_args)
 
 
 @login_required
@@ -151,6 +231,7 @@ def test_view(request, test_id):
         return redirect('index_view')
 
 
+# Переделать так, чтобы и тест отражался через block_handler()
 @login_required
 def test_block_view(request, test_id, block_num):
     block_num = int(block_num)
