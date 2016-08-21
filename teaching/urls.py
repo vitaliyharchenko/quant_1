@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^lesson/(?P<lesson_id>\d+)$', views.lesson_view, name="lesson_view"),
     url(r'^lesson/(?P<lesson_id>\d+)/(?P<block_num>\d+)$', views.lesson_block_view, name="lesson_block_view"),
     url(r'^lesson/(?P<lesson_id>\d+)/final$', views.lesson_final_view, name="lesson_final_view"),
+
+    url(r'^tasks$', views.tasks_view, name="tasks_view"),
 ]

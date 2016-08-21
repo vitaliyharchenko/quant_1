@@ -2,18 +2,29 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import ChoiceQuestion, ChoiceQuestionOption, Block, BlockResult, ChoiceQuestionResult, Test, TestResult, \
-    StudentGroup, Group, Lesson, GroupLesson
+    StudentGroup, Group, Lesson, GroupLesson, StudentLesson, Task
+
+
+def tasks_view(request):
+    tasks = Task.objects.filter(student=request.user, is_finished=False)
+    args = {'tasks': tasks}
+    return render(request, 'teaching/tasks.html', args)
 
 
 def groups_view(request):
-    my_studentgroups = StudentGroup.objects.filter(student=request.user)
-    args = {'studentgroups': my_studentgroups}
-    return render(request, 'teaching/groups.html', args)
+    if request.user.is_teacher:
+        groups = Group.objects.filter(teacher=request.user)
+        args = {'groups': groups}
+        return render(request, 'teaching/groups_teacher.html', args)
+    else:
+        my_studentgroups = StudentGroup.objects.filter(student=request.user)
+        args = {'studentgroups': my_studentgroups}
+        return render(request, 'teaching/groups.html', args)
 
 
 def group_view(request, group_id):
     group = Group.objects.get(id=group_id)
-    grouplessons = GroupLesson.objects.filter(group=group)
+    grouplessons = GroupLesson.objects.filter(group=group).order_by('datetime')
     students = StudentGroup.objects.filter(group=group)
     args = {'group': group,
             'grouplessons': grouplessons,
@@ -29,6 +40,7 @@ def grouplesson_view(request, group_id, lesson_id):
     return render(request, 'teaching/grouplesson.html', args)
 
 
+@login_required
 def lesson_view(request, lesson_id):
     lesson = Lesson.objects.get(id=lesson_id)
     args = {'lesson': lesson}
@@ -41,12 +53,37 @@ def lesson_final_view(request, lesson_id):
     try:
         lesson = Lesson.objects.get(id=lesson_id)
         args['lesson'] = lesson
+
         results = []
         summ = 0
         max_summ = 0
 
+        blocks = lesson.blocks
+        for block in blocks:
+            block_result = BlockResult.objects.filter(block=block, user=request.user).latest('date')
+            results.append(block_result)
+            summ += block_result.score
+            max_summ += block_result.max_score
+
         args['summ'] = summ
         args['max_summ'] = max_summ
+
+        try:
+            student_lesson = StudentLesson.objects.get(student=request.user, lesson=lesson)
+            student_lesson.score = summ
+            student_lesson.max_score = max_summ
+            student_lesson.is_finished = True
+            student_lesson.save()
+
+        except StudentLesson.DoesNotExist:
+            pass
+
+        try:
+            task = Task.objects.get(student=request.user, lesson=lesson, is_finished=False)
+            task.is_finished = True
+            task.save()
+        except Task.DoesNotExist:
+            pass
 
         return render(request, 'teaching/lessonfinal.html', args)
     except Test.DoesNotExist:
@@ -192,6 +229,7 @@ def textblock_handler(request, textblock, extra_args):
         return render(request, 'teaching/textblock.html', extra_args)
 
 
+# пока не используется
 @login_required
 def block_view(request, block_id):
     try:

@@ -40,6 +40,8 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(u'Активный', default=True)
     is_staff = models.BooleanField(u'Доступ к админке', default=False)
 
+    is_teacher = models.BooleanField(u'Учитель', default=False)
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'

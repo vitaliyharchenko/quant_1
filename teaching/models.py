@@ -32,6 +32,23 @@ class Lesson(models.Model):
         return self.title
 
 
+# домашнее задание
+class Task(models.Model):
+    class Meta():
+        verbose_name = 'Домашнее задание'
+        verbose_name_plural = 'Домашние задания'
+        unique_together = ('lesson', 'student')
+
+    lesson = models.ForeignKey(Lesson)
+    student = models.ForeignKey(User)
+    datetime = models.DateTimeField(null=True, blank=True)
+    datetime_to = models.DateTimeField(null=True, blank=True)
+    is_finished = models.BooleanField('Закончил?')
+
+    def __str__(self):
+        return u'For {}, "{}"'.format(self.student, self.lesson)
+
+
 # ==============
 # УЧЕБНЫЕ ГРУППЫ
 # ==============
@@ -69,6 +86,7 @@ class StudentGroup(models.Model):
 class GroupLesson(models.Model):
     class Meta():
         verbose_name = 'Порядковое включение урока в группу'
+        unique_together = ('group', 'lesson')
 
     lesson = models.ForeignKey(Lesson)
     group = models.ForeignKey(Group)
@@ -90,7 +108,7 @@ class GroupLesson(models.Model):
 
     @property
     def is_next(self):
-        query = GroupLesson.objects.filter(group=self.group).filter(datetime_to__gt=timezone.now())
+        query = GroupLesson.objects.filter(group=self.group).filter(datetime_to__gt=timezone.now()).order_by('datetime')
         if query and query[0] == self:
             return True
         else:
@@ -106,6 +124,8 @@ class StudentLesson(models.Model):
     student = models.ForeignKey(User)
     is_finished = models.BooleanField('Закончил?')
     has_perm = models.BooleanField('Имеет право начать?')
+    score = models.IntegerField(null=True, blank=True)
+    max_score = models.IntegerField(null=True, blank=True)
 
 
 # Блоки, из которых строится занятие (контент, тест, опрос итд)
