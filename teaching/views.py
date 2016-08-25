@@ -1,12 +1,14 @@
+from datetime import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import ChoiceQuestion, ChoiceQuestionOption, Block, BlockResult, ChoiceQuestionResult, Test, TestResult, \
-    StudentGroup, Group, Lesson, GroupLesson, StudentLesson, Task
+    StudentGroup, Group, Lesson, GroupLesson, Task, StudentGroupLesson, GroupLessonTask
 
 
+# TODO: resolve differrent types of tasks
 def tasks_view(request):
-    tasks = Task.objects.filter(student=request.user, is_finished=False)
+    tasks = GroupLessonTask.objects.filter(student=request.user, is_finished=False)
     args = {'tasks': tasks}
     return render(request, 'teaching/tasks.html', args)
 
@@ -24,27 +26,77 @@ def groups_view(request):
 
 def group_view(request, group_id):
     group = Group.objects.get(id=group_id)
-    grouplessons = GroupLesson.objects.filter(group=group).order_by('datetime')
-    students = StudentGroup.objects.filter(group=group)
-    args = {'group': group,
-            'grouplessons': grouplessons,
-            'students': students}
-    return render(request, 'teaching/group.html', args)
+    args = {'group': group}
+    if request.user == group.teacher:
+        return render(request, 'teaching/group_teacher.html', args)
+    else:
+        return render(request, 'teaching/group.html', args)
 
 
-def grouplesson_view(request, group_id, lesson_id):
+def group_lesson_add_tasks(request, group_id, lesson_id):
+    return_path = request.META.get('HTTP_REFERER', '/')
+
     group = Group.objects.get(id=group_id)
     lesson = Lesson.objects.get(id=lesson_id)
-    args = {'group': group,
-            'lesson': lesson}
-    return render(request, 'teaching/grouplesson.html', args)
+    grouplesson = GroupLesson.objects.get(group=group, lesson=lesson)
+    studentgroups = StudentGroup.objects.filter(group=group)
+
+    for studentgroup in studentgroups:
+        try:
+            studentgrouplesson = StudentGroupLesson.objects.get(grouplesson=grouplesson, student=studentgroup.student)
+        except StudentGroupLesson.DoesNotExist:
+            studentgrouplesson = StudentGroupLesson.objects.create(grouplesson=grouplesson, student=studentgroup.student)
+        studentgrouplesson.has_perm = True
+        studentgrouplesson.save()
+        # TODO mailing student
+
+        try:
+            task = GroupLessonTask.objects.get(grouplesson=grouplesson, student=studentgroup.student)
+        except Task.DoesNotExist:
+            task = GroupLessonTask.objects.create(grouplesson=grouplesson, student=studentgroup.student)
+        task.save()
+
+    return redirect(return_path)
+
+
+def group_lesson_create(request, group_id, lesson_id):
+    return_path = request.META.get('HTTP_REFERER', '/')
+
+    group = Group.objects.get(id=group_id)
+    lesson = Lesson.objects.get(id=lesson_id)
+    grouplesson = GroupLesson.objects.get(group=group, lesson=lesson)
+    studentgroups = StudentGroup.objects.filter(group=group)
+
+    for studentgroup in studentgroups:
+        try:
+            studentgrouplesson = StudentGroupLesson.objects.get(grouplesson=grouplesson, student=studentgroup.student)
+        except StudentGroupLesson.DoesNotExist:
+            studentgrouplesson = StudentGroupLesson.objects.create(grouplesson=grouplesson, student=studentgroup.student)
+        studentgrouplesson.save()
+
+    return redirect(return_path)
+
+
+def perm_for_lesson(request, lesson):
+    studentgrouplessons = StudentGroupLesson.objects.filter(student=request.user, grouplesson__lesson=lesson)
+    has_perm = False
+    for studentgrouplesson in studentgrouplessons:
+        if studentgrouplesson.has_perm == True:
+            has_perm = True
+
+    return has_perm
 
 
 @login_required
 def lesson_view(request, lesson_id):
     lesson = Lesson.objects.get(id=lesson_id)
-    args = {'lesson': lesson}
-    return render(request, 'teaching/lesson.html', args)
+
+    if perm_for_lesson(request, lesson):
+        args = {'lesson': lesson}
+        return render(request, 'teaching/lesson.html', args)
+    else:
+        messages.warning(request, 'Не имеешь правов таких')
+        return redirect('groups_view')
 
 
 @login_required
@@ -69,24 +121,27 @@ def lesson_final_view(request, lesson_id):
         args['max_summ'] = max_summ
 
         try:
-            student_lesson = StudentLesson.objects.get(student=request.user, lesson=lesson)
+            student_lesson = StudentGroupLesson.objects.get(student=request.user, grouplesson__lesson=lesson)
+
             student_lesson.score = summ
             student_lesson.max_score = max_summ
             student_lesson.is_finished = True
+            student_lesson.has_perm = False
             student_lesson.save()
 
-        except StudentLesson.DoesNotExist:
+        except StudentGroupLesson.DoesNotExist:
             pass
 
         try:
-            task = Task.objects.get(student=request.user, lesson=lesson, is_finished=False)
-            task.is_finished = True
-            task.save()
-        except Task.DoesNotExist:
+            tasks = GroupLessonTask.objects.filter(student=request.user, grouplesson__lesson=lesson, is_finished=False)
+            for task in tasks:
+                task.is_finished = True
+                task.save()
+        except GroupLessonTask.DoesNotExist:
             pass
 
         return render(request, 'teaching/lessonfinal.html', args)
-    except Test.DoesNotExist:
+    except Lesson.DoesNotExist:
         # TODO: add 404 page
         messages.warning(request, "Такого объекта нет =(")
         return redirect('index_view')

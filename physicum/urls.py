@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+import api.urls
 import users.urls
 import teaching.urls
 
@@ -23,5 +24,6 @@ urlpatterns = [
     url(r'^markdown/', include('django_markdown.urls')),
 ]
 
+urlpatterns += api.urls.urlpatterns
 urlpatterns += users.urls.urlpatterns
 urlpatterns += teaching.urls.urlpatterns

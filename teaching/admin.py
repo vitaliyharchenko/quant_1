@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import ChoiceQuestion, ChoiceQuestionOption, BlockResult, ChoiceQuestionResult, Test, TestResult, \
-    Group, StudentGroup, Lesson, GroupLesson, StudentLesson, TextBlock, Subject, Task
+    Group, StudentGroup, Lesson, GroupLesson, TextBlock, Subject, Task, StudentGroupLesson
 
 
 class ChoiceQuestionOptionInline(admin.StackedInline):
@@ -19,9 +19,9 @@ admin.site.register(Test)
 admin.site.register(TestResult)
 admin.site.register(Group)
 admin.site.register(StudentGroup)
+admin.site.register(StudentGroupLesson)
 admin.site.register(Lesson)
 admin.site.register(GroupLesson)
-admin.site.register(StudentLesson)
 admin.site.register(TextBlock)
 admin.site.register(Subject)
 admin.site.register(Task)

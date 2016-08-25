@@ -1,14 +1,14 @@
 # coding=utf-8
 from django import template
-from teaching.models import StudentLesson
+from teaching.models import StudentGroupLesson
 
 register = template.Library()
 
 
 @register.assignment_tag
-def studentlesson(user, lesson):
+def studentgrouplesson(user, grouplesson):
     try:
-        studentlesson = StudentLesson.objects.get(lesson=lesson, student=user)
-    except StudentLesson.DoesNotExist:
+        studentgrouplesson = StudentGroupLesson.objects.get(grouplesson=grouplesson, student=user)
+    except StudentGroupLesson.DoesNotExist:
         return None
-    return studentlesson
+    return studentgrouplesson

@@ -32,21 +32,18 @@ class Lesson(models.Model):
         return self.title
 
 
-# домашнее задание
-class Task(models.Model):
-    class Meta():
-        verbose_name = 'Домашнее задание'
-        verbose_name_plural = 'Домашние задания'
-        unique_together = ('lesson', 'student')
-
-    lesson = models.ForeignKey(Lesson)
-    student = models.ForeignKey(User)
-    datetime = models.DateTimeField(null=True, blank=True)
-    datetime_to = models.DateTimeField(null=True, blank=True)
-    is_finished = models.BooleanField('Закончил?')
-
-    def __str__(self):
-        return u'For {}, "{}"'.format(self.student, self.lesson)
+# Связь ученика с уроком
+# Будет глобально везде, даже для заочников
+# class StudentLesson(models.Model):
+#     class Meta():
+#         verbose_name = 'Связь ученика с уроком'
+#
+#     lesson = models.ForeignKey(Lesson)
+#     student = models.ForeignKey(User)
+#     is_finished = models.BooleanField('Закончил?')
+#     has_perm = models.BooleanField('Имеет право начать?')
+#     score = models.IntegerField(null=True, blank=True)
+#     max_score = models.IntegerField(null=True, blank=True)
 
 
 # ==============
@@ -59,16 +56,21 @@ class Group(models.Model):
 
     title = models.CharField('Название группы', max_length=300)
     teacher = models.ForeignKey(User)
+    subject = models.ForeignKey(Subject)
 
     def __str__(self):
         return self.title
 
     @property
-    def lessons(self):
-        return Lesson.objects.filter()
+    def studentgroups(self):
+        return StudentGroup.objects.filter(group=self)
+
+    @property
+    def grouplessons(self):
+        return GroupLesson.objects.filter(group=self).order_by('datetime')
 
 
-# Привязка студента к группе
+# Привязка студента к группе для очных групп
 class StudentGroup(models.Model):
     class Meta():
         verbose_name = 'Участие студента в группе'
@@ -83,6 +85,7 @@ class StudentGroup(models.Model):
 
 
 # Связь группы с уроками, с указанием порядкового номера урока
+# Только для очных занятий
 class GroupLesson(models.Model):
     class Meta():
         verbose_name = 'Порядковое включение урока в группу'
@@ -115,17 +118,48 @@ class GroupLesson(models.Model):
             return False
 
 
-# Связь ученика с уроком
-class StudentLesson(models.Model):
+# Связь ученика с уроком d группе. Позволяет ставить оценки за конкретное занятие в конкретный день
+# только ради очных занятий в Юниуме
+class StudentGroupLesson(models.Model):
     class Meta():
-        verbose_name = 'Связь ученика с уроком'
+        verbose_name = 'Связь ученика с уроком в группе'
+        unique_together = ('grouplesson', 'student')
 
-    lesson = models.ForeignKey(Lesson)
+    grouplesson = models.ForeignKey(GroupLesson)
     student = models.ForeignKey(User)
-    is_finished = models.BooleanField('Закончил?')
-    has_perm = models.BooleanField('Имеет право начать?')
+
+    teacher_score = models.IntegerField(null=True, blank=True)
+    own_score = models.IntegerField(null=True, blank=True)
+
     score = models.IntegerField(null=True, blank=True)
     max_score = models.IntegerField(null=True, blank=True)
+
+    has_perm = models.BooleanField('Имеет право начать?', default=False)
+    is_finished = models.BooleanField('Закончил домашку?', default=False)
+    is_visited = models.BooleanField('Посетил занятие?', default=False)
+
+
+# домашнее задание
+class Task(models.Model):
+    class Meta():
+        verbose_name = 'Домашнее задание'
+        verbose_name_plural = 'Домашние задания'
+
+    student = models.ForeignKey(User)
+    datetime = models.DateTimeField(null=True, blank=True)
+    datetime_to = models.DateTimeField(null=True, blank=True)
+    is_finished = models.BooleanField('Закончил?', default=False)
+
+
+class GroupLessonTask(Task):
+    class Meta():
+        verbose_name = 'Домашнее задание в группе'
+        verbose_name_plural = 'Домашние задания в группе'
+
+    grouplesson = models.ForeignKey(GroupLesson)
+
+    def __str__(self):
+        return u'For {}, "{}"'.format(self.student, self.grouplesson.lesson)
 
 
 # Блоки, из которых строится занятие (контент, тест, опрос итд)

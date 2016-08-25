@@ -20,10 +20,10 @@ def tasks_counter(request):
     try:
         if request.user.is_authenticated():
             user = User.objects.get(email=request.user.email)
-            tasks = Task.objects.filter(student=request.user)
-            context['tasks'] = tasks
+            tasks = Task.objects.filter(student=request.user, is_finished=False)
+            context['glob_tasks'] = tasks
         else:
-            context['tasks'] = None
+            context['glob_tasks'] = None
     except User.DoesNotExist:
         pass
     return context

@@ -15,7 +15,7 @@
                     <div class="col-md-9">
                         <h1>{{ group.title }}</h1>
                         <p>Преподаватель: <a href="{% url 'user_view' 1 %}">{{ group.teacher }}</a></p>
-                        <p>Учеников: {{ students|length }}</p>
+                        <p>Учеников: {{ group.studentgroups|length }}</p>
                     </div>
                     <div class="col-md-3">
                         <div class="card">
@@ -33,48 +33,113 @@
             </div>
 
             <div id="accordion" aria-multiselectable="true">
-                {% for grouplesson in grouplessons %}
+                {% for grouplesson in group.grouplessons %}
                     <div class="card">
-                        {% studentlesson current_user grouplesson.lesson as studentlesson %}
-                        {% if not grouplesson.is_next and grouplesson.time_status == 'WILL BE' %}
-                            <div class="card-header" role="tab">
-                                <a>
-                                    <span class="text-muted">
-                                        Урок {{ forloop.counter }}. {{ grouplesson.lesson.title }}. {{ grouplesson.datetime }}
-                                    </span>
-                                </a>
-                            </div>
-                        {% else %}
-                            <div class="card-header" role="tab">
-                                {% if not grouplesson.is_next and grouplesson.time_status == 'WILL BE' %}
-                                    <a>Урок {{ forloop.counter }}. {{ grouplesson.lesson.title }}. {{ grouplesson.datetime }}</a>
-                                {% else %}
-                                    <a data-toggle="collapse" href="#collapse{{ grouplesson.lesson.pk }}" aria-expanded="true" aria-controls="collapse{{ grouplesson.lesson.pk }}">
-                                        Урок {{ forloop.counter }}. {{ grouplesson.lesson.title }}. {{ grouplesson.datetime }}
-                                        {% if grouplesson.is_next and not studentlesson.is_finished %}
-                                            &nbsp;
-                                            <span class="tag tag-success">Следующее занятие</span>
-                                        {% endif %}
-                                    </a>
+                        <div class="card-header" role="tab">
+                            <a data-toggle="collapse" href="#collapse{{ grouplesson.lesson.pk }}" aria-expanded="true" aria-controls="collapse{{ grouplesson.lesson.pk }}">
+                                Урок {{ forloop.counter }}. {{ grouplesson.lesson.title }}. {{ grouplesson.datetime }}
+                                {% if grouplesson.is_next %}&nbsp;
+                                    <span class="tag tag-success">Следующее занятие</span>
                                 {% endif %}
+                            </a>
+                        </div>
+                        <div id="collapse{{ grouplesson.lesson.pk }}" class="card-collapse collapse in" role="tabpanel">
+                            <div class="card-block">
+                                <a href="{% url 'group_lesson_create' group.pk grouplesson.lesson.pk %}">Создать привязки к уроку</a>
+                                <br>
+                                <a href="{% url 'group_lesson_add_tasks' group.pk grouplesson.lesson.pk %}">Задать как домашку</a>
+                                <hr>
+                                <table class="table table-inverse">
+                                    <thead>
+                                        <tr>
+                                            <th>Ученик</th>
+                                            <th>Доступ к дз</th>
+                                            <th>Результат домашки</th>
+                                            <th>Посещ</th>
+                                            <th>Классная работа</th>
+                                            <th>Самооценка</th>
+                                        </tr>
+                                    </thead>
+                                    {% for studentgroup in group.studentgroups %}
+                                        <tr>
+                                            <td>{{ studentgroup.student.get_full_name }}</td>
+                                            {% studentgrouplesson studentgroup.student grouplesson as studentlesson %}
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="perm-{{ studentlesson.id }}" class="studentgrouplesson-action" type="checkbox" {% if studentlesson.has_perm %}checked{% endif %}>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>{{ studentlesson.score }} из {{ studentlesson.max_score }} ({% widthratio studentlesson.score studentlesson.max_score 100 %}%)</td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="visited-{{ studentlesson.id }}" class="studentgrouplesson-action" type="checkbox" {% if studentlesson.is_visited %}checked{% endif %}>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {% if not studentlesson.teacher_score %}
+                                                    <select class="form-control studentgrouplesson-action" id="score-{{ studentlesson.id }}">
+                                                        <option value="20">20%</option>
+                                                        <option value="40">40%</option>
+                                                        <option value="60">60%</option>
+                                                        <option value="80">80%</option>
+                                                        <option value="100">100%</option>
+                                                    </select>
+                                                {% else %}
+                                                    {{ studentlesson.teacher_score }}%
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ studentlesson.own_score }}%</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
                             </div>
-                            <div id="collapse{{ grouplesson.lesson.pk }}" class="card-collapse collapse {% if grouplesson.is_next and not studentlesson.is_finished %}in{% endif %}" role="tabpanel">
-                                <div class="card-block">
-                                    {% if studentlesson.is_finished and studentlesson.has_perm %}
-                                        <p>Урок пройден | Ваш результат: {{ studentlesson.score }} из {{ studentlesson.max_score }} ({% widthratio studentlesson.score studentlesson.max_score 100 %}%)</p>
-                                        <a class="btn btn-secondary" href="{% url 'lesson_view' grouplesson.lesson.pk %}" target="_blank">Повторить тему</a>
-                                    {% elif studentlesson.has_perm %}
-                                        <a class="btn btn-secondary" href="{% url 'lesson_view' grouplesson.lesson.pk %}" target="_blank">Приступить к уроку</a>
-                                    {% else %}
-                                        У вас нет доступа к уроку
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endif %}
+                        </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.studentgrouplesson-action').change(function() {
+                console.log('action');
+                var arr = $(this).attr("id").split('-');
+                var action = arr[0], studentgrouplesson_id = arr[1];
+
+                if (action == 'own' || action == 'score') {
+                    var value = $(this).val();
+                } else {
+                    var value = false;
+                    if($(this).is(":checked")) {
+                        value = true;
+                    }
+                }
+
+                $.ajax({
+                    url: '{% url "studentgrouplesson_action" %}',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        studentgrouplesson_id: studentgrouplesson_id,
+                        action: action,
+                        value: value
+                    },
+                    async: true,
+                    success: function (responseData, textStatus) {
+
+                    },
+                    error: function (response, status, errorThrown) {
+                        alert('Все плохо, расскажите нам про эту ошибку \n\r\n\r' + response + status + errorThrown);
+                    },
+                    type: "POST",
+                    dataType: "text"
+                });
+            });
+        });
+    </script>
 
 {% endblock %}

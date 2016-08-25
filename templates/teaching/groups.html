@@ -13,7 +13,10 @@
                     <a href="{% url 'group_view' studentgroup.group.pk %}">
                         <h2>{{ studentgroup.group.title }}</h2>
                     </a>
-                    Преподаватель: <a href="{% url 'user_view' studentgroup.group.teacher.id %}">{{ studentgroup.group.teacher }}</a>
+                    <p>
+                        Преподаватель: <a href="{% url 'user_view' studentgroup.group.teacher.id %}">{{ studentgroup.group.teacher }}</a>
+                    </p>
+                    <a>Предмет: {{ studentgroup.group.subject }}</a>
                 </div>
             </div>
         {% endfor %}
