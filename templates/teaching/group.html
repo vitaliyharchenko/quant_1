@@ -68,7 +68,7 @@
                                         <a>Домашняя работа выполнена | Ваш результат: {{ studentlesson.score }}
                                             из {{ studentlesson.max_score }}
                                             ({% widthratio studentlesson.score studentlesson.max_score 100 %}%)</a>
-                                        {% if studentlesson.teacher_score %}
+                                        {% if studentlesson.teacher_score and studentlesson.own_score %}
                                             <br>
                                             <a>Оценка за работу в классе | {{ studentlesson.teacher_score }}%</a>
                                         {% endif %}
