@@ -59,24 +59,6 @@ def group_lesson_add_tasks(request, group_id, lesson_id):
     return redirect(return_path)
 
 
-def group_lesson_create(request, group_id, lesson_id):
-    return_path = request.META.get('HTTP_REFERER', '/')
-
-    group = Group.objects.get(id=group_id)
-    lesson = Lesson.objects.get(id=lesson_id)
-    grouplesson = GroupLesson.objects.get(group=group, lesson=lesson)
-    studentgroups = StudentGroup.objects.filter(group=group)
-
-    for studentgroup in studentgroups:
-        try:
-            studentgrouplesson = StudentGroupLesson.objects.get(grouplesson=grouplesson, student=studentgroup.student)
-        except StudentGroupLesson.DoesNotExist:
-            studentgrouplesson = StudentGroupLesson.objects.create(grouplesson=grouplesson, student=studentgroup.student)
-        studentgrouplesson.save()
-
-    return redirect(return_path)
-
-
 def perm_for_lesson(request, lesson):
     studentgrouplessons = StudentGroupLesson.objects.filter(student=request.user, grouplesson__lesson=lesson)
     has_perm = False

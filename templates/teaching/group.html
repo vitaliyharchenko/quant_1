@@ -12,20 +12,24 @@
 
             <div class="jumbotron">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         <h1>{{ group.title }}</h1>
-                        <p>Преподаватель: <a href="{% url 'user_view' 1 %}">{{ group.teacher }}</a></p>
+                        <p>Преподаватель: <a href="{% url 'user_view' 1 %}">{{ group.teacher.get_full_name }}</a></p>
                         <p>Предмет: {{ group.subject }}</p>
                         <p>Учеников: {{ group.studentgroups|length }}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-block">
-                                <h4>Рейтинг учеников</h4>
+                                <p class="lead">Результаты в группе</p>
                                 <ol>
-                                    <li>Вася Пупкин</li>
-                                    <li>Вася Пупкин</li>
-                                    <li>Вася Пупкин</li>
+                                    {% for s in group.studentgroups %}
+                                        {% if s.student == current_user %}
+                                            <li><b>{{ s.student.get_full_name }} {{ s.total_score }} ({{ s.average_score }}% средн.)</b></li>
+                                        {% else %}
+                                            <li>{{ s.student.get_full_name }} {{ s.total_score }} ({{ s.average_score }}% средн.)</li>
+                                        {% endif %}
+                                    {% endfor %}
                                 </ol>
                             </div>
                         </div>
