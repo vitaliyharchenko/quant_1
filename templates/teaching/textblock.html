@@ -23,8 +23,8 @@
                     <h1 class="display-4">{{ textblock.title }}</h1>
                     <br/>
                     <div class="paragraph-body">{{ textblock.rendered_content|safe }}</div>
-                    <hr>
                     {% if not is_answered %}
+                        <hr>
                         <form id="textForm" method="post" action="">
                             {% csrf_token %}
                             <button class="btn btn-warning btn-lg" type="submit">Я прочитал</button>
