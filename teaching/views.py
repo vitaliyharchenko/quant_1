@@ -13,6 +13,7 @@ def tasks_view(request):
     return render(request, 'teaching/tasks.html', args)
 
 
+@login_required
 def groups_view(request):
     if request.user.is_teacher:
         groups = Group.objects.filter(teacher=request.user)
@@ -24,6 +25,7 @@ def groups_view(request):
         return render(request, 'teaching/groups.html', args)
 
 
+@login_required
 def group_view(request, group_id):
     group = Group.objects.get(id=group_id)
     args = {'group': group}

@@ -163,6 +163,9 @@ class StudentGroupLesson(models.Model):
     is_finished = models.BooleanField('Закончил домашку?', default=False)
     is_visited = models.BooleanField('Посетил занятие?', default=False)
 
+    def __str__(self):
+        return u'{}, {}, "{}"'.format(self.student, self.grouplesson.group, self.grouplesson.lesson)
+
     @property
     def average_score(self):
         if self.score and self.teacher_score and self.own_score:
