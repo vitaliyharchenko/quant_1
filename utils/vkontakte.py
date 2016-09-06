@@ -1,5 +1,5 @@
 import json, urllib
-from physicum import settings
+from quantzone import settings
 
 
 # error in connection with vk server

@@ -33,11 +33,11 @@ python manage.py collectstatic
 python manage.py makemigrations teaching, users
 python manage.py migrate
 python manage.py createsuperuser
-create user - admin, ceo@sportcourts.ru, 123456
+
 python manage.py runserver 0.0.0.0:8000
-go to http://sportcourts.ru:8000
+go to http://188.93.211.161:8000
 uwsgi --http :8000 --module sportcourts.wsgi
-go to http://sportcourts.ru:8000
+go to http://188.93.211.161:8000
 the web client <-> uWSGI <-> Django | works
-go to http://sportcourts.ru
+go to http://188.93.211.161
 the web client <-> the web server |works

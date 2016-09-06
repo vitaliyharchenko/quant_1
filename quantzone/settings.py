@@ -38,7 +38,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'physicum.urls'
+ROOT_URLCONF = 'quantzone.urls'
 
 TEMPLATES = [
     {
@@ -60,7 +60,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'physicum.wsgi.application'
+WSGI_APPLICATION = 'quantzone.wsgi.application'
 
 
 # Authorization
