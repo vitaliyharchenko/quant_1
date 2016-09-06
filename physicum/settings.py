@@ -127,7 +127,7 @@ EMAIL_HOST_PASSWORD = 'courtssport2'
 EMAIL_SUBJECT_PREFIX = '[PHYSICUM] '
 
 
-if os.environ.get('DEVELOPMENT', None):
-    from .settings_dev import *
-else:
+try:
     from .settings_local import *
+except ImportError as e:
+    from .settings_dev import *
