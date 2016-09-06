@@ -13,6 +13,7 @@ def tasks_view(request):
     return render(request, 'teaching/tasks.html', args)
 
 
+@login_required
 def groups_view(request):
     if request.user.is_teacher:
         groups = Group.objects.filter(teacher=request.user)
@@ -24,6 +25,7 @@ def groups_view(request):
         return render(request, 'teaching/groups.html', args)
 
 
+@login_required
 def group_view(request, group_id):
     group = Group.objects.get(id=group_id)
     args = {'group': group}
@@ -55,24 +57,6 @@ def group_lesson_add_tasks(request, group_id, lesson_id):
         except Task.DoesNotExist:
             task = GroupLessonTask.objects.create(grouplesson=grouplesson, student=studentgroup.student)
         task.save()
-
-    return redirect(return_path)
-
-
-def group_lesson_create(request, group_id, lesson_id):
-    return_path = request.META.get('HTTP_REFERER', '/')
-
-    group = Group.objects.get(id=group_id)
-    lesson = Lesson.objects.get(id=lesson_id)
-    grouplesson = GroupLesson.objects.get(group=group, lesson=lesson)
-    studentgroups = StudentGroup.objects.filter(group=group)
-
-    for studentgroup in studentgroups:
-        try:
-            studentgrouplesson = StudentGroupLesson.objects.get(grouplesson=grouplesson, student=studentgroup.student)
-        except StudentGroupLesson.DoesNotExist:
-            studentgrouplesson = StudentGroupLesson.objects.create(grouplesson=grouplesson, student=studentgroup.student)
-        studentgrouplesson.save()
 
     return redirect(return_path)
 

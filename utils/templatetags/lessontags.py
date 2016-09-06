@@ -10,5 +10,5 @@ def studentgrouplesson(user, grouplesson):
     try:
         studentgrouplesson = StudentGroupLesson.objects.get(grouplesson=grouplesson, student=user)
     except StudentGroupLesson.DoesNotExist:
-        return None
+        studentgrouplesson = StudentGroupLesson.objects.create(grouplesson=grouplesson, student=user)
     return studentgrouplesson

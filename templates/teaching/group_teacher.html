@@ -12,19 +12,19 @@
 
             <div class="jumbotron">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         <h1>{{ group.title }}</h1>
                         <p>Преподаватель: <a href="{% url 'user_view' 1 %}">{{ group.teacher }}</a></p>
                         <p>Учеников: {{ group.studentgroups|length }}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-block">
-                                <h4>Рейтинг учеников</h4>
+                                <p class="lead">Результаты учеников</p>
                                 <ol>
-                                    <li>Вася Пупкин</li>
-                                    <li>Вася Пупкин</li>
-                                    <li>Вася Пупкин</li>
+                                    {% for s in group.studentgroups %}
+                                        <li>{{ s.student.get_full_name }} {{ s.total_score }} ({{ s.average_score }}% средн.)</li>
+                                    {% endfor %}
                                 </ol>
                             </div>
                         </div>
@@ -45,8 +45,6 @@
                         </div>
                         <div id="collapse{{ grouplesson.lesson.pk }}" class="card-collapse collapse in" role="tabpanel">
                             <div class="card-block">
-                                <a href="{% url 'group_lesson_create' group.pk grouplesson.lesson.pk %}">Создать привязки к уроку</a>
-                                <br>
                                 <a href="{% url 'group_lesson_add_tasks' group.pk grouplesson.lesson.pk %}">Задать как домашку</a>
                                 <hr>
                                 <table class="table table-inverse">
@@ -58,6 +56,7 @@
                                             <th>Посещ</th>
                                             <th>Классная работа</th>
                                             <th>Самооценка</th>
+                                            <th>Средняя за занятие</th>
                                         </tr>
                                     </thead>
                                     {% for studentgroup in group.studentgroups %}
@@ -80,19 +79,25 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                {% if not studentlesson.teacher_score %}
-                                                    <select class="form-control studentgrouplesson-action" id="score-{{ studentlesson.id }}">
-                                                        <option value="20">20%</option>
-                                                        <option value="40">40%</option>
-                                                        <option value="60">60%</option>
-                                                        <option value="80">80%</option>
-                                                        <option value="100">100%</option>
-                                                    </select>
+                                                <select class="form-control studentgrouplesson-action" id="score-{{ studentlesson.id }}">
+                                                    <option value="0" {% if not studentlesson.teacher_score == 20 %}selected{% endif %}>Нет оценки</option>
+                                                    <option value="20" {% if studentlesson.teacher_score == 20 %}selected{% endif %}>20%</option>
+                                                    <option value="40" {% if studentlesson.teacher_score == 40 %}selected{% endif %}>40%</option>
+                                                    <option value="60" {% if studentlesson.teacher_score == 60 %}selected{% endif %}>60%</option>
+                                                    <option value="80" {% if studentlesson.teacher_score == 80 %}selected{% endif %}>80%</option>
+                                                    <option value="100" {% if studentlesson.teacher_score == 100 %}selected{% endif %}>100%</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                {% if studentlesson.own_score %}
+                                                    {{ studentlesson.own_score }}%
                                                 {% else %}
-                                                    {{ studentlesson.teacher_score }}%
+                                                    Нет оценки
                                                 {% endif %}
                                             </td>
-                                            <td>{{ studentlesson.own_score }}%</td>
+                                            <td>
+                                                {{ studentlesson.average_score }}
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                 </table>

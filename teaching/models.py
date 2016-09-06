@@ -63,7 +63,9 @@ class Group(models.Model):
 
     @property
     def studentgroups(self):
-        return StudentGroup.objects.filter(group=self)
+        studentgroups = StudentGroup.objects.filter(group=self)
+        # print(sorted(studentgroups,  key=lambda m: m.average_score))
+        return studentgroups
 
     @property
     def grouplessons(self):
@@ -82,6 +84,29 @@ class StudentGroup(models.Model):
 
     def __str__(self):
         return u'{} in "{}"'.format(self.student, self.group.title)
+
+    @property
+    def average_score(self):
+        studentgrouplessons = StudentGroupLesson.objects.filter(grouplesson__group=self.group, student=self.student)
+        summ = 0
+        counter = 0
+        for s in studentgrouplessons:
+            if s.average_score:
+                counter += 1
+                summ += s.average_score
+        if counter == 0:
+            return 0
+        else:
+            return round(summ/counter, 1)
+
+    @property
+    def total_score(self):
+        studentgrouplessons = StudentGroupLesson.objects.filter(grouplesson__group=self.group, student=self.student)
+        summ = 0
+        for s in studentgrouplessons:
+            if s.average_score:
+                summ += s.average_score
+        return round(summ, 1)
 
 
 # Связь группы с уроками, с указанием порядкового номера урока
@@ -137,6 +162,15 @@ class StudentGroupLesson(models.Model):
     has_perm = models.BooleanField('Имеет право начать?', default=False)
     is_finished = models.BooleanField('Закончил домашку?', default=False)
     is_visited = models.BooleanField('Посетил занятие?', default=False)
+
+    def __str__(self):
+        return u'{}, {}, "{}"'.format(self.student, self.grouplesson.group, self.grouplesson.lesson)
+
+    @property
+    def average_score(self):
+        if self.score and self.teacher_score and self.own_score:
+            summ = self.score / self.max_score * 100 + self.teacher_score + self.own_score
+            return round(summ/3, 1)
 
 
 # домашнее задание
