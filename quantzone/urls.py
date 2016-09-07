@@ -30,4 +30,3 @@ urlpatterns += api.urls.urlpatterns
 urlpatterns += users.urls.urlpatterns
 urlpatterns += teaching.urls.urlpatterns
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
