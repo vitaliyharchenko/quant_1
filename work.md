@@ -25,7 +25,7 @@ source /opt/qenv/bin/activate
 cd /opt
 git clone https://github.com/vitaliyharchenko/quant.zone.git
 pip install -r /opt/quant.zone/requirements.txt
-pip install uwsgi
+pip3 install uwsgi
 
 
 cd /opt/quant.zone
@@ -54,7 +54,4 @@ go to http://quant.zone:8000/dist/css/main.css
 Nginx serving static and media correctly
 
 apt-get install uwsgi-core
-
-uwsgi --ini test_uwsgi.ini
-go to http://quant.zone:8000
-the web client <-> the web server <-> the socket <-> uWSGI <-> Python | works correctly
+pip3 install uwsgi
