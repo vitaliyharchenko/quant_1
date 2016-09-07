@@ -50,5 +50,5 @@ sudo ln -s ../sites-available/quantzone
 sudo rm default
 sudo service nginx restart
 
-go to http://quant.zone:8000/static/css/main.css
+go to http://quant.zone:8000/dist/css/main.css
 Nginx serving static and media correctly
