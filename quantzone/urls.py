@@ -14,7 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.contrib import admin
+from quantzone import settings
 import api.urls
 import users.urls
 import teaching.urls
@@ -27,3 +29,5 @@ urlpatterns = [
 urlpatterns += api.urls.urlpatterns
 urlpatterns += users.urls.urlpatterns
 urlpatterns += teaching.urls.urlpatterns
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
