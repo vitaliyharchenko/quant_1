@@ -41,3 +41,14 @@ go to http://188.93.211.161:8000
 the web client <-> uWSGI <-> Django | works
 go to http://188.93.211.161
 the web client <-> the web server |works
+
+
+sudo nano /etc/nginx/sites-available/quantzone
+look at nginx.conf file
+cd /etc/nginx/sites-enabled
+sudo ln -s ../sites-available/quantzone
+sudo rm default
+sudo service nginx restart
+
+go to http://quant.zone:8000/static/css/main.css
+Nginx serving static and media correctly
