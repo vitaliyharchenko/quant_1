@@ -32,6 +32,7 @@ cd /opt/quant.zone
 uwsgi --http :8000 --wsgi-file test.py
 go to quant.zone:8000
 the web client <-> uWSGI <-> Python
+%%% YES %%%
 
 python manage.py collectstatic
 python manage.py makemigrations teaching users
@@ -45,6 +46,7 @@ go to quant.zone:8000
 the web client <-> uWSGI <-> Django | works
 go to quant.zone
 the web client <-> the web server |works
+%%% YES %%%
 
 
 sudo ln -s ~/opt/quant.zone/nginx.conf /etc/nginx/sites-enabled/
@@ -54,19 +56,25 @@ sudo /etc/init.d/nginx restart
 
 go to http://quant.zone:8000/dist/css/main.css
 Nginx serving static and media correctly
-
-apt-get install uwsgi-core
-pip3 install uwsgi
+%%% YES %%%
 
 uwsgi --http :8000 --wsgi-file test.py
 go to http://188.93.211.161:8000
 the web client <-> the web server <-> the socket <-> uWSGI <-> Python | works correctly
+%%% YES %%%
 
-uwsgi --socket quantzone.sock --wsgi-file test.py --chmod-socket=666
+uncomment socket
+sudo service nginx restart
+uwsgi --socket quantzone.sock --wsgi-file test.py
+uwsgi --socket quantzone.sock --wsgi-file test.py --chmod-socket=664
 go to http://quant.zone:8000
 socket works correctly
+uwsgi --socket quantzone.sock --module quantzone.wsgi --chmod-socket=664
+NOOOO
 
-uwsgi --socket quantzone.sock --module quantzone.wsgi --chmod-socket=666
+
+deactivate
+pip3 install uwsgi
 
 uwsgi --ini quantzone_uwsgi.ini
 uwsgi --stop quantzone_uwsgi.ini
