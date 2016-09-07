@@ -52,3 +52,9 @@ sudo service nginx restart
 
 go to http://quant.zone:8000/dist/css/main.css
 Nginx serving static and media correctly
+
+apt-get install uwsgi-core
+
+uwsgi --socket :8001 --wsgi-file test_socket.py
+go to http://quant.zone:8000
+the web client <-> the web server <-> the socket <-> uWSGI <-> Python | works correctly
