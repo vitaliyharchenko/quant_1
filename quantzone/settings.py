@@ -107,7 +107,7 @@ USE_TZ = True
 STATIC_URL = '/dist/'
 STATIC_ROOT = '/dist/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'dist'),
+    os.path.join(BASE_DIR, 'dist/'),
 )
 
 
