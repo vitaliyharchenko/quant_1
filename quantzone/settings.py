@@ -10,6 +10,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=2i%u$ja1b_+sshmzyade0tz%u#c14ln45f1za9c7t=5+b8j!r'
 
+try:
+    from .settings_local import *
+except ImportError as e:
+    from .settings_dev import *
 
 # Application definition
 
@@ -120,9 +124,3 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'info@sportcourts.ru'
 EMAIL_HOST_PASSWORD = 'courtssport2'
 EMAIL_SUBJECT_PREFIX = '[PHYSICUM] '
-
-
-try:
-    from .settings_local import *
-except ImportError as e:
-    from .settings_dev import *
