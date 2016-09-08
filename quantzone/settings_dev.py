@@ -1,6 +1,6 @@
 DEBUG = True
-CURRENT_HOST = 'http://188.93.211.161'
-ALLOWED_HOSTS = ['http://188.93.211.161']
+CURRENT_HOST = 'http://quant.zone'
+ALLOWED_HOSTS = ['http://188.93.211.161', 'http://127.0.0.1:8000', 'http://quant.zone']
 
 DATABASES = {
     'default': {

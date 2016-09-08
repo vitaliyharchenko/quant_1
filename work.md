@@ -49,10 +49,23 @@ the web client <-> the web server |works
 %%% YES %%%
 
 
-sudo ln -s ~/opt/quant.zone/nginx.conf /etc/nginx/sites-enabled/
+sudo ln -s ~/opt/quant.zone/quantzone_nginx.conf /etc/nginx/sites-enabled/
 cd /etc/nginx/sites-enabled
 sudo rm default
 sudo /etc/init.d/nginx restart
+
+python manage.py collectstatic
+
+uncomment in conf
+sudo service nginx restart
+nginx -t
+
+uwsgi --http :8000 --wsgi-file test.py
+%%% YES %%%
+
+uwsgi --socket quantzone.sock --wsgi-file test.py
+
+----------------------
 
 go to http://quant.zone:8000/dist/css/main.css
 Nginx serving static and media correctly
