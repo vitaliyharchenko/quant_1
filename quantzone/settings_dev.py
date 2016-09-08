@@ -3,7 +3,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
-# CURRENT_HOST = 'http://quant.zone'
+CURRENT_HOST = 'http://quant.zone'
 # CURRENT_HOST = 'http://127.0.0.1:8000'
 # ALLOWED_HOSTS = [
 #     'http://188.93.211.161',

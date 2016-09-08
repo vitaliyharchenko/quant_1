@@ -6,9 +6,7 @@ aw!Biiug16Z3X2
 sudo apt-get update
 sudo apt-get upgrade
 apt-get install python3-pip
-sudo apt-get install libpq-dev
-sudo apt-get install python3.4-dev
-sudo apt-get install python-virtualenv git nginx postgresql postgresql-contrib
+apt-get install libpq-dev python3.4-dev python-virtualenv git nginx postgresql postgresql-contrib
 locale-gen ru_RU.UTF-8
 
 sudo su - postgres
@@ -31,7 +29,6 @@ pip3 install uwsgi
 
 '''
 source /opt/qenv/bin/activate
-pip3 install uwsgi
 
 uwsgi --http :8000 --wsgi-file test.py
 $$$WORKS$$$
