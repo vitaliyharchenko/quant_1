@@ -24,7 +24,7 @@ grant all privileges on database qdb TO quser;
 \q
 su - root
 
-sudo virtualenv /opt/qenv --python=python3.4
+virtualenv /opt/qenv --python=python3.4
 source /opt/qenv/bin/activate
 cd /opt
 git clone https://github.com/vitaliyharchenko/quantzone.git
@@ -49,8 +49,29 @@ sudo ln -s ../sites-available/quantzone
 sudo rm default
 sudo service nginx restart
 
-go to http://quant.zone:8000/static/css/main.css
+go to http://quant.zone/static/css/main.css
 Nginx serving static and media correctly
+
+uncomment socket in nginx
+sudo chown -R root:www-data quantzone
+nano /var/log/nginx/error.log
+
+
+sudo pip3 install virtualenvwrapper
+sudo pip install uwsgi
+sudo pip3 install uwsgi
+
+sudo service uwsgi start
+
+
+
+
+uwsgi --ini uwsgi.ini
+
+uwsgi --socket quantzone.sock --wsgi-file test.py --chmod-socket=664
+
+
+uwsgi --socket quantzone.sock --module quantzone.wsgi --chmod-socket=664
 
 
 
