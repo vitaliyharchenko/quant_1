@@ -23,8 +23,8 @@ su - root
 sudo virtualenv /opt/qenv --python=python3.4
 source /opt/qenv/bin/activate
 cd /opt
-git clone https://github.com/vitaliyharchenko/quant.zone.git
-pip3 install -r /opt/quant.zone/requirements.txt
+git clone https://github.com/vitaliyharchenko/quantzone.git
+pip3 install -r /opt/quantzone/requirements.txt
 pip3 install uwsgi
 
 ЗАпускаем сервер на uwsgi
@@ -42,7 +42,7 @@ $$$WORKS$$$
 uwsgi --http :8000 --module quantzone.wsgi
 $$$WORKS$$$
 
-sudo ln -s ~/opt/quant.zone/quantzone_nginx.conf /etc/nginx/sites-enabled/
+sudo ln -s ~/opt/quantzone/quantzone_nginx.conf /etc/nginx/sites-enabled/
 python manage.py collectstatic
 sudo /etc/init.d/nginx restart
 
