@@ -24,5 +24,5 @@ DATABASES = {
     }
 }
 
-STATIC_URL = '/dist/'
-STATIC_ROOT = os.path.join(BASE_DIR, "dist/")
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
