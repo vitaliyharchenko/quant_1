@@ -58,6 +58,7 @@ uncomment socket in nginx
 sudo chown -R root:www-data quantzone
 nano /var/log/nginx/error.log
 nano /var/log/nginx/access.log
+rm -rf quantzone.sock
 
 
 sudo pip3 install virtualenvwrapper
