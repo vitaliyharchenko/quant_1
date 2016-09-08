@@ -55,11 +55,13 @@ Nginx serving static and media correctly
 uncomment socket in nginx
 sudo chown -R root:www-data quantzone
 nano /var/log/nginx/error.log
+nano /var/log/nginx/access.log
 
 
 sudo pip3 install virtualenvwrapper
 sudo pip install uwsgi
 sudo pip3 install uwsgi
+sudo apt-get install uwsgi-plugin-python3
 
 sudo service uwsgi start
 
@@ -68,7 +70,7 @@ sudo service uwsgi start
 
 uwsgi --ini uwsgi.ini
 
-uwsgi --socket quantzone.sock --wsgi-file test.py --chmod-socket=664
+uwsgi --socket quantzone.sock --wsgi-file test.py --chmod-socket=664 --uid root --gid root
 
 
 uwsgi --socket quantzone.sock --module quantzone.wsgi --chmod-socket=664
