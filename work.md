@@ -39,7 +39,7 @@ $$$WORKS$$$
 uwsgi --http :8000 --module quantzone.wsgi
 $$$WORKS$$$
 
-sudo ln -s ~/opt/quantzone/quantzone_nginx.conf /etc/nginx/sites-enabled/
+sudo ln -s ~/opt/quantzone/nginx.conf /etc/nginx/sites-enabled/
 python manage.py collectstatic
 sudo /etc/init.d/nginx restart
 
