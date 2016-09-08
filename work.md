@@ -45,4 +45,6 @@ sudo /etc/init.d/nginx restart
 
 http://quant.zone:8000/media/media.png
 http://quant.zone:8000/dist/css/main.css
+
+sudo tail -30 /var/log/nginx/error.log
 '''
