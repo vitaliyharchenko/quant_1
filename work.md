@@ -42,6 +42,8 @@ http://quant.zone:8000
 
 uwsgi --http :8000 --module quantzone.wsgi
 http://quant.zone:8000
+uwsgi --http :8000 --chdir /opt/quantzone --module quantzone.wsgi --virtualenv /opt/qenv
+
 
 sudo nano /etc/nginx/sites-available/quantzone
 cd /etc/nginx/sites-enabled
