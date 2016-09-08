@@ -55,6 +55,21 @@ go to http://quant.zone/static/css/main.css
 Nginx serving static and media correctly
 
 uncomment socket in nginx
+uwsgi --socket :8001 --wsgi-file test.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 sudo chown -R root:www-data quantzone
 nano /var/log/nginx/error.log
 nano /var/log/nginx/access.log
