@@ -60,8 +60,9 @@ uncomment in conf
 sudo service nginx restart
 nginx -t
 
-uwsgi --http :8000 --wsgi-file test.py
-%%% YES %%%
+
+uwsgi --socket :8001 --wsgi-file test.py
+
 
 uwsgi --socket quantzone.sock --wsgi-file test.py
 
