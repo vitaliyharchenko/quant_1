@@ -45,4 +45,7 @@ $$$WORKS$$$
 sudo ln -s ~/opt/quant.zone/quantzone_nginx.conf /etc/nginx/sites-enabled/
 python manage.py collectstatic
 sudo /etc/init.d/nginx restart
+
+http://quant.zone:8000/media/media.png
+http://quant.zone:8000/dist/css/main.css
 '''
