@@ -55,7 +55,15 @@ go to http://quant.zone/static/css/main.css
 Nginx serving static and media correctly
 
 uncomment socket in nginx
-uwsgi --socket :8001 --wsgi-file test.py
+uwsgi --socket :8001 --wsgi-file test.py --chmod-socket=664
+sudo chmod -R 777 quantzone.sock
+
+uwsgi --socket quantzone.sock --wsgi-file test.py --chmod-socket=666
+
+uwsgi --ini uwsgi.ini
+
+
+
 
 
 
@@ -72,8 +80,11 @@ uwsgi --socket :8001 --wsgi-file test.py
 
 sudo chown -R root:www-data quantzone
 nano /var/log/nginx/error.log
+nano /opt/logs/error.log
 nano /var/log/nginx/access.log
 rm -rf quantzone.sock
+sudo fuser -k 8000/tcp
+ls -ld quantzone.sock
 
 
 sudo pip3 install virtualenvwrapper
