@@ -62,6 +62,25 @@ uwsgi --socket quantzone.sock --wsgi-file test.py --chmod-socket=666
 
 uwsgi --ini uwsgi.ini
 
+deactivate
+pip3 install uwsgi
+
+Делаем вассалов
+sudo mkdir /opt/uwsgi
+sudo mkdir /opt/uwsgi/vassals
+
+sudo ln -s /opt/quantzone/uwsgi.ini /opt/uwsgi/vassals/
+
+sudo uwsgi --emperor /opt/uwsgi/vassals --uid www-data --gid www-data
+
+Автоматический перезапуск
+nano /etc/rc.local
+
+перед строкой “exit 0” добавляем:
+/usr/local/bin/uwsgi --emperor /opt/uwsgi/vassals --uid www-data --gid www-data
+
+change port nginx to 80
+
 
 
 
