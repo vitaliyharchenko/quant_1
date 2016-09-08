@@ -1,3 +1,7 @@
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 DEBUG = True
 CURRENT_HOST = 'http://quant.zone'
 ALLOWED_HOSTS = ['http://188.93.211.161', 'http://127.0.0.1:8000', 'http://quant.zone']
@@ -11,3 +15,6 @@ DATABASES = {
         'USER': 'quser',
     }
 }
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
