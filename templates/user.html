@@ -1,14 +1,29 @@
 {% extends 'base_regular.html' %}
+{% load globaltags %}
+{% load staticfiles %}
 
 {% block content %}
 
 <div class="row">
     <div class="col-xs-12">
-        <h1>{{ user }}</h1>
+        <h3>{{ user.get_full_name }}</h3>
+
+        {% if user.is_teacher %}
+            <span class="tag tag-default">Учитель</span>
+        {% endif %}
+
         {% if not my_profile %}
             <small> Последний раз заходил{% ifequal user.sex 'f' %}a{% endifequal %}: {{ user.last_login }}</small>
         {% else %}
             <a href="{% url 'user_update_view' %}">Редактировать</a>
+        {% endif %}
+    
+        {% if user.vkuserid %}
+            <p>
+                <a href="{% vkontakte_profile_link user.vkuserid %}" target="_blank">
+                    <img src="{% static 'images/vk.png' %}" width="32">
+                </a>
+            </p>
         {% endif %}
     </div>
 </div>

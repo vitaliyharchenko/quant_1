@@ -15,7 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'tasks_view' %}">
                         Мои задания
-                        <span class="tag tag-default tag-pill">{{ glob_tasks|length }}</span>
+                        {% if glob_tasks %}
+                            <span class="tag tag-default tag-pill">{{ glob_tasks|length }}</span>
+                        {% endif %}
                     </a>
                 </li>
             {% endif %}

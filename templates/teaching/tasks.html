@@ -17,6 +17,13 @@
                 </div>
             </div>
         {% endfor %}
+        {% if tasks.count == 0 %}
+            <div class="card">
+                <div class="card-block">
+                    <a>У вас нет заданий, отдыхайте =)</a>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
 
