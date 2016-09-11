@@ -10,6 +10,7 @@
 
         {% if user.is_teacher %}
             <span class="tag tag-default">Учитель</span>
+            &nbsp;&nbsp;
         {% endif %}
 
         {% if not my_profile %}
@@ -19,6 +20,7 @@
         {% endif %}
     
         {% if user.vkuserid %}
+            <br>
             <br>
             <p>
                 <a href="{% vkontakte_profile_link user.vkuserid %}" target="_blank">
