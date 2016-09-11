@@ -19,6 +19,7 @@
         {% endif %}
     
         {% if user.vkuserid %}
+            <br>
             <p>
                 <a href="{% vkontakte_profile_link user.vkuserid %}" target="_blank">
                     <img src="{% static 'images/vk.png' %}" width="32">
