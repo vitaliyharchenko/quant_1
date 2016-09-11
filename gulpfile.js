@@ -12,7 +12,7 @@ var
 // source and distribution folder
 var
     source = 'src/',
-    dest = 'dist/';
+    dest = 'static/';
 
 // Bootstrap scss source
 var bootstrapSass = {
