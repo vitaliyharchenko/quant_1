@@ -8,6 +8,8 @@
             <div class="card-block">
                 <p class="lead">Тестовый вопрос #{{ choicequestion.id }}</p>
                 <p>{{ choicequestion.question_text }}</p>
+                {% if choicequestion.image %}
+                {% endif %}
                 <hr/>
                 <form id="exerciseFrom" method="post" action="">
                     {% csrf_token %}

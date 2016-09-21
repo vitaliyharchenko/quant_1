@@ -227,9 +227,14 @@ class ChoiceQuestion(Block):
         verbose_name_plural = 'тестовые вопросы'
 
     question_text = MarkdownField('Текст вопроса')
+    image = models.ImageField(upload_to='choicequestions/', null=True, blank=True)
 
     def __str__(self):
         return self.question_text
+
+    @property
+    def rendered_question_text(self):
+        return markdown.markdown(self.question_text, extensions=['markdown.extensions.extra', PyEmbedMarkdown(), 'mdx_math'])
 
 
 class ChoiceQuestionOption(models.Model):
