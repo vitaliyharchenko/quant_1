@@ -223,7 +223,7 @@ class ChoiceQuestion(Block):
         verbose_name = 'тестовый вопрос'
         verbose_name_plural = 'тестовые вопросы'
 
-    question_text = models.CharField('Текст вопроса', max_length=200)
+    question_text = MarkdownField('Текст вопроса')
 
     def __str__(self):
         return self.question_text
@@ -235,7 +235,7 @@ class ChoiceQuestionOption(models.Model):
         verbose_name_plural = 'Варианты ответа'
 
     choicequestion = models.ForeignKey(ChoiceQuestion)
-    option_text = models.CharField('Вариант ответа', max_length=300)
+    option_text = MarkdownField('Вариант ответа')
     help_text = models.CharField('Подсказка', max_length=300, blank=True)
     is_true = models.BooleanField('Правильный?')
 
