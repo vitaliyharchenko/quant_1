@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-block">
                 <p class="lead">Тестовый вопрос #{{ choicequestion.id }}</p>
-                <p>{{ choicequestion.rendered_question_text|safe }}</p>
+                <p>{{ choicequestion.question_text }}</p>
                 <hr/>
                 <form id="exerciseFrom" method="post" action="">
                     {% csrf_token %}
@@ -16,7 +16,7 @@
                         <div class="checkbox {% if option.id in correct_choices%}has-success{% endif %} {% if option.id in false_choices%}has-danger{% endif %} {% if option.id in false_not_choices%}has-warning{% endif %}">
                             <label for="">
                                 <input type="checkbox" name="choices" value="{{ option.id }}" {% if option.id in correct_choices or option.id in false_choices %}checked{% endif %} {% if is_answered %}disabled{% endif %}/>
-                                {{ option.rendered_option_text|safe }}
+                                {{ option.option_text }}
                                 {% if option.id in correct_choices %}
                                     ВЕРНЫЙ ВЫБОР {% if option.help_text %}({{ option.help_text }}){% endif %}
                                 {% elif option.id in false_choices %}

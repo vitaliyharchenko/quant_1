@@ -231,10 +231,6 @@ class ChoiceQuestion(Block):
     def __str__(self):
         return self.question_text
 
-    @property
-    def rendered_question_text(self):
-        return markdown.markdown(self.question_text, extensions=['markdown.extensions.extra', PyEmbedMarkdown(), 'mdx_math'])
-
 
 class ChoiceQuestionOption(models.Model):
     class Meta():
@@ -248,11 +244,6 @@ class ChoiceQuestionOption(models.Model):
 
     def __str__(self):
         return self.option_text
-
-    @property
-    def rendered_option_text(self):
-        return markdown.markdown(self.option_text,
-                                 extensions=['markdown.extensions.extra', PyEmbedMarkdown(), 'mdx_math'])
 
 
 class BlockResult(models.Model):
