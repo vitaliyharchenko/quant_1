@@ -9,7 +9,9 @@
                 <p class="lead">Тестовый вопрос #{{ choicequestion.id }}</p>
                 <p>{{ choicequestion.rendered_question_text|safe }}</p>
                 {% if choicequestion.image %}
-                    <img src="{{ image.image.url }}" height="420">
+                    <p class="text-xs-center">
+                        <img src="{{ choicequestion.image.url }}" height="420">
+                    </p>
                 {% endif %}
                 <hr/>
                 <form id="exerciseFrom" method="post" action="">
