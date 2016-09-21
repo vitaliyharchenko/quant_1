@@ -14,6 +14,9 @@ sudo nano /etc/default/locale
 sudo apt-get install python3-pip
 sudo apt-get install libpq-dev python3.4-dev
 sudo apt-get install python-virtualenv git nginx postgresql postgresql-contrib
+sudo apt-get install libfreetype6 libfreetype6-dev
+sudo apt-get install libjpeg8 libjpeg62-dev
+sudo apt-get install python-imaging
 
 sudo su - postgres
 psql

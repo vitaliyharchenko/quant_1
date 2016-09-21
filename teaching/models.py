@@ -227,7 +227,7 @@ class ChoiceQuestion(Block):
         verbose_name_plural = 'тестовые вопросы'
 
     question_text = MarkdownField('Текст вопроса')
-    image = models.ImageField(upload_to='choicequestions/', null=True, blank=True)
+    image = models.ImageField('Картинка', upload_to='choicequestions/', null=True, blank=True)
 
     def __str__(self):
         return self.question_text
