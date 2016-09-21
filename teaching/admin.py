@@ -3,7 +3,7 @@ from .models import ChoiceQuestion, ChoiceQuestionOption, BlockResult, ChoiceQue
     Group, StudentGroup, Lesson, GroupLesson, TextBlock, Subject, Task, StudentGroupLesson
 
 
-class ChoiceQuestionOptionInline(admin.StackedInline):
+class ChoiceQuestionOptionInline(admin.TabularInline):
     model = ChoiceQuestionOption
     extra = 4
 
