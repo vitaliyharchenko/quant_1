@@ -238,7 +238,7 @@ class ChoiceQuestionOption(models.Model):
         verbose_name_plural = 'Варианты ответа'
 
     choicequestion = models.ForeignKey(ChoiceQuestion)
-    option_text = MarkdownField('Вариант ответа')
+    option_text = models.CharField('Вариант ответа', max_length=600, blank=True)
     help_text = models.CharField('Подсказка', max_length=300, blank=True)
     is_true = models.BooleanField('Правильный?')
 
