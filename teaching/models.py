@@ -201,6 +201,9 @@ class Block(models.Model):
     def __str__(self):
         return u'Block #{}'.format(self.id)
 
+    def get_absolute_url(self):
+        return "/block/%i" % self.id
+
 
 class TextBlock(Block):
     class Meta():
