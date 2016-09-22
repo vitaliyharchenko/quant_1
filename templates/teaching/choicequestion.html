@@ -44,9 +44,6 @@
                                 <a href="{% url 'test_block_view' test_id next_block_num %}" class="btn btn-primary">Следующий вопрос ></a>
                             {% elif lesson %}
                                 <a href="{% url 'lesson_block_view' lesson.id next_block_num %}">Следующий блок в уроке</a>
-                            {% else %}
-                                <a href="{% url 'block_view' choicequestion.pk+1 %}">Следующий блок</a>
-                                <a href="http://quant.zone/admin/teaching/choicequestion/{{ choicequestion.pk }}/change/"></a>
                             {% endif %}
                         {% endif %}
                     {% else %}
