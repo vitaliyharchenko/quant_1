@@ -289,8 +289,7 @@ def choicequestion_handler(request, choicequestion, extra_args):
     else:
         # Works if we want simple view
         args = {'choicequestion': choicequestion,
-                'choicequestionoptions': ChoiceQuestionOption.objects.filter(choicequestion=choicequestion).order_by(
-                    '?')}
+                'choicequestionoptions': ChoiceQuestionOption.objects.filter(choicequestion=choicequestion)}
         return render(request, 'teaching/choicequestion.html', args)
 
 
