@@ -42,13 +42,13 @@
                         <div class="card">
                             <div class="card-header" role="tab">
                                 <a data-toggle="collapse" href="#collapse{{ studentmodule.module.pk }}" aria-expanded="true" aria-controls="collapse{{ studentmodule.module.pk }}">
-                                    Модуль {{ coursemodule.module }}.
+                                    {{ coursemodule.order }}. {{ coursemodule.module }}.
                                 </a>
                             </div>
                             <div id="collapse{{ studentmodule.module.pk }}" class="card-collapse collapse in" role="tabpanel">
                                 <ul class="list-group list-group-flush">
                                     {% for modulelesson in coursemodule.module.modulelessons %}
-                                        <a href="{% url 'lesson_view' modulelesson.lesson.pk %}" class="list-group-item">{{ modulelesson.lesson.title }}</a>
+                                        <a href="{% url 'lesson_view' modulelesson.lesson.pk %}" class="list-group-item">{{ coursemodule.order }}.{{ modulelesson.order }}. {{ modulelesson.lesson.title }}</a>
                                     {% endfor %}
                                 </ul>
                             </div>
