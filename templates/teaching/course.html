@@ -1,0 +1,62 @@
+{% extends 'base_regular.html' %}
+{% load lessontags %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'courses_view' %}">Мои курсы</a></li>
+                <li class="breadcrumb-item active">{{ course.title }}</li>
+            </ol>
+
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>{{ course.title }}</h1>
+                        <p>Предмет: {{ course.subject }}</p>
+                        <p>Учеников: {{ course.studentcourses|length }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-block">
+                                <h4>О курсе:</h4>
+                                <a>{{ course.about }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if not studentcourse %}
+                    <div class="row">
+                        <div class="col-xs-12 text-xs-center"><br>
+                            <a href="" class="btn btn-primary" disabled data-toggle="tooltip" data-placement="top" title="Пока недоступно">Начать учиться</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if studentcourse %}
+                <div id="accordion" aria-multiselectable="true">
+                    {% for coursemodule in course.coursemodules %}
+                        {% studentmodule current_user coursemodule.module as studentmodule %}
+                        <div class="card">
+                            <div class="card-header" role="tab">
+                                <a data-toggle="collapse" href="#collapse{{ studentmodule.module.pk }}" aria-expanded="true" aria-controls="collapse{{ studentmodule.module.pk }}">
+                                    Модуль {{ coursemodule.module }}.
+                                </a>
+                            </div>
+                            <div id="collapse{{ studentmodule.module.pk }}" class="card-collapse collapse in" role="tabpanel">
+                                <ul class="list-group list-group-flush">
+                                    {% for lesson in coursemodule.module.modulelessons %}
+                                        <a href="{% url 'lesson_view' lesson.pk %}" class="list-group-item">{{ lesson }}</a>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

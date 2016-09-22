@@ -26,24 +26,132 @@ class Lesson(models.Model):
 
     title = models.CharField('Название урока', max_length=300)
     has_homework = models.BooleanField('Есть домашка?')
-    blocks = ArrayField(models.IntegerField())
 
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return "/lesson/%i" % self.id
+
+    @property
+    def lessonblocks(self):
+        lessonblocks = LessonBlock.objects.filter(lesson=self)
+        return lessonblocks
+
 
 # Связь ученика с уроком
 # Будет глобально везде, даже для заочников
-# class StudentLesson(models.Model):
-#     class Meta():
-#         verbose_name = 'Связь ученика с уроком'
-#
-#     lesson = models.ForeignKey(Lesson)
-#     student = models.ForeignKey(User)
-#     is_finished = models.BooleanField('Закончил?')
-#     has_perm = models.BooleanField('Имеет право начать?')
-#     score = models.IntegerField(null=True, blank=True)
-#     max_score = models.IntegerField(null=True, blank=True)
+class StudentLesson(models.Model):
+    class Meta():
+        verbose_name = 'Связь ученика с уроком'
+
+    lesson = models.ForeignKey(Lesson)
+    student = models.ForeignKey(User)
+    is_finished = models.BooleanField('Закончил?', default=False)
+    has_perm = models.BooleanField('Имеет право начать?', default=False)
+    score = models.IntegerField(null=True, blank=True)
+    max_score = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return u'{} in "{}"'.format(self.student, self.lesson)
+
+
+# ==============
+# УЧЕБНЫЕ КУРСЫ
+# ==============
+class Course(models.Model):
+    class Meta():
+        verbose_name = 'Курс'
+        verbose_name_plural = 'Курсы'
+
+    title = models.CharField('Название курса', max_length=300)
+    subject = models.ForeignKey(Subject)
+    owner = models.ForeignKey(User)
+    about = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return "/course/%i" % self.id
+
+    @property
+    def studentcourses(self):
+        studentcourses = StudentCourse.objects.filter(course=self)
+        return studentcourses
+
+    @property
+    def coursemodules(self):
+        return CourseModule.objects.filter(course=self).order_by('order')
+
+
+# Привязка студента к курсу
+class StudentCourse(models.Model):
+    class Meta():
+        verbose_name = 'Участие студента в курсе'
+        verbose_name_plural = 'Участие студента в курсе'
+        unique_together = ('course', 'student')
+
+    course = models.ForeignKey(Course)
+    student = models.ForeignKey(User)
+
+
+class Module(models.Model):
+    class Meta():
+        verbose_name = 'Модуль'
+        verbose_name_plural = 'Модули'
+
+    title = models.CharField('Название модуля', max_length=300)
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def modulelessons(self):
+        return ModuleLesson.objects.filter(module=self).order_by('order')
+
+
+class CourseModule(models.Model):
+    class Meta():
+        verbose_name = 'Порядковое включение модулей в курс'
+        unique_together = ('course', 'module')
+
+    course = models.ForeignKey(Course)
+    module = models.ForeignKey(Module)
+    order = models.IntegerField()
+
+
+# Связь ученика с модулем.
+class StudentModule(models.Model):
+    class Meta():
+        verbose_name = 'Связь ученика с модулем'
+        unique_together = ('module', 'student')
+
+    module = models.ForeignKey(Module)
+    student = models.ForeignKey(User)
+
+    score = models.IntegerField(null=True, blank=True)
+    max_score = models.IntegerField(null=True, blank=True)
+
+    has_perm = models.BooleanField('Имеет право начать?', default=False)
+    is_finished = models.BooleanField('Закончил домашку?', default=False)
+    is_visited = models.BooleanField('Посетил занятие?', default=False)
+
+    def __str__(self):
+        return u'{}, {}, "{}"'.format(self.student, self.module)
+
+
+class ModuleLesson(models.Model):
+    class Meta():
+        verbose_name = 'Порядковое включение урока в модуль'
+        unique_together = ('module', 'lesson')
+
+    lesson = models.ForeignKey(Lesson)
+    module = models.ForeignKey(Module)
+    order = models.IntegerField()
+
+    def __str__(self):
+        return u'{} in "{}"'.format(self.lesson, self.module.title)
 
 
 # ==============
@@ -60,6 +168,9 @@ class Group(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return "/group/%i" % self.id
 
     @property
     def studentgroups(self):
@@ -173,7 +284,9 @@ class StudentGroupLesson(models.Model):
             return round(summ/3, 1)
 
 
-# домашнее задание
+# ==============
+# ДОМАШНИЕ ЗАДАНИЯ
+# ==============
 class Task(models.Model):
     class Meta():
         verbose_name = 'Домашнее задание'
@@ -196,13 +309,59 @@ class GroupLessonTask(Task):
         return u'For {}, "{}"'.format(self.student, self.grouplesson.lesson)
 
 
+class LessonTask(Task):
+    class Meta():
+        verbose_name = 'Домашнее задание'
+        verbose_name_plural = 'Домашние задания'
+
+    lesson = models.ForeignKey(Lesson)
+
+    def __str__(self):
+        return u'For {}, "{}"'.format(self.student, self.lesson)
+
+
+# ==============
+# БЛОКИ
+# ==============
 # Блоки, из которых строится занятие (контент, тест, опрос итд)
 class Block(models.Model):
     def __str__(self):
-        return u'Block #{}'.format(self.id)
+        title = None
+
+        try:
+            title = self.textblock.title
+        except AttributeError:
+            pass
+
+        try:
+            title = self.choicequestion.question_text[:100]
+        except AttributeError:
+            pass
+
+        try:
+            title = self.floatquestion.question_text[:100]
+        except AttributeError:
+            pass
+
+        if title:
+            return title
+        else:
+            return u'Block #{}'.format(self.id)
 
     def get_absolute_url(self):
         return "/block/%i" % self.id
+
+
+# Включение блоков в урок
+class LessonBlock(models.Model):
+    class Meta():
+        verbose_name = 'включение блока в урок'
+        verbose_name_plural = 'включения блоков в урок'
+        unique_together = ('lesson', 'block')
+
+    lesson = models.ForeignKey(Lesson)
+    block = models.ForeignKey(Block)
+    order = models.IntegerField()
 
 
 class TextBlock(Block):
@@ -251,6 +410,23 @@ class ChoiceQuestionOption(models.Model):
         return self.option_text
 
 
+class FloatQuestion(Block):
+    class Meta():
+        verbose_name = 'задача с численным ответом'
+        verbose_name_plural = 'задачи с численным ответом'
+
+    question_text = MarkdownField('Текст вопроса')
+    image = models.ImageField('Картинка', upload_to='floatquestions/', null=True, blank=True)
+    answer = models.FloatField('Ответ')
+
+    def __str__(self):
+        return self.question_text
+
+    @property
+    def rendered_question_text(self):
+        return markdown.markdown(self.question_text, extensions=['markdown.extensions.extra', PyEmbedMarkdown(), 'mdx_math'])
+
+
 class BlockResult(models.Model):
     class Meta():
         verbose_name = 'Результат ответа'
@@ -272,6 +448,14 @@ class ChoiceQuestionResult(BlockResult):
         verbose_name_plural = 'Результаты ответов на тестовые вопросы'
 
     choices = ArrayField(models.IntegerField())
+
+
+class FloatQuestionResult(BlockResult):
+    class Meta():
+        verbose_name = 'Результат ответа на задачу'
+        verbose_name_plural = 'Результаты ответов на задачи'
+
+    answer = models.FloatField('Ответ')
 
 
 class Test(models.Model):

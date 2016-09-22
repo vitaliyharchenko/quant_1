@@ -8,6 +8,9 @@ urlpatterns = [
     url(r'^test/(?P<test_id>\d+)/final$', views.test_final_view, name="test_final_view"),
     url(r'^test/results$', views.test_results_view, name="test_results_view"),
 
+    url(r'^courses$', views.courses_view, name="courses_view"),
+    url(r'^course/(?P<course_id>\d+)$', views.course_view, name="course_view"),
+
     url(r'^groups$', views.groups_view, name="groups_view"),
     url(r'^group/(?P<group_id>\d+)$', views.group_view, name="group_view"),
 

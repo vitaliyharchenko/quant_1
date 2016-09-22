@@ -1,0 +1,44 @@
+{% extends 'base_regular.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-block">
+                <p class="lead">Задача #{{ floatquestion.id }}</p>
+                <p>{{ floatquestion.rendered_question_text|safe }}</p>
+                {% if floatquestion.image %}
+                    <p class="text-xs-center">
+                        <img src="{{ floatquestion.image.url }}" height="420">
+                    </p>
+                {% endif %}
+                <hr/>
+                <form id="exerciseFrom" method="post" action="">
+                    {% csrf_token %}
+                    <input class="form-control" type="text" name="answer" placeholder="Введите ответ">
+                    <hr/>
+                    {% if is_answered %}
+                        {% if last_block %}
+                            {% if test_id %}
+                                <a href="{% url 'test_final_view' test_id %}" class="btn btn-primary">Конец теста</a>
+                            {% elif lesson %}
+                                <a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary">Конец урока</a>
+                            {% endif %}
+                        {% else %}
+                            {% if test_id %}
+                                <a href="{% url 'test_block_view' test_id next_block_num %}" class="btn btn-primary">Следующий вопрос ></a>
+                            {% elif lesson %}
+                                <a href="{% url 'lesson_block_view' lesson.id next_block_num %}">Следующий блок в уроке</a>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        <button class="btn btn-warning" type="submit">Ответить</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

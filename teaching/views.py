@@ -1,9 +1,10 @@
 from datetime import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import ChoiceQuestion, ChoiceQuestionOption, Block, BlockResult, ChoiceQuestionResult, Test, TestResult, \
-    StudentGroup, Group, Lesson, GroupLesson, Task, StudentGroupLesson, GroupLessonTask
+    StudentGroup, Group, Lesson, GroupLesson, Task, StudentGroupLesson, GroupLessonTask, FloatQuestionResult, \
+    FloatQuestion, StudentCourse, Course, StudentLesson, LessonBlock
 
 
 # TODO: resolve differrent types of tasks
@@ -11,6 +12,35 @@ def tasks_view(request):
     tasks = GroupLessonTask.objects.filter(student=request.user, is_finished=False)
     args = {'tasks': tasks}
     return render(request, 'teaching/tasks.html', args)
+
+
+@login_required
+def courses_view(request):
+    if request.user.is_staff:
+        courses = Course.objects.all()
+        args = {'courses': courses}
+        return None
+    else:
+        courses = Course.objects.all()
+        args = {'courses': courses}
+        return render(request, 'teaching/courses.html', args)
+
+
+@login_required
+def course_view(request, course_id):
+    course = Course.objects.get(id=course_id)
+    args = {'course': course}
+
+    try:
+        studentcourse = StudentCourse.objects.get(student=request.user, course=course)
+        args['studentcourse'] = studentcourse
+    except StudentCourse.DoesNotExist:
+        pass
+
+    if request.user.is_staff:
+        return None
+    else:
+        return render(request, 'teaching/course.html', args)
 
 
 @login_required
@@ -47,7 +77,8 @@ def group_lesson_add_tasks(request, group_id, lesson_id):
         try:
             studentgrouplesson = StudentGroupLesson.objects.get(grouplesson=grouplesson, student=studentgroup.student)
         except StudentGroupLesson.DoesNotExist:
-            studentgrouplesson = StudentGroupLesson.objects.create(grouplesson=grouplesson, student=studentgroup.student)
+            studentgrouplesson = StudentGroupLesson.objects.create(grouplesson=grouplesson,
+                                                                   student=studentgroup.student)
         studentgrouplesson.has_perm = True
         studentgrouplesson.save()
         # TODO mailing student
@@ -62,12 +93,11 @@ def group_lesson_add_tasks(request, group_id, lesson_id):
 
 
 def perm_for_lesson(request, lesson):
-    studentgrouplessons = StudentGroupLesson.objects.filter(student=request.user, grouplesson__lesson=lesson)
+    studentlessons = StudentLesson.objects.filter(student=request.user, lesson=lesson)
     has_perm = False
-    for studentgrouplesson in studentgrouplessons:
-        if studentgrouplesson.has_perm == True:
+    for studentlesson in studentlessons:
+        if studentlesson.has_perm == True:
             has_perm = True
-
     return has_perm
 
 
@@ -79,8 +109,9 @@ def lesson_view(request, lesson_id):
         args = {'lesson': lesson}
         return render(request, 'teaching/lesson.html', args)
     else:
-        messages.warning(request, 'Не имеешь правов таких')
-        return redirect('groups_view')
+        messages.warning(request, 'Нет доступа к уроку')
+        return_path = request.META.get('HTTP_REFERER', '/')
+        return redirect(return_path)
 
 
 @login_required
@@ -94,9 +125,8 @@ def lesson_final_view(request, lesson_id):
         summ = 0
         max_summ = 0
 
-        blocks = lesson.blocks
-        for block in blocks:
-            block_result = BlockResult.objects.filter(block=block, user=request.user).latest('date')
+        for lessonblock in lesson.lessonblocks:
+            block_result = BlockResult.objects.filter(block=lessonblock.block, user=request.user).latest('date')
             results.append(block_result)
             summ += block_result.score
             max_summ += block_result.max_score
@@ -140,25 +170,32 @@ def lesson_block_view(request, lesson_id, block_num):
         # TODO: add 404 page
         messages.warning(request, "Такого объекта нет =(")
 
-    try:
-        block_id = lesson.blocks[block_num - 1]
-    except IndexError:
-        messages.warning(request, "Такого объекта нет =(")
-        # TODO return 404
+    # try:
+    #     block_id = lesson.blocks[block_num - 1]
+    #     try:
+    #         block = Block.objects.get(id=block_id)
+    #     except Block.DoesNotExist:
+    #         messages.warning(request, "Такого объекта нет =(")
+    # except IndexError:
+    #     messages.warning(request, "Такого объекта нет =(")
+    # if block_num == len(lesson.blocks):
+    #     extra_args = {'last_block': True}
+    # else:
+    #     extra_args = {'next_block_num': block_num + 1}
 
     try:
-        block = Block.objects.get(id=block_id)
-    except Block.DoesNotExist:
+        lessonblock = LessonBlock.objects.get(lesson=lesson, order=block_num)
+    except LessonBlock.DoesNotExist:
         messages.warning(request, "Такого объекта нет =(")
 
-    if block_num == len(lesson.blocks):
+    if block_num == lesson.lessonblocks.count():
         extra_args = {'last_block': True}
     else:
         extra_args = {'next_block_num': block_num + 1}
 
     extra_args['lesson'] = lesson
 
-    return block_handler(request, block, extra_args)
+    return block_handler(request, lessonblock.block, extra_args)
 
 
 def block_handler(request, block, extra_args):
@@ -175,6 +212,15 @@ def block_handler(request, block, extra_args):
         return textblock_handler(request, textblock, extra_args)
     except AttributeError:
         pass
+
+    # Works if floatquestion
+    try:
+        floatquestion = block.floatquestion
+        return floatquestion_handler(request, floatquestion, extra_args)
+    except AttributeError:
+        pass
+
+    return HttpResponse("Непонятный тип блока")
 
 
 def choicequestion_handler(request, choicequestion, extra_args):
@@ -253,6 +299,35 @@ def choicequestion_handler(request, choicequestion, extra_args):
         return render(request, 'teaching/choicequestion.html', args)
 
 
+def floatquestion_handler(request, floatquestion, extra_args):
+    if request.method == "POST":
+        # Works if we catch answer
+        args = extra_args
+        our_answer = request.POST.get('answer', '')
+        our_answer = float(our_answer)
+        print(our_answer)
+        print(floatquestion.answer)
+        max_score = 3
+        if our_answer == floatquestion.answer:
+            messages.success(request, 'Успешный ответ')
+            score = 3
+        else:
+            messages.warning(request, u'Неверный ответ ({})'.format(our_answer))
+            score = 0
+
+        result = FloatQuestionResult(user=request.user, block=floatquestion, score=score, max_score=max_score,
+                                     answer=our_answer)
+        result.save()
+
+        args['floatquestion'] = floatquestion
+        args['is_answered'] = True
+        return render(request, 'teaching/floatquestion.html', args)
+    else:
+        # Works if we want simple view
+        args = {'floatquestion': floatquestion}
+        return render(request, 'teaching/floatquestion.html', args)
+
+
 def textblock_handler(request, textblock, extra_args):
     if request.method == "POST":
         result = BlockResult(user=request.user, block=textblock, score=1, max_score=1)
@@ -273,24 +348,11 @@ def textblock_handler(request, textblock, extra_args):
 def block_view(request, block_id):
     try:
         block = Block.objects.get(id=block_id)
+        return block_handler(request, block, {})
     except Block.DoesNotExist:
         # TODO: add 404 page
         messages.warning(request, "Такого объекта нет =(")
         return redirect('index_view')
-
-    # Works if choicequestion
-    try:
-        choicequestion = block.choicequestion
-        return choicequestion_handler(request, choicequestion, {})
-    except AttributeError:
-        pass
-
-    # Works if textblock
-    try:
-        textblock = block.textblock
-        return textblock_handler(request, textblock, {})
-    except AttributeError:
-        pass
 
     return render(request, 'teaching/block.html', args)
 
