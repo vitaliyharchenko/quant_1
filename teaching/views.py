@@ -16,14 +16,9 @@ def tasks_view(request):
 
 @login_required
 def courses_view(request):
-    if request.user.is_staff:
-        courses = Course.objects.all()
-        args = {'courses': courses}
-        return None
-    else:
-        courses = Course.objects.all()
-        args = {'courses': courses}
-        return render(request, 'teaching/courses.html', args)
+    courses = Course.objects.all()
+    args = {'courses': courses}
+    return render(request, 'teaching/courses.html', args)
 
 
 @login_required
@@ -38,7 +33,7 @@ def course_view(request, course_id):
         pass
 
     if request.user.is_staff:
-        return None
+        return render(request, 'teaching/course.html', args)
     else:
         return render(request, 'teaching/course.html', args)
 
