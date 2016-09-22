@@ -47,7 +47,7 @@
                             {% else %}
                                 <a href="{% url 'block_view' choicequestion.id|add:"1" %}">Следующий блок</a>
                                 <br>
-                                <a href="http://quant.zone/admin/teaching/choicequestion/{{ choicequestion.pk }}/change/" target="_blank">Редактировать</a>
+                                <a href="http://quant.zone/admin/teaching/choicequestion/{{ choicequestion.pk }}/change/">Редактировать</a>
                             {% endif %}
                         {% endif %}
                     {% else %}
