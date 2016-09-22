@@ -48,7 +48,7 @@
                             <div id="collapse{{ studentmodule.module.pk }}" class="card-collapse collapse in" role="tabpanel">
                                 <ul class="list-group list-group-flush">
                                     {% for lesson in coursemodule.module.modulelessons %}
-                                        <a href="{% url 'lesson_view' lesson.pk %}" class="list-group-item">{{ lesson }}</a>
+                                        <a href="{% url 'lesson_view' lesson.pk %}" class="list-group-item">{{ lesson.title }}</a>
                                     {% endfor %}
                                 </ul>
                             </div>
