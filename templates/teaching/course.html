@@ -45,7 +45,7 @@
                                     {{ coursemodule.order }}. {{ coursemodule.module }}.
                                 </a>
                             </div>
-                            <div id="collapse{{ studentmodule.module.pk }}" class="card-collapse collapse in" role="tabpanel">
+                            <div id="collapse{{ studentmodule.module.pk }}" class="card-collapse collapse" role="tabpanel">
                                 <ul class="list-group list-group-flush">
                                     {% for modulelesson in coursemodule.module.modulelessons %}
                                         <a href="{% url 'lesson_view' modulelesson.lesson.pk %}" class="list-group-item">{{ coursemodule.order }}.{{ modulelesson.order }}. {{ modulelesson.lesson.title }}</a>
