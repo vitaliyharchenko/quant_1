@@ -36,9 +36,9 @@
         $(document).ready(function() {
             $('#read-action').click(function() {
 
-                {% if last_block %}
+                {% if last_block and lesson %}
                     var tpl = '<a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Конец урока</a>';
-                {% else %}
+                {% elif lesson and next_block_num %}
                     var tpl = '<a href="{% url 'lesson_block_view' lesson.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок в уроке</a>';
                 {% endif %}
 
