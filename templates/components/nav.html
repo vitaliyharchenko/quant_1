@@ -14,13 +14,15 @@
                         <a class="nav-link" href="/admin">Admin</a>
                     </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'groups_view' %}">Мои группы</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'courses_view' %}">Курсы</a>
-                </li>
-                {% if not current_user.is_teacher %}
+                {% if current_user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'groups_view' %}">Мои группы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'courses_view' %}">Курсы</a>
+                    </li>
+                {% endif %}
+                {% if current_user and not current_user.is_teacher %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'tasks_view' %}">
                             Мои задания
