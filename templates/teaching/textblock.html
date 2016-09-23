@@ -33,35 +33,37 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            $('#read-action').click(function() {
+        {% if lesson %}
+            $(document).ready(function() {
+                $('#read-action').click(function() {
 
-                {% if last_block and lesson %}
-                    var tpl = '<a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Конец урока</a>';
-                {% elif lesson and next_block_num %}
-                    var tpl = '<a href="{% url 'lesson_block_view' lesson.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок в уроке</a>';
-                {% endif %}
+                    {% if last_block %}
+                        var tpl = '<a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Конец урока</a>';
+                    {% elif next_block_num %}
+                        var tpl = '<a href="{% url 'lesson_block_view' lesson.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок в уроке</a>';
+                    {% endif %}
 
-                $.ajax({
-                    url: '{% url "lesson_block_view" lesson.pk block_num %}',
-                    data: {
-                        csrfmiddlewaretoken: '{{ csrf_token }}',
-                        action: 'read'
-                    },
-                    async: true,
-                    success: function (responseData, textStatus) {
-                        $('#buttons').fadeOut('slow', function () {
-                            $('#buttons').replaceWith(tpl);
-                        });
-                    },
-                    error: function (response, status, errorThrown) {
-                        alert('Все плохо, расскажите нам про эту ошибку \n\r\n\r' + response + status + errorThrown);
-                    },
-                    type: "POST",
-                    dataType: "text"
+                    $.ajax({
+                        url: '{% url "lesson_block_view" lesson.pk block_num %}',
+                        data: {
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            action: 'read'
+                        },
+                        async: true,
+                        success: function (responseData, textStatus) {
+                            $('#buttons').fadeOut('slow', function () {
+                                $('#buttons').replaceWith(tpl);
+                            });
+                        },
+                        error: function (response, status, errorThrown) {
+                            alert('Все плохо, расскажите нам про эту ошибку \n\r\n\r' + response + status + errorThrown);
+                        },
+                        type: "POST",
+                        dataType: "text"
+                    });
                 });
             });
-        });
+        {% endif %}
     </script>
 
 {% endblock %}
