@@ -135,20 +135,19 @@ def lesson_final_view(request, lesson_id):
             student_lesson.score = summ
             student_lesson.max_score = max_summ
             student_lesson.is_finished = True
-            student_lesson.has_perm = False
+            # student_lesson.has_perm = False
             student_lesson.save()
         except StudentGroupLesson.DoesNotExist:
             pass
 
         try:
             student_lesson = StudentLesson.objects.get(student=request.user, lesson=lesson)
-
             student_lesson.score = summ
             student_lesson.max_score = max_summ
             student_lesson.is_finished = True
-            student_lesson.has_perm = False
+            # student_lesson.has_perm = False
             student_lesson.save()
-        except StudentGroupLesson.DoesNotExist:
+        except StudentLesson.DoesNotExist:
             pass
 
         try:
@@ -157,6 +156,14 @@ def lesson_final_view(request, lesson_id):
                 task.is_finished = True
                 task.save()
         except GroupLessonTask.DoesNotExist:
+            pass
+
+        try:
+            tasks = LessonTask.objects.filter(student=request.user, lesson=lesson, is_finished=False)
+            for task in tasks:
+                task.is_finished = True
+                task.save()
+        except LessonTask.DoesNotExist:
             pass
 
         return render(request, 'teaching/lessonfinal.html', args)
