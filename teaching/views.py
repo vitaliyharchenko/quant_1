@@ -93,6 +93,8 @@ def perm_for_lesson(request, lesson):
     for studentlesson in studentlessons:
         if studentlesson.has_perm == True:
             has_perm = True
+    if request.user.is_staff:
+        has_perm = True
     return has_perm
 
 
