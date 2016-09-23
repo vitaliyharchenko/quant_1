@@ -21,6 +21,9 @@
                             <label for="">
                                 <input type="checkbox" name="choices" value="{{ option.id }}" {% if option.id in correct_choices or option.id in false_choices %}checked{% endif %} {% if is_answered %}disabled{% endif %}/>
                                 {{ option.option_text }}
+                                {% if option.option_image %}
+                                    <img src="{{ option.option_image.url }}">
+                                {% endif %}
                                 {% if option.id in correct_choices %}
                                     ВЕРНЫЙ ВЫБОР {% if option.help_text %}({{ option.help_text }}){% endif %}
                                 {% elif option.id in false_choices %}

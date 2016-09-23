@@ -403,6 +403,7 @@ class ChoiceQuestionOption(models.Model):
 
     choicequestion = models.ForeignKey(ChoiceQuestion)
     option_text = models.CharField('Вариант ответа', max_length=600, blank=True)
+    option_image = models.ImageField('Картинка', upload_to='choicequestionoptions/', null=True, blank=True)
     help_text = models.CharField('Подсказка', max_length=300, blank=True)
     is_true = models.BooleanField('Правильный?')
 
