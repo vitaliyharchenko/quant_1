@@ -4,12 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
 from .models import ChoiceQuestion, ChoiceQuestionOption, Block, BlockResult, ChoiceQuestionResult, Test, TestResult, \
     StudentGroup, Group, Lesson, GroupLesson, Task, StudentGroupLesson, GroupLessonTask, FloatQuestionResult, \
-    FloatQuestion, StudentCourse, Course, StudentLesson, LessonBlock
+    FloatQuestion, StudentCourse, Course, StudentLesson, LessonBlock, LessonTask
 
 
 # TODO: resolve differrent types of tasks
 def tasks_view(request):
-    tasks = GroupLessonTask.objects.filter(student=request.user, is_finished=False)
+    tasks = LessonTask.objects.filter(student=request.user, is_finished=False)
     args = {'tasks': tasks}
     return render(request, 'teaching/tasks.html', args)
 
@@ -137,7 +137,17 @@ def lesson_final_view(request, lesson_id):
             student_lesson.is_finished = True
             student_lesson.has_perm = False
             student_lesson.save()
+        except StudentGroupLesson.DoesNotExist:
+            pass
 
+        try:
+            student_lesson = StudentLesson.objects.get(student=request.user, lesson=lesson)
+
+            student_lesson.score = summ
+            student_lesson.max_score = max_summ
+            student_lesson.is_finished = True
+            student_lesson.has_perm = False
+            student_lesson.save()
         except StudentGroupLesson.DoesNotExist:
             pass
 

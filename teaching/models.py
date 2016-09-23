@@ -311,8 +311,8 @@ class GroupLessonTask(Task):
 
 class LessonTask(Task):
     class Meta():
-        verbose_name = 'Домашнее задание'
-        verbose_name_plural = 'Домашние задания'
+        verbose_name = 'Домашнее задание, урок'
+        verbose_name_plural = 'Домашние задания, уроки'
 
     lesson = models.ForeignKey(Lesson)
 

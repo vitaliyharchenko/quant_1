@@ -10,8 +10,8 @@
         {% for task in tasks %}
             <div class="card">
                 <div class="card-block">
-                    <a href="{% url 'lesson_view' task.grouplesson.lesson.pk %}">
-                        <h2>{{ task.grouplesson.lesson }}</h2>
+                    <a href="{% url 'lesson_view' task.lesson.pk %}">
+                        <h2>{{ task.lesson }}</h2>
                     </a>
                     <a>Выполнить до: {{ task.datetime_to }}</a>
                 </div>
