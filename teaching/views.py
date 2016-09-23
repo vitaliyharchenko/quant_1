@@ -137,7 +137,7 @@ def lesson_final_view(request, lesson_id):
             student_lesson.score = summ
             student_lesson.max_score = max_summ
             student_lesson.is_finished = True
-            # student_lesson.has_perm = False
+            student_lesson.has_perm = False
             student_lesson.save()
         except StudentGroupLesson.DoesNotExist:
             pass
@@ -147,7 +147,7 @@ def lesson_final_view(request, lesson_id):
             student_lesson.score = summ
             student_lesson.max_score = max_summ
             student_lesson.is_finished = True
-            # student_lesson.has_perm = False
+            student_lesson.has_perm = False
             student_lesson.save()
         except StudentLesson.DoesNotExist:
             pass
