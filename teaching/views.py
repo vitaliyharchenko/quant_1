@@ -189,6 +189,7 @@ def lesson_block_view(request, lesson_id, block_num):
         extra_args = {'next_block_num': block_num + 1}
 
     extra_args['lesson'] = lesson
+    extra_args['block_num'] = block_num
 
     return block_handler(request, lessonblock.block, extra_args)
 
@@ -326,11 +327,7 @@ def textblock_handler(request, textblock, extra_args):
     if request.method == "POST":
         result = BlockResult(user=request.user, block=textblock, score=1, max_score=1)
         result.save()
-
-        extra_args['textblock'] = textblock
-        extra_args['is_answered'] = True
-
-        return render(request, 'teaching/textblock.html', extra_args)
+        return HttpResponse('OK')
     else:
         # Works if we want simple view
         extra_args['textblock'] = textblock
