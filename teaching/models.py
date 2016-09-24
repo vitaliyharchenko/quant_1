@@ -39,6 +39,10 @@ class Lesson(models.Model):
         lessonblocks = LessonBlock.objects.filter(lesson=self)
         return lessonblocks
 
+    @property
+    def rendered_about(self):
+        return markdown.markdown(self.about, extensions=['markdown.extensions.extra', PyEmbedMarkdown(), 'mdx_math'])
+
 
 # Связь ученика с уроком
 # Будет глобально везде, даже для заочников
