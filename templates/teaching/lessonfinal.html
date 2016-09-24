@@ -12,9 +12,10 @@
                 <p class="lead">Ваш результат: {{ summ }} из {{ max_summ }} ({% widthratio summ max_summ 100 %}%)</p>
 
                 {% if glob_tasks|length > 0 %}
-                    <h3>Молодец, теперь выполни остальные <a href="{% url 'tasks_view' %}">задания</a></h3>
+                    <p class="lead">Молодец, теперь выполни остальные задания</p>
+                    <a href="{% url 'tasks_view' %}" class="btn btn-primary btn-lg">Перейти к заданиям</a>
                 {% else %}
-                    <h3>Молодец, теперь можешь отдохнуть</h3>
+                    <p class="lead">Молодец, теперь можешь отдохнуть</p>
                 {% endif %}
             </div>
         </div>
