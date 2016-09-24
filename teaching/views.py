@@ -329,7 +329,7 @@ def floatquestion_handler(request, floatquestion, extra_args):
             message = u'Правильный ответ'
             score = 3
         else:
-            message = u'Неверный ответ'
+            message = u'Неверный ответ, должно было получиться {}'.format(floatquestion.answer)
             score = 0
 
         result = FloatQuestionResult(user=request.user, block=floatquestion, score=score, max_score=max_score,
