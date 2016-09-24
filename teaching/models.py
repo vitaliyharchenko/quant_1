@@ -25,6 +25,7 @@ class Lesson(models.Model):
         verbose_name_plural = 'Уроки'
 
     title = models.CharField('Название урока', max_length=300)
+    about = models.TextField('Описание урока')
     has_homework = models.BooleanField('Есть домашка?')
 
     def __str__(self):

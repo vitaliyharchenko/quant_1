@@ -202,13 +202,18 @@ def lesson_block_view(request, lesson_id, block_num):
     except LessonBlock.DoesNotExist:
         messages.warning(request, "Такого объекта нет =(")
 
-    if block_num == lesson.lessonblocks.count():
-        extra_args = {'last_block': True}
+    blocks_count = lesson.lessonblocks.count()
+
+    extra_args = {}
+
+    if block_num == blocks_count:
+        extra_args['last_block'] = True
     else:
-        extra_args = {'next_block_num': block_num + 1}
+        extra_args['next_block_num'] = block_num + 1
 
     extra_args['lesson'] = lesson
     extra_args['block_num'] = block_num
+    extra_args['blocks_count'] = blocks_count
 
     return block_handler(request, lessonblock.block, extra_args)
 
@@ -307,9 +312,9 @@ def choicequestion_handler(request, choicequestion, extra_args):
         args['is_answered'] = True
         return render(request, 'teaching/choicequestion.html', args)
     else:
-        # Works if we want simple view
-        args = {'choicequestion': choicequestion,
-                'choicequestionoptions': ChoiceQuestionOption.objects.filter(choicequestion=choicequestion)}
+        args = extra_args
+        args['choicequestion'] = choicequestion
+        args['choicequestionoptions'] = ChoiceQuestionOption.objects.filter(choicequestion=choicequestion)
         return render(request, 'teaching/choicequestion.html', args)
 
 
