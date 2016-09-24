@@ -6,6 +6,7 @@
         <div class="col-xs-12">
             <h2>{{ lesson.title }}</h2>
             <p>Всего блоков в занятии: {{ lesson.lessonblocks|length }}</p>
+            <p>{{ lesson.about }}</p>
             <a href="{% url 'lesson_block_view' lesson.pk 1 %}">Начать</a>
         </div>
     </div>
