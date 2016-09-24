@@ -6,9 +6,10 @@
     <div class="col-xs-12">
         <div class="card">
             <div class="card-block">
-                <p class="lead">Урок #{{ lesson.id }}</p>
 
-                <p class="lead">Результат: {{ summ }} из {{ max_summ }} ({% widthratio summ max_summ 100 %}%)</p>
+                <h2>{{ lesson.title }}</h2>
+
+                <p class="lead">Ваш результат: {{ summ }} из {{ max_summ }} ({% widthratio summ max_summ 100 %}%)</p>
 
                 {% if glob_tasks|length > 0 %}
                     <h3>Молодец, теперь выполни остальные <a href="{% url 'tasks_view' %}">задания</a></h3>
