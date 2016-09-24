@@ -7,7 +7,7 @@ from teaching.models import LessonTask
 
 class LessonTaskInline(admin.TabularInline):
     model = LessonTask
-    extra = 4
+    extra = 1
 
 
 class UserAdmin(admin.ModelAdmin):
