@@ -33,6 +33,7 @@
             $(document).ready(function() {
                 $('#answer-action').click(function() {
                     var answer = $("#answerfield").val();
+                    answer = answer.replace(',', '.');
 
                     {% if last_block %}
                         var tpl = '<a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Конец урока</a>';
