@@ -9,7 +9,7 @@
                     <h2>{{ lesson.title }}</h2>
                     <p>Всего блоков в занятии: {{ lesson.lessonblocks|length }}</p>
                     <p class="lead">{{ lesson.about }}</p>
-                    <a href="{% url 'lesson_block_view' lesson.pk 1 %}">Начать</a>
+                    <a href="{% url 'lesson_block_view' lesson.pk 1 %}" class="btn btn-primary btn-lg">Начать</a>
                 </div>
             </div>
         </div>
