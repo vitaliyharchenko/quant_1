@@ -30,7 +30,7 @@
                                 {% elif option.id in false_choices %}
                                     (Ошибочный выбор) {% if option.help_text %}({{ option.help_text }}){% endif %}
                                 {% elif option.id in false_not_choices %}
-                                    (Был верным ответом) {% if option.help_text %}({{ option.help_text }}){% endif %}
+                                    (Верный ответ) {% if option.help_text %}({{ option.help_text }}){% endif %}
                                 {% endif %}
                             </label>
                         </div>
