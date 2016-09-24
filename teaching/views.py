@@ -274,7 +274,7 @@ def choicequestion_handler(request, choicequestion, extra_args):
                     correct_not_choices.append(choise)
 
         if len(false_choices) == 0 and len(false_not_choices) == 0:
-            messages.success(request, 'Успешный ответ')
+            # messages.success(request, 'Успешный ответ')
             args['correct_choices'] = correct_choices
         else:
             args['correct_choices'] = correct_choices
