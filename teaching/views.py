@@ -319,26 +319,23 @@ def floatquestion_handler(request, floatquestion, extra_args):
         args = extra_args
         our_answer = request.POST.get('answer', '')
         our_answer = float(our_answer)
-        print(our_answer)
-        print(floatquestion.answer)
         max_score = 3
         if our_answer == floatquestion.answer:
-            messages.success(request, 'Успешный ответ')
+            message = u'Правильный ответ'
             score = 3
         else:
-            messages.warning(request, u'Неверный ответ ({})'.format(our_answer))
+            message = u'Неверный ответ'
             score = 0
 
         result = FloatQuestionResult(user=request.user, block=floatquestion, score=score, max_score=max_score,
                                      answer=our_answer)
         result.save()
 
-        args['floatquestion'] = floatquestion
-        args['is_answered'] = True
-        return render(request, 'teaching/floatquestion.html', args)
+        return HttpResponse(message)
     else:
         # Works if we want simple view
-        args = {'floatquestion': floatquestion}
+        args = extra_args
+        args['floatquestion'] = floatquestion
         return render(request, 'teaching/floatquestion.html', args)
 
 
