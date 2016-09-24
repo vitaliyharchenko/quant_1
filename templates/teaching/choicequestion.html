@@ -26,11 +26,11 @@
                                     <img src="{{ option.option_image.url }}">
                                 {% endif %}
                                 {% if option.id in correct_choices %}
-                                    ВЕРНЫЙ ВЫБОР {% if option.help_text %}({{ option.help_text }}){% endif %}
+                                    {% if option.help_text %}({{ option.help_text }}){% endif %}
                                 {% elif option.id in false_choices %}
-                                    НЕПРАВИЛЬНЫЙ ВЫБОР {% if option.help_text %}({{ option.help_text }}){% endif %}
+                                    (НЕПРАВИЛЬНЫЙ ВЫБОР) {% if option.help_text %}({{ option.help_text }}){% endif %}
                                 {% elif option.id in false_not_choices %}
-                                    НЕ ВЫБРАН {% if option.help_text %}({{ option.help_text }}){% endif %}
+                                    (НЕ ВЫБРАН) {% if option.help_text %}({{ option.help_text }}){% endif %}
                                 {% endif %}
                             </label>
                         </div>
