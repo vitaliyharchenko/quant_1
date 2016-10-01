@@ -132,34 +132,34 @@ def lesson_final_view(request, lesson_id):
         args['summ'] = summ
         args['max_summ'] = max_summ
 
-        try:
-            student_lesson = StudentGroupLesson.objects.get(student=request.user, grouplesson__lesson=lesson)
+        # try:
+        #     student_lesson = StudentGroupLesson.objects.get(student=request.user, grouplesson__lesson=lesson)
+        #
+        #     student_lesson.score = summ
+        #     student_lesson.max_score = max_summ
+        #     student_lesson.is_finished = True
+        #     student_lesson.has_perm = False
+        #     student_lesson.save()
+        # except StudentGroupLesson.DoesNotExist:
+        #     pass
 
-            student_lesson.score = summ
-            student_lesson.max_score = max_summ
-            student_lesson.is_finished = True
-            student_lesson.has_perm = False
-            student_lesson.save()
-        except StudentGroupLesson.DoesNotExist:
-            pass
+        # try:
+        #     tasks = GroupLessonTask.objects.filter(student=request.user, grouplesson__lesson=lesson, is_finished=False)
+        #     for task in tasks:
+        #         task.is_finished = True
+        #         task.save()
+        # except GroupLessonTask.DoesNotExist:
+        #     pass
 
         try:
             student_lesson = StudentLesson.objects.get(student=request.user, lesson=lesson)
-            student_lesson.score = summ
-            student_lesson.max_score = max_summ
-            student_lesson.is_finished = True
-            student_lesson.has_perm = False
-            student_lesson.save()
         except StudentLesson.DoesNotExist:
-            pass
-
-        try:
-            tasks = GroupLessonTask.objects.filter(student=request.user, grouplesson__lesson=lesson, is_finished=False)
-            for task in tasks:
-                task.is_finished = True
-                task.save()
-        except GroupLessonTask.DoesNotExist:
-            pass
+            student_lesson = StudentLesson.objects.create(student=request.user, lesson=lesson)
+        student_lesson.score = summ
+        student_lesson.max_score = max_summ
+        student_lesson.is_finished = True
+        student_lesson.has_perm = False
+        student_lesson.save()
 
         try:
             tasks = LessonTask.objects.filter(student=request.user, lesson=lesson, is_finished=False)
