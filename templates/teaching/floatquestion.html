@@ -1,32 +1,28 @@
-{% extends 'base_regular.html' %}
+{% extends 'teaching/block_base.html' %}
 
-{% block content %}
+{% block block-content %}
+
+    <p class="lead">Задача #{{ floatquestion.id }}</p>
+    <p>{{ floatquestion.rendered_question_text|safe }}</p>
+    {% if floatquestion.image %}
+        <p class="text-xs-center">
+            <img src="{{ floatquestion.image.url }}">
+        </p>
+    {% endif %}
+    <hr/>
     <div class="row">
-        <div class="col-xs-12">
-            {% include "components/blocks/progressbar.html" %}
-            <div class="card">
-                <div class="card-block">
-                    <p class="lead">Задача #{{ floatquestion.id }}</p>
-                    <p>{{ floatquestion.rendered_question_text|safe }}</p>
-                    {% if floatquestion.image %}
-                        <p class="text-xs-center">
-                            <img src="{{ floatquestion.image.url }}" height="420">
-                        </p>
-                    {% endif %}
-                    <hr/>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input id="answerfield" class="form-control" type="text" name="answer" placeholder="Введите ответ">
-                        </div>
-                    </div>
-                    <hr>
-                    <div id="buttons">
-                        <button id="answer-action" class="btn btn-primary" disabled>Проверить</button>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-4">
+            <input id="answerfield" class="form-control" type="text" name="answer" placeholder="Введите ответ">
         </div>
     </div>
+    <hr>
+    <div id="buttons">
+        <button id="answer-action" class="btn btn-primary" disabled>Проверить</button>
+    </div>
+
+{% endblock %}
+
+{% block block-scripts %}
 
     <script>
         {% if lesson %}

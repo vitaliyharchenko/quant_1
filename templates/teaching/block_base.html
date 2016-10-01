@@ -1,0 +1,20 @@
+{% extends 'base_regular.html' %}
+{% load django_markdown %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+            {% include "components/blocks/progressbar.html" %}
+            <div class="card">
+                <div class="card-block">
+                    {% block block-content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block block-scripts %}{% endblock %}
+
+{% endblock %}

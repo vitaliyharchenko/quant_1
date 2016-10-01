@@ -1,66 +1,57 @@
-{% extends 'base_regular.html' %}
+{% extends 'teaching/block_base.html' %}
 
-{% block content %}
+{% block block-content %}
 
-<div class="row">
-    <div class="col-xs-12">
-        {% include "components/blocks/progressbar.html" %}
-        <div class="card">
-            <div class="card-block">
-                <p class="lead">Тестовый вопрос #{{ choicequestion.id }}</p>
-                <p>{{ choicequestion.rendered_question_text|safe }}</p>
-                {% if choicequestion.image %}
-                    <p class="text-xs-center">
-                        <img src="{{ choicequestion.image.url }}">
-                    </p>
-                {% endif %}
-                <hr/>
-                <form id="exerciseFrom" method="post" action="">
-                    {% csrf_token %}
-                    {% for option in choicequestionoptions %}
-                        <div class="checkbox {% if option.id in correct_choices%}has-success{% endif %} {% if option.id in false_choices%}has-danger{% endif %} {% if option.id in false_not_choices%}has-warning{% endif %}">
-                            <label for="">
-                                <input type="checkbox" name="choices" value="{{ option.id }}" {% if option.id in correct_choices or option.id in false_choices %}checked{% endif %} {% if is_answered %}disabled{% endif %}/>
-                                {{ option.option_text }}
-                                {% if option.option_image %}
-                                    <img src="{{ option.option_image.url }}">
-                                {% endif %}
-                                {% if option.id in correct_choices %}
-                                    {% if option.option_image %}(Правильно!){% endif %}{% if option.help_text %}({{ option.help_text }}){% endif %}
-                                {% elif option.id in false_choices %}
-                                    (Ошибочный выбор) {% if option.help_text %}({{ option.help_text }}){% endif %}
-                                {% elif option.id in false_not_choices %}
-                                    (Верный ответ) {% if option.help_text %}({{ option.help_text }}){% endif %}
-                                {% endif %}
-                            </label>
-                        </div>
-                    {% endfor %}
-                    <hr/>
-                    {% if is_answered %}
-                        {% if last_block %}
-                            {% if test_id %}
-                                <a href="{% url 'test_final_view' test_id %}" class="btn btn-primary btn-lg">Конец теста</a>
-                            {% elif lesson %}
-                                <a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Закончить урок</a>
-                            {% endif %}
-                        {% else %}
-                            {% if test_id %}
-                                <a href="{% url 'test_block_view' test_id next_block_num %}" class="btn btn-primary">Следующий вопрос ></a>
-                            {% elif lesson %}
-                                <a href="{% url 'lesson_block_view' lesson.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок ></a>
-                            {% else %}
-                                <a href="{% url 'block_view' choicequestion.id|add:"1" %}">Следующий блок</a>
-                                <br>
-                                <a href="http://quant.zone/admin/teaching/choicequestion/{{ choicequestion.pk }}/change/">Редактировать</a>
-                            {% endif %}
-                        {% endif %}
-                    {% else %}
-                        <button class="btn btn-warning" type="submit">Ответить</button>
+    <p class="lead">Тестовый вопрос #{{ choicequestion.id }}</p>
+    <p>{{ choicequestion.rendered_question_text|safe }}</p>
+    {% if choicequestion.image %}
+        <p class="text-xs-center">
+            <img src="{{ choicequestion.image.url }}">
+        </p>
+    {% endif %}
+    <hr/>
+    <form id="exerciseFrom" method="post" action="">
+        {% csrf_token %}
+        {% for option in choicequestionoptions %}
+            <div class="checkbox {% if option.id in correct_choices%}has-success{% endif %} {% if option.id in false_choices%}has-danger{% endif %} {% if option.id in false_not_choices%}has-warning{% endif %}">
+                <label for="">
+                    <input type="checkbox" name="choices" value="{{ option.id }}" {% if option.id in correct_choices or option.id in false_choices %}checked{% endif %} {% if is_answered %}disabled{% endif %}/>
+                    {{ option.option_text }}
+                    {% if option.option_image %}
+                        <img src="{{ option.option_image.url }}">
                     {% endif %}
-                </form>
+                    {% if option.id in correct_choices %}
+                        {% if option.option_image %}(Правильно!){% endif %}{% if option.help_text %}({{ option.help_text }}){% endif %}
+                    {% elif option.id in false_choices %}
+                        (Ошибочный выбор) {% if option.help_text %}({{ option.help_text }}){% endif %}
+                    {% elif option.id in false_not_choices %}
+                        (Верный ответ) {% if option.help_text %}({{ option.help_text }}){% endif %}
+                    {% endif %}
+                </label>
             </div>
-        </div>
-    </div>
-</div>
+        {% endfor %}
+        <hr/>
+        {% if is_answered %}
+            {% if last_block %}
+                {% if test_id %}
+                    <a href="{% url 'test_final_view' test_id %}" class="btn btn-primary btn-lg">Конец теста</a>
+                {% elif lesson %}
+                    <a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Закончить урок</a>
+                {% endif %}
+            {% else %}
+                {% if test_id %}
+                    <a href="{% url 'test_block_view' test_id next_block_num %}" class="btn btn-primary">Следующий вопрос ></a>
+                {% elif lesson %}
+                    <a href="{% url 'lesson_block_view' lesson.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок ></a>
+                {% else %}
+                    <a href="{% url 'block_view' choicequestion.id|add:"1" %}">Следующий блок</a>
+                    <br>
+                    <a href="http://quant.zone/admin/teaching/choicequestion/{{ choicequestion.pk }}/change/">Редактировать</a>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <button class="btn btn-warning" type="submit">Ответить</button>
+        {% endif %}
+    </form>
 
 {% endblock %}
