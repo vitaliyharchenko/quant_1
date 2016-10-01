@@ -322,7 +322,6 @@ def choicequestion_handler(request, choicequestion, extra_args):
 def floatquestion_handler(request, floatquestion, extra_args):
     if request.method == "POST":
         # Works if we catch answer
-        args = extra_args
         our_answer = request.POST.get('answer', '')
         our_answer = float(our_answer)
         max_score = 3
