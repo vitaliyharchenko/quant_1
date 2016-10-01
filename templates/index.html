@@ -25,15 +25,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                <div class="card">
-                    <div class="card-block text-xs-center">
-                        <img src="http://dummyimage.com/460x160" width="100%"/>
-                        <hr/>
-                        <h3>Физика</h3>
+            {% for subject in subjects %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                    <div class="card">
+                        <div class="card-block text-xs-center">
+                            <img src="{{ subject.image.url }}" width="100%"/>
+                            <hr/>
+                            <h3>{{ subject.title }}</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
 
         <hr/>
@@ -46,40 +48,30 @@
 
         <div class="row">
             <div class="col-xs-6 col-sm-3 col-md-3 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
-
-                <p class="lead">100%</p>
-
-                <p class="lead">Сдают экзамены</p>
+                <hr>
+                <p class="lead">100% Сдают экзамены</p>
             </div>
             <div class="col-xs-6 col-sm-3 col-md-3 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
-
-                <p class="lead">100%</p>
-
-                <p class="lead">Сдают экзамены</p>
+                <hr>
+                <p class="lead">Для всех возрастов</p>
             </div>
             <div class="col-xs-6 col-sm-3 col-md-3 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
-
-                <p class="lead">100%</p>
-
-                <p class="lead">Сдают экзамены</p>
+                <hr>
+                <p class="lead">В удобной форме</p>
             </div>
             <div class="col-xs-6 col-sm-3 col-md-3 text-xs-center"><img src="http://dummyimage.com/120x120" alt="">
-
-                <p class="lead">100%</p>
-
-                <p class="lead">Сдают экзамены</p>
+                <hr>
+                <p class="lead">В контакте с учителем</p>
             </div>
         </div>
 
-        <hr/>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="page-header">Как это работает?</h2>
-
-                <div class="text-center"><img src="http://dummyimage.com/1200x600" alt="" width="100%"></div>
-            </div>
-        </div>
+{#        <div class="row">#}
+{#            <div class="col-md-12">#}
+{#                <h2 class="page-header">Как это работает?</h2>#}
+{##}
+{#                <div class="text-center"><img src="http://dummyimage.com/1200x600" alt="" width="100%"></div>#}
+{#            </div>#}
+{#        </div>#}
 
 {#        <hr/>#}
 {#        <div class="row">#}

@@ -13,6 +13,7 @@ class Subject(models.Model):
         verbose_name_plural = 'Предметы'
 
     title = models.TextField()
+    image = models.ImageField('Картинка', upload_to='subjects/', null=True, blank=True)
 
     def __str__(self):
         return self.title
