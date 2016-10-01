@@ -50,7 +50,7 @@
                         },
                         async: true,
                         success: function (responseData, textStatus) {
-                            tpl = tpl + '&nbsp;&nbsp;<a>' + responseData + '</a>'
+                            tpl = '<p class="text-muted">' + responseData + '</p>' + tpl
                             $('#buttons').fadeOut('slow', function () {
                                 $('#buttons').replaceWith(tpl);
                             });
