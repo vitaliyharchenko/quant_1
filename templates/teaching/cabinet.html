@@ -1,0 +1,27 @@
+{% extends 'base_regular.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Кабинет учителя</li>
+        </ol>
+        {% for studentteacher in studentteachers %}
+            <div class="card">
+                <div class="card-block">
+                    <a href="{% url 'user_view' studentteacher.student.pk %}">
+                        <p class="lead">{{ studentteacher.student }}</p>
+                    </a>
+                    <hr>
+                    <h4>Задания</h4>
+                    {% for task in studentteacher.tasks %}
+                        <p><b>{{ task.lesson.title }}</b>, до {{ task.datetime_to }}, {% if task.is_finished %}ВЫПОЛНИЛ {{ task.studentlesson.score }}/{{ task.studentlesson.max_score }} баллов{% else %}не сделал{% endif %}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

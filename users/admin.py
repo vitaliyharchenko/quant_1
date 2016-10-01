@@ -7,6 +7,7 @@ from teaching.models import LessonTask
 
 class LessonTaskInline(admin.TabularInline):
     model = LessonTask
+    fk_name = 'student'
     extra = 1
 
 

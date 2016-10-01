@@ -19,6 +19,21 @@ class Subject(models.Model):
         return self.title
 
 
+# Связь ученика с учителем
+class StudentTeacher(models.Model):
+    class Meta:
+        verbose_name = 'Связь ученика с учителем'
+
+    student = models.ForeignKey(User, related_name=u'student')
+    teacher = models.ForeignKey(User, related_name=u'teacher')
+
+    def __str__(self):
+        return u'{} in "{}"'.format(self.student, self.teacher)
+
+    def tasks(self):
+        return LessonTask.objects.filter(student=self.student)
+
+
 # учебный день
 class Lesson(models.Model):
     class Meta():
@@ -298,7 +313,8 @@ class Task(models.Model):
         verbose_name = 'Домашнее задание'
         verbose_name_plural = 'Домашние задания'
 
-    student = models.ForeignKey(User)
+    student = models.ForeignKey(User, related_name='task_student')
+    teacher = models.ForeignKey(User, related_name='task_teacher')
     datetime = models.DateTimeField(null=True, blank=True)
     datetime_to = models.DateTimeField(null=True, blank=True)
     is_finished = models.BooleanField('Закончил?', default=False)
@@ -321,6 +337,7 @@ class LessonTask(Task):
         verbose_name_plural = 'Домашние задания, уроки'
 
     lesson = models.ForeignKey(Lesson)
+    studentlesson = models.ForeignKey(StudentLesson, blank=True, null=True)
 
     def __str__(self):
         return u'For {}, "{}"'.format(self.student, self.lesson)

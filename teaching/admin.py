@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import ChoiceQuestion, ChoiceQuestionOption, BlockResult, ChoiceQuestionResult, Test, TestResult, \
     Group, StudentGroup, Lesson, GroupLesson, TextBlock, Subject, Task, StudentGroupLesson, FloatQuestion, Course, \
-    StudentCourse, ModuleLesson, StudentLesson, LessonBlock, Module, CourseModule, LessonTask
+    StudentCourse, ModuleLesson, StudentLesson, LessonBlock, Module, CourseModule, LessonTask, StudentTeacher
 
 
 class ChoiceQuestionOptionInline(admin.TabularInline):
@@ -51,6 +51,8 @@ admin.site.register(TestResult)
 
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(StudentLesson)
+
+admin.site.register(StudentTeacher)
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(StudentCourse)

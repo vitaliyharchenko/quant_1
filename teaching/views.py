@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
 from .models import ChoiceQuestion, ChoiceQuestionOption, Block, BlockResult, ChoiceQuestionResult, Test, TestResult, \
     StudentGroup, Group, Lesson, GroupLesson, Task, StudentGroupLesson, GroupLessonTask, FloatQuestionResult, \
-    FloatQuestion, StudentCourse, Course, StudentLesson, LessonBlock, LessonTask
+    FloatQuestion, StudentCourse, Course, StudentLesson, LessonBlock, LessonTask, StudentTeacher
 
 
 # TODO: resolve differrent types of tasks
@@ -12,6 +12,17 @@ def tasks_view(request):
     tasks = LessonTask.objects.filter(student=request.user, is_finished=False)
     args = {'tasks': tasks}
     return render(request, 'teaching/tasks.html', args)
+
+
+@login_required
+def cabinet_view(request):
+    if request.user.is_teacher:
+        studentteachers = StudentTeacher.objects.filter(teacher=request.user)
+        args = {'studentteachers': studentteachers}
+        return render(request, 'teaching/cabinet.html', args)
+    else:
+        messages.warning(request, 'Войдите как учитель')
+        return redirect('index_view')
 
 
 @login_required
@@ -132,25 +143,6 @@ def lesson_final_view(request, lesson_id):
         args['summ'] = summ
         args['max_summ'] = max_summ
 
-        # try:
-        #     student_lesson = StudentGroupLesson.objects.get(student=request.user, grouplesson__lesson=lesson)
-        #
-        #     student_lesson.score = summ
-        #     student_lesson.max_score = max_summ
-        #     student_lesson.is_finished = True
-        #     student_lesson.has_perm = False
-        #     student_lesson.save()
-        # except StudentGroupLesson.DoesNotExist:
-        #     pass
-
-        # try:
-        #     tasks = GroupLessonTask.objects.filter(student=request.user, grouplesson__lesson=lesson, is_finished=False)
-        #     for task in tasks:
-        #         task.is_finished = True
-        #         task.save()
-        # except GroupLessonTask.DoesNotExist:
-        #     pass
-
         try:
             student_lesson = StudentLesson.objects.get(student=request.user, lesson=lesson)
         except StudentLesson.DoesNotExist:
@@ -165,6 +157,7 @@ def lesson_final_view(request, lesson_id):
             tasks = LessonTask.objects.filter(student=request.user, lesson=lesson, is_finished=False)
             for task in tasks:
                 task.is_finished = True
+                task.studentlesson = StudentLesson.objects.get(student=request.user, lesson=lesson)
                 task.save()
         except LessonTask.DoesNotExist:
             pass
