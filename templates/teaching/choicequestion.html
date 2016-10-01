@@ -26,7 +26,7 @@
                                     <img src="{{ option.option_image.url }}">
                                 {% endif %}
                                 {% if option.id in correct_choices %}
-                                    {% if option.help_text %}({{ option.help_text }}){% endif %}
+                                    {% if option.option_image %}(Правильно!){% endif %}{% if option.help_text %}({{ option.help_text }}){% endif %}
                                 {% elif option.id in false_choices %}
                                     (Ошибочный выбор) {% if option.help_text %}({{ option.help_text }}){% endif %}
                                 {% elif option.id in false_not_choices %}
