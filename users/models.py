@@ -32,7 +32,7 @@ class User(AbstractBaseUser):
 
     vkuserid = models.IntegerField(unique=True, null=True, blank=True)
 
-    bdate = models.DateField()
+    bdate = models.DateField(u'Дата рождения', help_text=u'В формате ДД.ММ.ГГГГ')
     first_name = models.CharField(u'Имя', max_length=120)
     last_name = models.CharField(u'Фамилия', max_length=120)
     sex = models.CharField(max_length=1, choices=(('m', 'мужской'), ('f', 'женский')), verbose_name='Пол')

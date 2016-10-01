@@ -1,5 +1,6 @@
 beautifulsoup4==4.5.1
 Django==1.10.1
+django-bootstrap-form==3.2.1
 django-markdown-app==0.8.6
 Markdown==2.6.6
 Pillow==3.3.1

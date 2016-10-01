@@ -1,6 +1,6 @@
 {% extends "base_regular.html" %}
 {% load globaltags %}
-
+{% load bootstrap %}
 
 {% block content %}
     <div class="row">
@@ -17,7 +17,7 @@
                     <div class="row">
                         <form action="" method="post" enctype='multipart/form-data' action="{% url 'reg_view' %}")>
                             {% csrf_token %}
-                            {{ form.as_p }}
+                            {{ form|bootstrap }}
                             <button class="btn btn-primary btn-block" type="submit">Зарегистрироваться</button>
                         </form>
                     </div>
