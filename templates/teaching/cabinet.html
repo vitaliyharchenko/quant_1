@@ -14,10 +14,25 @@
                         <p class="lead">{{ studentteacher.student }}</p>
                     </a>
                     <hr>
-                    <h4>Задания</h4>
-                    {% for task in studentteacher.tasks %}
-                        <p><b>{{ task.lesson.title }}</b>, до {{ task.datetime_to }}, {% if task.is_finished %}ВЫПОЛНИЛ {{ task.studentlesson.score }}/{{ task.studentlesson.max_score }} баллов{% else %}не сделал{% endif %}</p>
-                    {% endfor %}
+                    <p class="lead">Задания</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Урок</th>
+                                <th>Срок выполнения</th>
+                                <th>Результат домашки</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for task in studentteacher.tasks %}
+                            <tr>
+                                <td>{{ task.lesson.title }}</td>
+                                <td>{{ task.datetime_to }}</td>
+                                <td>{% if task.is_finished %}ВЫПОЛНИЛ {{ task.studentlesson.score }}/{{ task.studentlesson.max_score }} баллов{% else %}не сделал{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         {% endfor %}
