@@ -41,7 +41,7 @@
                             {% if test_id %}
                                 <a href="{% url 'test_final_view' test_id %}" class="btn btn-primary btn-lg">Конец теста</a>
                             {% elif lesson %}
-                                <a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Конец урока</a>
+                                <a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Закончить урок</a>
                             {% endif %}
                         {% else %}
                             {% if test_id %}

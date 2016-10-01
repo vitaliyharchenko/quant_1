@@ -36,7 +36,7 @@
                     answer = answer.replace(/,/g, '.');
 
                     {% if last_block %}
-                        var tpl = '<a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Конец урока</a>';
+                        var tpl = '<a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Закончить урок</a>';
                     {% elif next_block_num %}
                         var tpl = '<a href="{% url 'lesson_block_view' lesson.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок ></a>';
                     {% endif %}
