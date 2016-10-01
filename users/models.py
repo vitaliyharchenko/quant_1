@@ -54,7 +54,7 @@ class User(AbstractBaseUser):
         verbose_name_plural = 'пользователи'
 
     def get_absolute_url(self):
-        return "/users/%i" % self.id
+        return "/user/%i" % self.id
 
     def get_full_name(self):
         return u'{} {}'.format(self.first_name, self.last_name)
