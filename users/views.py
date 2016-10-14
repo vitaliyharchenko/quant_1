@@ -30,7 +30,6 @@ def logout_view(request):
 
 @csrf_protect
 def login_view(request):
-
     if request.user.is_authenticated():
         return redirect('index_view')
     shortcut = lambda: render(request, 'login.html', {"form": form})
@@ -101,7 +100,8 @@ def reg_view(request):
             new_activation.save()
             mailing.confirm_email(email, activation_key)
 
-            messages.warning(request, "Пожалуйста, активируйте ваш профиль, перейдя по ссылке в письме на вашем почтовом ящике")
+            messages.warning(request,
+                             "Пожалуйста, активируйте ваш профиль, перейдя по ссылке в письме на вашем почтовом ящике")
             # user = auth.authenticate(username=email, password=password)
             # auth.login(request, user)
 
@@ -226,6 +226,17 @@ def resetpass_view(request):
                 user = User.objects.get(email=email)
             except User.DoesNotExist:
                 messages.warning(request, "Такого адреса нет в базе!")
+                return shortcut()
+            if not user.is_active:
+                messages.warning(request, "Ваш аккаунт еще не активирован")
+                UserActivation.objects.filter(user=user).delete()
+                activation_key = signing.dumps({'email': email})
+                new_activation = UserActivation(user=user, activation_key=activation_key,
+                                                request_time=timezone.now())
+                new_activation.save()
+                mailing.confirm_email(email, activation_key)
+                messages.warning(request,
+                                 "Мы отправили вам новое письмо для активации")
                 return shortcut()
             user.set_password(new_pass)
             user.save()
