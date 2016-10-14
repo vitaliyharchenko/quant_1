@@ -106,8 +106,7 @@ def perm_for_lesson(request, lesson):
             has_perm = True
     if request.user.is_staff:
         has_perm = True
-    # return has_perm
-    return True
+    return has_perm
 
 
 @login_required
