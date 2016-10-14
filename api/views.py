@@ -74,6 +74,7 @@ def lessontask_create(request):
             student=student,
             teacher=teacher,
             datetime_to=datetime_to,
+            datetime=datetime.datetime.now(),
             lesson=lesson,
             studentlesson=studentlesson
         )
