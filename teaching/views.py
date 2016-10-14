@@ -116,6 +116,9 @@ def lesson_view(request, lesson_id):
 
     if perm_for_lesson(request, lesson):
         args = {'lesson': lesson}
+        if request.user.is_teacher:
+            studentteachers = StudentTeacher.objects.filter(teacher=request.user)
+            args['studentteachers'] = studentteachers
         return render(request, 'teaching/lesson.html', args)
     else:
         messages.warning(request, 'Нет доступа к уроку')
