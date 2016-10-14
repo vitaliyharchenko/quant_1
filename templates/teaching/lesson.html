@@ -14,28 +14,34 @@
                     <a href="{% url 'lesson_block_view' lesson.pk 1 %}" class="btn btn-primary btn-lg">Начать</a>
                     {% if current_user.is_teacher %}
                         <hr>
-                        <p>Задать как домашку</p>
-                        <div class="form-group">
-                            <label>Выберите ученика</label>
-                            <select class="form-control" id="student_id">
-                                {% for studentteacher in studentteachers %}
-                                    <option value="{{ studentteacher.student.id }}">{{ studentteacher.student }}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="card">
+                            <div class="card-header">
+                                Задать как домашку
+                            </div>
+                            <div class="card-block">
+                                <div class="form-group">
+                                    <label>Выберите ученика</label>
+                                    <select class="form-control" id="student_id">
+                                        {% for studentteacher in studentteachers %}
+                                            <option value="{{ studentteacher.student.id }}">{{ studentteacher.student }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Дней на выполнение задания</label>
+                                    <select class="form-control" id="days">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6" selected>6</option>
+                                        <option value="7">7</option>
+                                    </select>
+                                </div>
+                                <button id="homework" class="btn btn-primary">Задать домашку</button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Дней на выполнение задания</label>
-                            <select class="form-control" id="days">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6" selected>6</option>
-                                <option value="7">7</option>
-                            </select>
-                        </div>
-                        <a id="homework" class="btn btn-primary">Задать домашку</a>
                     {% endif %}
                 </div>
             </div>
