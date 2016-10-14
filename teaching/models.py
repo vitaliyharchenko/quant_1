@@ -31,7 +31,7 @@ class StudentTeacher(models.Model):
         return u'{} in "{}"'.format(self.student, self.teacher)
 
     def tasks(self):
-        return LessonTask.objects.filter(student=self.student)
+        return LessonTask.objects.filter(student=self.student).order_by('datetime')
 
 
 # учебный день

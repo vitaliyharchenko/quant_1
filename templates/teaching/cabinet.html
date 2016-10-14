@@ -7,37 +7,43 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active">Кабинет учителя</li>
         </ol>
-        {% for studentteacher in studentteachers %}
-            <div class="card">
-                <div class="card-block">
-                    <a href="{% url 'user_view' studentteacher.student.pk %}">
-                        <p class="lead">{{ studentteacher.student }}</p>
-                    </a>
-                    <hr>
-                    {% if studentteacher.tasks.count > 0 %}
-                        <p class="lead">Задания</p>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Урок</th>
-                                    <th>Срок выполнения</th>
-                                    <th>Результат домашки</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for task in studentteacher.tasks %}
-                                <tr>
-                                    <td>{{ task.lesson.title }}</td>
-                                    <td>{{ task.datetime_to }}</td>
-                                    <td>{% if task.is_finished %}ВЫПОЛНИЛ {{ task.studentlesson.score }}/{{ task.studentlesson.max_score }} баллов{% else %}не сделал{% endif %}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    {% endif %}
+        <div id="accordion" aria-multiselectable="true">
+            {% for studentteacher in studentteachers %}
+                <div class="card">
+                    <div class="card-header">
+                        <a href="{% url 'user_view' studentteacher.student.pk %}">
+                            <span class="lead">{{ studentteacher.student }}</span>
+                        </a>
+                        <a data-toggle="collapse" href="#collapse{{ studentteacher.pk }}" aria-expanded="true" aria-controls="collapse{{ studentteacher.pk }}">
+                            Открыть
+                        </a>
+                    </div>
+                    <div id="collapse{{ studentteacher.pk }}" class="card-collapse collapse card-block" role="tabpanel">
+                        {% if studentteacher.tasks.count > 0 %}
+                            <p class="lead">Задания</p>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Урок</th>
+                                        <th>Срок выполнения</th>
+                                        <th>Результат домашки</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for task in studentteacher.tasks %}
+                                    <tr>
+                                        <td><a href="{% url 'lesson_view' task.lesson.id %}" target="_blank">{{ task.lesson.title }}</a></td>
+                                        <td>{{ task.datetime_to }}</td>
+                                        <td>{% if task.is_finished %}ВЫПОЛНИЛ {{ task.studentlesson.score }}/{{ task.studentlesson.max_score }} баллов{% else %}не сделал{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 </div>
 
