@@ -7,6 +7,7 @@ var
     sass = require('gulp-sass'),
     uglify = require('gulp-uglify'),
     clean = require('gulp-clean'),
+    imagemin = require('gulp-imagemin'),
     rigger = require('gulp-rigger');
 
 // source and distribution folder
@@ -47,6 +48,13 @@ var js = {
     clean: dest + 'js/'
 };
 
+var img = {
+    in: source + 'images/**/*',
+    out: dest + 'images/',
+    watch: source + 'images/**/*',
+    clean: dest + 'images/'
+};
+
 // copy bootstrap required fonts to dest
 gulp.task('fonts', function () {
     return gulp
@@ -69,10 +77,18 @@ gulp.task('js', function () {
         .pipe(gulp.dest(js.out));
 });
 
+// compile img
+gulp.task('images', function () {
+    return gulp.src(img.in)
+        .pipe(imagemin())
+        .pipe(gulp.dest(img.out));
+});
+
 // TODO: clear task
 
 // default task
-gulp.task('default', ['sass', 'js'], function () {
+gulp.task('default', ['sass', 'js', 'images'], function () {
      gulp.watch(scss.watch, ['sass']);
      gulp.watch(js.watch, ['js']);
+     gulp.watch(img.watch, ['images']);
 });
