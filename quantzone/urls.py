@@ -20,6 +20,7 @@ from quantzone import settings
 import api.urls
 import users.urls
 import teaching.urls
+import pages.urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,5 +30,6 @@ urlpatterns = [
 urlpatterns += api.urls.urlpatterns
 urlpatterns += users.urls.urlpatterns
 urlpatterns += teaching.urls.urlpatterns
+urlpatterns += pages.urls.urlpatterns
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

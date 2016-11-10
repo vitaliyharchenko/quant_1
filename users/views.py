@@ -10,13 +10,6 @@ from django.views.decorators.csrf import csrf_protect
 from utils import mailing, vkontakte
 from .forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, ChangePasswordForm, ResetPassForm
 from .models import User, UserActivation
-from teaching.models import Subject
-
-
-# Create your views here.
-def index_view(request):
-    subjects = Subject.objects.all()
-    return render(request, 'index.html', {'subjects': subjects})
 
 
 @csrf_protect
