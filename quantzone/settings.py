@@ -124,4 +124,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'info@sportcourts.ru'
 EMAIL_HOST_PASSWORD = 'courtssport2'
-EMAIL_SUBJECT_PREFIX = '[PHYSICUM] '
+EMAIL_SUBJECT_PREFIX = '[Quant] '
