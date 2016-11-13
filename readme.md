@@ -9,7 +9,7 @@ Quant.zone
 
 **Requirements for frontend:** package.json
 
-## Init:
+## Local dev:
 
 1. Git clone
 
