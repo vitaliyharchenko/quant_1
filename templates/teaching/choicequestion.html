@@ -13,8 +13,8 @@
     <form id="exerciseFrom" method="post" action="">
         {% csrf_token %}
         {% for option in choicequestionoptions %}
-            <div class="checkbox {% if option.id in correct_choices%}has-success{% endif %} {% if option.id in false_choices%}has-danger{% endif %} {% if option.id in false_not_choices%}has-warning{% endif %}">
-                <label for="">
+            <div class="form-check {% if option.id in correct_choices%}has-success{% endif %} {% if option.id in false_choices%}has-danger{% endif %} {% if option.id in false_not_choices%}has-warning{% endif %}">
+                <label class="form-check-label" for="">
                     <input type="checkbox" name="choices" value="{{ option.id }}" {% if option.id in correct_choices or option.id in false_choices %}checked{% endif %} {% if is_answered %}disabled{% endif %}/>
                     {{ option.option_text }}
                     {% if option.option_image %}
