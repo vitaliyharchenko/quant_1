@@ -1,15 +1,25 @@
 {% extends 'teaching/block_base.html' %}
-{% load django_markdown %}
+
+{% load globaltags %}
 
 {% block block-content %}
 
-    <h1 class="hidden-sm-down">{{ textblock.title }}</h1>
-    <h1 class="hidden-sm-up h2">{{ textblock.title }}</h1>
-    <hr>
-    <div class="paragraph-body">{{ textblock.rendered_content|safe }}</div>
+    <p class="lead">Задача #{{ float_block.id }}</p>
+    <p>{{ float_block.question_text|markdown_rendered|safe }}</p>
+    {% if float_block.image %}
+        <p class="text-xs-center">
+            <img src="{{ float_block.image.url }}">
+        </p>
+    {% endif %}
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <input id="answerfield" class="form-control" type="text" name="answer" placeholder="Введите ответ">
+        </div>
+    </div>
     <hr>
     <div id="buttons">
-        <button id="read-action" class="btn btn-primary">Я прочитал</button>
+        <button id="answer-action" class="btn btn-primary" disabled>Проверить</button>
     </div>
 
 {% endblock %}
@@ -19,7 +29,9 @@
     <script>
         {% if lesson %}
             $(document).ready(function() {
-                $('#read-action').click(function() {
+                $('#answer-action').click(function() {
+                    var answer = $("#answerfield").val();
+                    answer = answer.replace(/,/g, '.');
 
                     {% if last_block %}
                         var tpl = '<a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Закончить урок</a>';
@@ -31,10 +43,12 @@
                         url: '{% url "lesson_block_view" lesson.pk block_num %}',
                         data: {
                             csrfmiddlewaretoken: '{{ csrf_token }}',
-                            action: 'read'
+                            action: 'answer',
+                            answer: answer
                         },
                         async: true,
                         success: function (responseData, textStatus) {
+                            tpl = '<p class="text-muted">' + responseData + '</p>' + tpl
                             $('#buttons').fadeOut('slow', function () {
                                 $('#buttons').replaceWith(tpl);
                             });
@@ -46,6 +60,15 @@
                         dataType: "text"
                     });
                 });
+            });
+
+            $(document).on('input', '#answerfield', function () {
+                var len = $("#answerfield").val().length;
+                if (len > 0) {
+                    $("#answer-action").attr('disabled', false);
+                } else {
+                    $("#answer-action").attr('disabled', true);
+                }
             });
         {% endif %}
     </script>

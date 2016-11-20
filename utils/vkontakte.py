@@ -12,13 +12,11 @@ class AuthError(Exception):
 
 
 # create login vk link
-def build_login_link(redirect_uri, host='', scope=''):
-    raw_link = 'https://oauth.vk.com/authorize?client_id={appid}&scope={scope}&display=popup&redirect_uri={host}{redirect_uri}&response_type=code&v=5.41'
-    if not host:
-        host = settings.CURRENT_HOST
+def build_login_link(redirect_uri, scope=''):
+    raw_link = "https://oauth.vk.com/authorize?client_id={appid}&scope={scope}&display=popup&redirect_uri={host}{redirect_uri}&response_type=code&v=5.41"
     if not redirect_uri.startswith('/'):
         redirect_uri = '/' + redirect_uri
-    raw_link = raw_link.format(scope=scope, host=host, redirect_uri=redirect_uri, appid=settings.VKONTAKTE_APP['APPID'])
+    raw_link = raw_link.format(scope=scope, host=settings.CURRENT_HOST, redirect_uri=redirect_uri, appid=settings.VKONTAKTE_APP['APPID'])
     return raw_link
 
 

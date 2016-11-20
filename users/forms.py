@@ -22,7 +22,7 @@ class UserRegistrationForm(forms.ModelForm):
                    }
 
     def clean_bdate(self):
-        bdate = self.cleaned_data.get("bdate")
+        bdate = self.cleaned_data.get("b_date")
         if timezone.now().date() - bdate < timezone.timedelta(days=3650):
             raise forms.ValidationError("Тебе меньше 10 лет, серьезно?")
         return bdate
@@ -52,7 +52,7 @@ class UserUpdateForm(forms.ModelForm):
         fields = User.UPDATE_FIELDS
 
     def clean_bdate(self):
-        bdate = self.cleaned_data.get("bdate")
+        bdate = self.cleaned_data.get("b_date")
         if timezone.now().date() - bdate < timezone.timedelta(days=3650):
             raise forms.ValidationError("Тебе меньше 10 лет, серьезно?")
         return bdate

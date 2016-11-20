@@ -17,19 +17,25 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 from quantzone import settings
-import api.urls
+import blocks.urls
+import courses.urls
 import users.urls
-import teaching.urls
+import lms.urls
+import nodes.urls
 import pages.urls
+import tasks.urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^markdown/', include('django_markdown.urls')),
 ]
 
-urlpatterns += api.urls.urlpatterns
+urlpatterns += blocks.urls.urlpatterns
+urlpatterns += courses.urls.urlpatterns
 urlpatterns += users.urls.urlpatterns
-urlpatterns += teaching.urls.urlpatterns
+urlpatterns += lms.urls.urlpatterns
+urlpatterns += nodes.urls.urlpatterns
 urlpatterns += pages.urls.urlpatterns
+urlpatterns += tasks.urls.urlpatterns
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

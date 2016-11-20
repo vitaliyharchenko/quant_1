@@ -17,7 +17,7 @@ except ImportError as e:
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -26,11 +26,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_markdown',
     'bootstrapform',
-    'users',
-    'api',
-    'teaching',
+    'blocks',
+    'courses',
+    'lms',
+    'nodes',
+    'pages',
+    'tasks',
     'utils',
-]
+    'users',
+)
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,7 +62,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'utils.context_processors.loggedin_user',
+                'utils.context_processors.logged_in_user',
                 'utils.context_processors.tasks_counter',
             ],
         },

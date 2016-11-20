@@ -1,5 +1,7 @@
 {% extends 'base_regular.html' %}
 
+{% load globaltags %}
+
 {% block content %}
 
     <div class="row">
@@ -7,9 +9,9 @@
             <div class="card">
                 <div class="card-block">
                     <h2>{{ lesson.title }}</h2>
-                    <p>Всего блоков в занятии: {{ lesson.lessonblocks|length }}</p>
+                    <p>Всего блоков в занятии: {{ lesson.lesson_block_relations|length }}</p>
                     <hr>
-                    {{ lesson.rendered_about|safe }}
+                    {{ lesson.about|markdown_rendered|safe }}
                     <hr>
                     <a href="{% url 'lesson_block_view' lesson.pk 1 %}" class="btn btn-primary btn-lg">Начать</a>
                     {% if current_user.is_teacher %}
@@ -22,8 +24,8 @@
                                 <div class="form-group">
                                     <label>Выберите ученика</label>
                                     <select class="form-control" id="student_id">
-                                        {% for studentteacher in studentteachers %}
-                                            <option value="{{ studentteacher.student.id }}">{{ studentteacher.student }}</option>
+                                        {% for student_teacher in student_teachers %}
+                                            <option value="{{ student_teacher.student.id }}">{{ student_teacher.student }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -59,7 +61,7 @@
                 console.log(days);
 
                 $.ajax({
-                    url: '{% url "lessontask_create" %}',
+                    url: '{% url "lesson_task_create" %}',
                     data: {
                         csrfmiddlewaretoken: '{{ csrf_token }}',
                         lesson_id: lesson_id,

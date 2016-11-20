@@ -24,11 +24,11 @@
                     </li>
                 {% endif %}
                 {% if current_user %}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="{% url 'groups_view' %}">Мои группы</a>#}
-{#                    </li>#}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'courses_view' %}">Курсы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lesson_view' 1 %}">Урок1</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'tasks_view' %}">
@@ -38,10 +38,6 @@
                             {% endif %}
                         </a>
                     </li>
-                {% endif %}
-            </ul>
-            <ul class="nav navbar-nav pull-sm-right">
-                {% if is_logged_in %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'user_view' current_user.id %}">{{ current_user.get_full_name }}</a>
                     </li>

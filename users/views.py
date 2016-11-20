@@ -26,11 +26,11 @@ def login_view(request):
     if request.user.is_authenticated():
         return redirect('index_view')
     shortcut = lambda: render(request, 'login.html', {"form": form})
+    return_path = request.META.get('HTTP_REFERER', '/')
 
     # regular email auth
     if request.method == "POST":
         form = UserLoginForm(request.POST or None)
-        return_path = request.META.get('HTTP_REFERER', '/')
         if form.is_valid:
             email = request.POST.get('email', '')
             password = request.POST.get('password', '')
@@ -52,7 +52,6 @@ def login_view(request):
     # vk return to this page with code
     elif 'code' in request.GET:
         code = request.GET['code']
-        return_path = request.META.get('HTTP_REFERER', '/')
         try:
             access_token, user_id = vkontakte.auth_code(code, reverse('login_view'))
         except vkontakte.AuthError as e:
@@ -60,7 +59,6 @@ def login_view(request):
             return redirect(return_path)
         try:
             user = User.objects.get(vkuserid=user_id)
-            # Bug fix
             user.last_login = timezone.now()
             user.save()
             user.backend = 'django.contrib.auth.backends.ModelBackend'
@@ -97,41 +95,34 @@ def reg_view(request):
                              "Пожалуйста, активируйте ваш профиль, перейдя по ссылке в письме на вашем почтовом ящике")
             # user = auth.authenticate(username=email, password=password)
             # auth.login(request, user)
-
-            return redirect('index_view')
+            #FIXME: congrats view
+            return redirect('reg_view')
         else:
             messages.warning(request, "Здесь есть неверно заполненные поля!")
             return render(request, 'reg.html', {'form': form})
-
-    # debug
-    # data = {'email': 'phys.teaching@gmail.com',
-    #         'first_name': 'Vit',
-    #         'last_name': 'Har',
-    #         'bdate': '21.12.1992'}
-    # return render(request, 'reg.html', {'form': UserRegistrationForm(data)})
     return render(request, 'reg.html', {'form': form})
 
 
 def reg_confirm(request, activation_key):
     try:
-        user_profile = UserActivation.objects.get(activation_key=activation_key)
+        user_activation = UserActivation.objects.get(activation_key=activation_key)
     except UserActivation.DoesNotExist:
         messages.warning(request, "Неверный код активации")
         return redirect('index_view')
-    if user_profile:
-        user_profile.confirm_time = timezone.now()
-        user_profile.save()
 
-        user = user_profile.user
-        user.is_active = True
-        user.save()
+    user_activation.confirm_time = timezone.now()
+    user_activation.save()
 
-        if not request.user.is_authenticated():
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
-            auth.login(request, user)
-            messages.success(request, "Поздравляем с успешной активацией!")
-        # TODO: send thanks-message on email
-        return redirect('index_view')
+    user = user_activation.user
+    user.is_active = True
+    user.save()
+
+    if not request.user.is_authenticated():
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        auth.login(request, user)
+        messages.success(request, "Поздравляем с успешной активацией!")
+    # TODO: send thanks-message on email
+    return redirect('index_view')
 
 
 def user_view(request, user_id):

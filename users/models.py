@@ -12,7 +12,7 @@ class UserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            bdate=extra_fields.pop("bdate", False)
+            b_date=extra_fields.pop("b_date", False)
         )
 
         user.set_password(password)
@@ -20,7 +20,6 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password, **extra_fields):
-
         user = self.create_user(email, password=password, **extra_fields)
         user.is_staff = True
         user.save(using=self._db)
@@ -29,24 +28,21 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
-
     vkuserid = models.IntegerField(unique=True, null=True, blank=True)
-
-    bdate = models.DateField(u'Дата рождения', help_text=u'В формате ДД.ММ.ГГГГ')
+    b_date = models.DateField(u'Дата рождения', help_text=u'В формате ДД.ММ.ГГГГ')
     first_name = models.CharField(u'Имя', max_length=120)
     last_name = models.CharField(u'Фамилия', max_length=120)
     sex = models.CharField(max_length=1, choices=(('m', 'мужской'), ('f', 'женский')), verbose_name='Пол')
 
     is_active = models.BooleanField(u'Активный', default=True)
     is_staff = models.BooleanField(u'Доступ к админке', default=False)
-
     is_teacher = models.BooleanField(u'Учитель', default=False)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'bdate', 'sex']
-    REGISTRATION_FIELDS = ['email'] + ['first_name', 'last_name', 'bdate', 'sex']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'b_date', 'sex']
+    REGISTRATION_FIELDS = ['email'] + REQUIRED_FIELDS
     UPDATE_FIELDS = REQUIRED_FIELDS
 
     class Meta:
@@ -66,12 +62,12 @@ class User(AbstractBaseUser):
         return u'{} {} ({})'.format(self.first_name, self.last_name, self.email)
 
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
+        # "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
+        # "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
 
@@ -86,4 +82,5 @@ class UserActivation(models.Model):
         return self.user.email
 
     class Meta:
-        verbose_name_plural = u'Активации'
+        verbose_name = u'Активациия пользователя'
+        verbose_name_plural = u'Активации пользователей'

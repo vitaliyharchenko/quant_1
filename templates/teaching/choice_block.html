@@ -1,20 +1,21 @@
 {% extends 'teaching/block_base.html' %}
+{% load globaltags %}
 
 {% block block-content %}
 
-    <p class="lead">Тестовый вопрос #{{ choicequestion.id }}</p>
-    <p>{{ choicequestion.rendered_question_text|safe }}</p>
-    {% if choicequestion.image %}
+    <p class="lead">Тестовый вопрос #{{ choice_block.id }}</p>
+    <p>{{ choice_block.question_text|markdown_rendered|safe }}</p>
+    {% if choice_block.image %}
         <p class="text-xs-center">
-            <img src="{{ choicequestion.image.url }}">
+            <img src="{{ choice_block.image.url }}">
         </p>
     {% endif %}
     <hr/>
     <form id="exerciseFrom" method="post" action="">
         {% csrf_token %}
-        {% for option in choicequestionoptions %}
+        {% for option in choice_block_options %}
             <div class="checkbox {% if option.id in correct_choices%}has-success{% endif %} {% if option.id in false_choices%}has-danger{% endif %} {% if option.id in false_not_choices%}has-warning{% endif %}">
-                <label for="">
+                <label class="form-check-label" for="">
                     <input type="checkbox" name="choices" value="{{ option.id }}" {% if option.id in correct_choices or option.id in false_choices %}checked{% endif %} {% if is_answered %}disabled{% endif %}/>
                     {{ option.option_text }}
                     {% if option.option_image %}

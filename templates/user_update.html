@@ -1,6 +1,7 @@
 {% extends 'base_regular.html' %}
 
 {% load globaltags %}
+{% load bootstrap %}
 
 {% block messages %}{% endblock %}
 
@@ -28,7 +29,7 @@
                     {% endif %}
                     <form method="post" action="{% url 'user_update_view' %}" enctype='multipart/form-data'>
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        {{ form|bootstrap }}
                         <button class="btn btn-primary" type="submit" name="saveinfo">Сохранить</button>
                     </form>
                 </div>
@@ -57,7 +58,7 @@
 
                     {% if current_user.vkuserid %}
                     <p>
-                        <a href="{% vkontakte_profile_link user.vkuserid %}" target="_blank">
+                        <a href="{% vk_profile_link user.vkuserid %}" target="_blank">
                             Профиль VK
                         </a>
                         &nbsp;
@@ -67,7 +68,7 @@
                     {% else %}
                         {% url 'user_update_view' as update_url %}
                         <p>
-                            <a href="{% vkontakte_auth_link update_url %}">+ связать свой аккаунт с вконтакте</a>
+                            <a href="{% vk_auth_link update_url %}">+ связать свой аккаунт с вконтакте</a>
                         </p>
                     {% endif %}
                 </div>
@@ -96,7 +97,7 @@
 
                     <form method="post" action="{% url 'user_changepass_view' %}" enctype='multipart/form-data'>
                         {% csrf_token %}
-                        {{ pass_form.as_p }}
+                        {{ pass_form|bootstrap }}
                         <button class="btn btn-primary" type="submit" name="changepass">Изменить пароль</button>
                     </form>
                 </div>

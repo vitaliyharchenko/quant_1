@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from teaching.models import Subject
+from nodes.models import Subject
 
 
 # Create your views here.
