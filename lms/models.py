@@ -1,5 +1,5 @@
 from django.db import models
-from nodes.models import Lesson
+from nodes.models import Lesson, Module
 from users.models import User
 from tasks.models import LessonTask
 
@@ -16,6 +16,16 @@ class StudentNode(models.Model):
 
     student = models.ForeignKey(User, verbose_name=u'Student')
     has_perm = models.BooleanField('Имеет доступ?', default=False)
+
+
+class StudentModule(StudentNode):
+    class Meta:
+        verbose_name = 'Связь ученика с уроком'
+
+    module = models.ForeignKey(Module)
+
+    def __str__(self):
+        return u'{} in "{}"'.format(self.student, self.module)
 
 
 class StudentLesson(StudentNode):
