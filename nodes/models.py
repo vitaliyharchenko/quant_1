@@ -78,8 +78,8 @@ class NodeRelation(models.Model):
         verbose_name = 'Связь между узлами'
         verbose_name_plural = 'Связи между узлами'
 
-    parent = models.ForeignKey(Unit, verbose_name=u'Parent', related_name=u'parent_in_node_relation')
-    child = models.ForeignKey(Unit, verbose_name=u'Child', related_name=u'child_in_node_relation')
+    parent = models.ForeignKey(Node, verbose_name=u'Parent', related_name=u'parent_in_node_relation')
+    child = models.ForeignKey(Node, verbose_name=u'Child', related_name=u'child_in_node_relation')
 
 
 class SubjectModuleRelation(NodeRelation):
