@@ -3,7 +3,7 @@ Quant.zone
 
 Наше LMS приложение
 
-**Requirements for local development:** Python 3.4, PostgreSQL, Gulp, NodeJS
+**Requirements for local development:** Python 3.4, PostgreSQL, Gulp, NodeJS, Graphviz
 
 **Requirements for python:** requirements.txt
 
@@ -43,6 +43,14 @@ Quant.zone
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
     )
+    ```
+
+3. Install Graphvis (http://django-extensions.readthedocs.io/en/latest/graph_models.html)
+
+    ```
+    pip install pygraphvis --install-option="--include-path=/usr/local/include/graphviz/" \
+    --install-option="--library-path=/usr/local/lib/graphviz"
+    pip install pydotplus
     ```
 
 ### Frontend:
@@ -106,6 +114,11 @@ Quant.zone
 
     ```
     python manage.py dumpdata --exclude contenttypes > db.json
+    ```
+
+7. Create png file with models relation
+    ```
+    python manage.py graph_models --pydot -a -g -o project_vis.png
     ```
 
 ## Deploy process

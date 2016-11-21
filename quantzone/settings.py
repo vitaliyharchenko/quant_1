@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'utils',
     'users',
     'results',
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = [
