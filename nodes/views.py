@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Lesson
 from lms.models import StudentLesson, StudentTeacher
 from blocks.models import BlockResult
-from nodes.models import LessonResult
+from results.models import LessonResult
 from tasks.models import LessonTask
 
 
@@ -26,6 +26,11 @@ def lesson_view(request, lesson_id):
     except Lesson.DoesNotExist:
         # TODO: add 404 page
         pass
+
+    if lesson.lesson_block_relations.count() == 0:
+        messages.warning(request, "Это пустой урок")
+        return_path = request.META.get('HTTP_REFERER', '/')
+        return redirect(return_path)
 
     if perm_for_lesson(request, lesson):
         args = {'lesson': lesson}

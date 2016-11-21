@@ -1,7 +1,6 @@
 from django.db import models
 from blocks.models import LessonBlockRelation
 from users.models import User
-from django.utils import timezone
 
 
 # Nodes - nodes of learning graph
@@ -99,21 +98,3 @@ class UnitLessonRelation(NodeRelation):
     class Meta:
         verbose_name = 'Связь между Unit и Lesson'
         verbose_name_plural = 'Связи между Unit и Lesson'
-
-
-# ============
-# LessonResult
-# ============
-class LessonResult(models.Model):
-    class Meta:
-        verbose_name = 'Результат урока'
-        verbose_name_plural = 'Результаты уроков'
-
-    student = models.ForeignKey(User)
-    lesson = models.ForeignKey(Lesson)
-    date = models.DateTimeField(default=timezone.now)
-    score = models.IntegerField(null=True, blank=True)
-    max_score = models.IntegerField()
-
-    def __str__(self):
-        return u'{}, {}, {}'.format(self.student, self.lesson, self.date)
