@@ -29,7 +29,7 @@ class Subject(Node):
 
     @property
     def subject_modules(self):
-        return SubjectModuleRelation.objects.filter(parent=self).order_by('order')
+        return SubjectModuleRelation.objects.filter(parent=self)
 
 
 class Module(Node):
@@ -38,8 +38,8 @@ class Module(Node):
         verbose_name_plural = 'Модули'
 
     @property
-    def module_units(self):
-        return ModuleUnitRelation.objects.filter(parent=self).order_by('order')
+    def module_unit_relations(self):
+        return ModuleUnitRelation.objects.filter(parent=self)
 
 
 class Unit(Node):
@@ -48,8 +48,8 @@ class Unit(Node):
         verbose_name_plural = 'Подразделы модулей'
 
     @property
-    def unit_lessons(self):
-        return UnitLessonRelation.objects.filter(parent=self).order_by('order')
+    def unit_lesson_relations(self):
+        return UnitLessonRelation.objects.filter(parent=self)
 
 
 class Lesson(Node):

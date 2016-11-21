@@ -2,14 +2,14 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Lesson
-from lms.models import StudentLesson, StudentTeacher
+from lms.models import StudentLessonRelation, StudentTeacherRelation
 from blocks.models import BlockResult
 from results.models import LessonResult
 from tasks.models import LessonTask
 
 
 def perm_for_lesson(request, lesson):
-    student_lessons = StudentLesson.objects.filter(student=request.user, lesson=lesson)
+    student_lessons = StudentLessonRelation.objects.filter(student=request.user, lesson=lesson)
     has_perm = False
     for student_lesson in student_lessons:
         if student_lesson.has_perm:
@@ -35,7 +35,7 @@ def lesson_view(request, lesson_id):
     if perm_for_lesson(request, lesson):
         args = {'lesson': lesson}
         if request.user.is_teacher:
-            student_teachers = StudentTeacher.objects.filter(teacher=request.user)
+            student_teachers = StudentTeacherRelation.objects.filter(teacher=request.user)
             args['student_teachers'] = student_teachers
         return render(request, 'teaching/lesson.html', args)
     else:
@@ -66,9 +66,9 @@ def lesson_final_view(request, lesson_id):
         args['max_summ'] = max_summ
 
         try:
-            student_lesson = StudentLesson.objects.get(student=request.user, lesson=lesson)
-        except StudentLesson.DoesNotExist:
-            student_lesson = StudentLesson.objects.create(student=request.user, lesson=lesson)
+            student_lesson = StudentLessonRelation.objects.get(student=request.user, lesson=lesson)
+        except StudentLessonRelation.DoesNotExist:
+            student_lesson = StudentLessonRelation.objects.create(student=request.user, lesson=lesson)
         student_lesson.is_finished = True
         student_lesson.save()
 

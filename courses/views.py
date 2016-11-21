@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Course, StudentCourse
+from .models import Course, StudentCourseRelation
 
 
 @login_required
@@ -16,9 +16,9 @@ def course_view(request, course_id):
     args = {'course': course}
 
     try:
-        student_course = StudentCourse.objects.get(student=request.user, course=course)
+        student_course = StudentCourseRelation.objects.get(student=request.user, course=course)
         args['student_course'] = student_course
-    except StudentCourse.DoesNotExist:
+    except StudentCourseRelation.DoesNotExist:
         pass
 
     return render(request, 'teaching/course.html', args)

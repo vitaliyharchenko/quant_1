@@ -14,7 +14,7 @@
                     <div class="col-md-6">
                         <h1>{{ course.title }}</h1>
                         <p>Предмет: {{ course.subject }}</p>
-                        <p>Учеников: {{ course.studentcourses|length }}</p>
+                        <p>Учеников: {{ course.student_courses|length }}</p>
                     </div>
                     <div class="col-md-6">
                         <div class="card">
@@ -25,33 +25,35 @@
                         </div>
                     </div>
                 </div>
-                {% if not studentcourse %}
+                {% if not student_course and current_user != course.owner %}
                     <div class="row">
                         <div class="col-xs-12 text-xs-center"><br>
-                            <a href="" class="btn btn-primary" disabled data-toggle="tooltip" data-placement="top" title="Пока недоступно">Начать учиться</a>
+                            <a href="" class="btn btn-primary disabled" data-toggle="tooltip" data-placement="top" title="Пока недоступно">Курс недоступен</a>
                         </div>
                     </div>
                 {% endif %}
             </div>
 
-            {% if studentcourse %}
+            {% if student_course or current_user == course.owner %}
                 <div id="accordion" aria-multiselectable="true">
-                    {% for course_module in course.coursemodules %}
-                        {% student_module current_user course_module.module as student_module %}
-                        <div class="card">
-                            <div class="card-header" role="tab">
-                                <a data-toggle="collapse" href="#collapse{{ studentmodule.module.pk }}" aria-expanded="true" aria-controls="collapse{{ studentmodule.module.pk }}">
-                                    {{ coursemodule.order }}. {{ coursemodule.module }}.
-                                </a>
+                    {% for course_module_relation in course.course_module_relations %}
+                        <h3>{{ forloop.counter }}. {{ course_module_relation.module }}</h3>
+                        {% for module_unit_relation in course_module_relation.module.module_unit_relations %}
+                            <div class="card">
+                                <div class="card-header" role="tab">
+                                    <a data-toggle="collapse" href="#collapse{{ module_unit_relation.pk }}" aria-expanded="true" aria-controls="collapse{{ module_unit_relation.pk }}">
+                                        {{ forloop.parentloop.counter }}.{{ forloop.counter }}. {{ module_unit_relation.child.title }}.
+                                    </a>
+                                </div>
+                                <div id="collapse{{ module_unit_relation.pk }}" class="card-collapse collapse" role="tabpanel">
+                                    <ul class="list-group list-group-flush">
+                                        {% for unit_lesson_relation in module_unit_relation.child.unit.unit_lesson_relations %}
+                                            <a href="{% url 'lesson_view' unit_lesson_relation.child.pk %}" class="list-group-item">{{ forloop.parentloop.parentloop.counter }}.{{ forloop.parentloop.counter }}.{{ forloop.counter }}. {{ unit_lesson_relation.child.title }}</a>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             </div>
-                            <div id="collapse{{ studentmodule.module.pk }}" class="card-collapse collapse" role="tabpanel">
-                                <ul class="list-group list-group-flush">
-                                    {% for modulelesson in coursemodule.module.modulelessons %}
-                                        <a href="{% url 'lesson_view' modulelesson.lesson.pk %}" class="list-group-item">{{ coursemodule.order }}.{{ modulelesson.order }}. {{ modulelesson.lesson.title }}</a>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
+                        {% endfor %}
                     {% endfor %}
                 </div>
             {% endif %}

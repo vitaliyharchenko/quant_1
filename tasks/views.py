@@ -3,7 +3,7 @@ from tasks.models import LessonTask
 from django.views.decorators.http import require_POST
 from nodes.models import Lesson
 from users.models import User
-from lms.models import StudentLesson
+from lms.models import StudentLessonRelation
 import datetime
 
 
@@ -33,10 +33,10 @@ def lesson_task_create(request):
         teacher = request.user
 
         try:
-            student_lesson = StudentLesson.objects.get(lesson=lesson, student=student)
+            student_lesson = StudentLessonRelation.objects.get(lesson=lesson, student=student)
             student_lesson.has_perm = True
-        except StudentLesson.DoesNotExist:
-            student_lesson = StudentLesson.objects.create(lesson=lesson, student=student, has_perm=True)
+        except StudentLessonRelation.DoesNotExist:
+            student_lesson = StudentLessonRelation.objects.create(lesson=lesson, student=student, has_perm=True)
         student_lesson.save()
 
         lesson_task = LessonTask.objects.create(

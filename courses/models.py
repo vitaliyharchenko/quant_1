@@ -1,7 +1,7 @@
 from django.db import models
 from nodes.models import Subject
 from users.models import User
-from lms.models import StudentCourse
+from lms.models import StudentCourseRelation
 from nodes.models import Module
 
 
@@ -24,7 +24,7 @@ class Course(models.Model):
 
     @property
     def student_courses(self):
-        student_courses = StudentCourse.objects.filter(course=self)
+        student_courses = StudentCourseRelation.objects.filter(course=self)
         return student_courses
 
     @property

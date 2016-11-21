@@ -10,7 +10,7 @@ from tasks.models import LessonTask
 #   -> StudentModule
 #   -> StudentUnit
 #   -> StudentLesson
-class StudentNode(models.Model):
+class StudentNodeRelation(models.Model):
     class Meta:
         verbose_name = 'Связь ученика с узлом'
 
@@ -18,7 +18,7 @@ class StudentNode(models.Model):
     has_perm = models.BooleanField('Имеет доступ?', default=False)
 
 
-class StudentModule(StudentNode):
+class StudentModuleRelation(StudentNodeRelation):
     class Meta:
         verbose_name = 'Связь ученика с уроком'
 
@@ -28,7 +28,7 @@ class StudentModule(StudentNode):
         return u'{} in "{}"'.format(self.student, self.module)
 
 
-class StudentLesson(StudentNode):
+class StudentLessonRelation(StudentNodeRelation):
     class Meta:
         verbose_name = 'Связь ученика с уроком'
 
@@ -39,7 +39,7 @@ class StudentLesson(StudentNode):
 
 
 # Relation between student and course
-class StudentCourse(models.Model):
+class StudentCourseRelation(models.Model):
     class Meta:
         verbose_name = 'Связь ученика с курсом'
 
@@ -52,7 +52,7 @@ class StudentCourse(models.Model):
 
 
 # Relation between student and teacher
-class StudentTeacher(models.Model):
+class StudentTeacherRelation(models.Model):
     class Meta:
         verbose_name = 'Связь ученика с учителем'
 
