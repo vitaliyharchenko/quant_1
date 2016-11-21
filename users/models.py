@@ -12,7 +12,10 @@ class UserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            b_date=extra_fields.pop("b_date", False)
+            b_date=extra_fields.pop("b_date", False),
+            first_name=extra_fields.pop("first_name", False),
+            last_name=extra_fields.pop("last_name", False),
+            sex=extra_fields.pop("sex", False)
         )
 
         user.set_password(password)
