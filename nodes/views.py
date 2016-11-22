@@ -65,13 +65,6 @@ def lesson_final_view(request, lesson_id):
         args['summ'] = summ
         args['max_summ'] = max_summ
 
-        try:
-            student_lesson = StudentLessonRelation.objects.get(student=request.user, lesson=lesson)
-        except StudentLessonRelation.DoesNotExist:
-            student_lesson = StudentLessonRelation.objects.create(student=request.user, lesson=lesson)
-        student_lesson.is_finished = True
-        student_lesson.save()
-
         lesson_result = LessonResult.objects.create(student=request.user, lesson=lesson, score=summ, max_score=max_summ)
         lesson_result.save()
 

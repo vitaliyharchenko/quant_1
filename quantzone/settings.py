@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'nodes',
     'pages',
     'tasks',
+    'testing',
     'utils',
     'users',
     'results',
