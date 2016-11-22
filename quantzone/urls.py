@@ -24,6 +24,7 @@ import lms.urls
 import nodes.urls
 import pages.urls
 import tasks.urls
+import testing.urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -37,5 +38,6 @@ urlpatterns += lms.urls.urlpatterns
 urlpatterns += nodes.urls.urlpatterns
 urlpatterns += pages.urls.urlpatterns
 urlpatterns += tasks.urls.urlpatterns
+urlpatterns += testing.urls.urlpatterns
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

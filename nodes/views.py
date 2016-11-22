@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Lesson
 from lms.models import StudentLessonRelation, StudentTeacherRelation
-from blocks.models import BlockResult
+from results.models import BlockResult
 from results.models import LessonResult
 from tasks.models import LessonTask
 

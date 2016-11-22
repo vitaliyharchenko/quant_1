@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.shortcuts import render, HttpResponse
 from django.contrib.auth.decorators import login_required
 from nodes.models import Lesson
-from .models import LessonBlockRelation, ChoiceBlockOption, ChoiceBlockResult
-from blocks.models import FloatBlockResult, BlockResult, Block, ChoiceBlock, TextBlock, FloatBlock
+from .models import LessonBlockRelation, ChoiceBlockOption
+from blocks.models import Block, ChoiceBlock, TextBlock, FloatBlock
+from results.models import BlockResult, FloatBlockResult, ChoiceBlockResult
 
 
 @login_required

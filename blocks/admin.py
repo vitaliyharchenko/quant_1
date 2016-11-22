@@ -14,7 +14,5 @@ class ChoiceBlockAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(ChoiceBlock, ChoiceBlockAdmin)
 admin.site.register(FloatBlock)
-admin.site.register(BlockResult)
-admin.site.register(ChoiceBlockResult)
 admin.site.register(TextBlock)
 admin.site.register(LessonBlockRelation)
