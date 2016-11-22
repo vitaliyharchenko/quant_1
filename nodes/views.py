@@ -65,6 +65,8 @@ def lesson_final_view(request, lesson_id):
         args['summ'] = summ
         args['max_summ'] = max_summ
 
+        #TODO: append relations between lessonresults and block results
+
         lesson_result = LessonResult.objects.create(student=request.user, lesson=lesson, score=summ, max_score=max_summ)
         lesson_result.save()
 
