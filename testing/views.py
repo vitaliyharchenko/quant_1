@@ -34,7 +34,7 @@ def test_block_view(request, test_id, block_num):
     except TestBlockRelation.DoesNotExist:
         messages.warning(request, "Такого объекта нет =(")
 
-    blocks_count = test.test_block_relations().count()
+    blocks_count = test.test_block_relations.count()
 
     extra_args = {}
 
