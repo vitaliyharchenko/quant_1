@@ -42,7 +42,7 @@
                     <span class="lead">
                         <a href="{% url 'lesson_view' task.lesson.pk %}">{{ task.lesson }}</a>
                         <small>
-                            &nbsp;&nbsp;&nbsp; Результат: {{ task.lesson_result.score }} из {{ task.lesson_result.max_score }}
+                            &nbsp;&nbsp;&nbsp; {{ task.lesson_result.date }}&nbsp;&nbsp;&nbsp; Результат: {{ task.lesson_result.score }} из {{ task.lesson_result.max_score }}
                         </small>
                     </span>
                 </div>
