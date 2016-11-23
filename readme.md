@@ -110,10 +110,11 @@ Quant.zone
     python manage.py loaddata db.json
     ```
 
-6. Save all data to .json file
+6. Save all data to .json file and load locally
 
     ```
     python manage.py dumpdata --exclude contenttypes > db.json
+    scp root@188.93.211.161:/opt/quantzone/db.json /Users/vitaliyharchenko/Dev
     ```
 
 7. Create png file with models relation
