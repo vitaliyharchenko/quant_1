@@ -25,6 +25,10 @@ class LessonResult(Result):
     def __str__(self):
         return u'{}, {}, {}'.format(self.student, self.lesson, self.date)
 
+    @property
+    def lesson_result_block_result_relations(self):
+        return LessonResultBlockResultRelation.objects.filter(lesson_result=self)
+
 
 class TestResult(Result):
     class Meta:
@@ -65,3 +69,14 @@ class FloatBlockResult(BlockResult):
         verbose_name_plural = 'Результаты ответов на задачи'
 
     answer = models.FloatField('Ответ')
+
+
+# ========================
+# Relation between results
+# ========================
+class LessonResultBlockResultRelation(models.Model):
+    class Meta:
+        verbose_name = 'Связь результата урока с результатом блока'
+
+    lesson_result = models.ForeignKey(LessonResult)
+    block_result = models.ForeignKey(BlockResult)

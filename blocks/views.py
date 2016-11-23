@@ -45,21 +45,18 @@ def block_handler(request, block, extra_args):
         choice_block = ChoiceBlock.objects.get(pk=block.pk)
         return choice_block_handler(request, choice_block, extra_args)
     except ChoiceBlock.DoesNotExist:
-        print('not choice block')
         pass
 
     try:
         text_block = TextBlock.objects.get(pk=block.pk)
         return text_block_handler(request, text_block, extra_args)
     except TextBlock.DoesNotExist:
-        print('not text block')
         pass
 
     try:
         float_block = FloatBlock.objects.get(pk=block.pk)
         return float_block_handler(request, float_block, extra_args)
     except FloatBlock.DoesNotExist:
-        print('not float block')
         pass
 
     return HttpResponse("Непонятный тип блока")
