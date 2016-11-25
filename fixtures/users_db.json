@@ -1,0 +1,274 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$1TaUxWc9X1Bn$IuzgQjHEViy9mpe27qsjwJTOMDsgqpXqYHw6IJGnoMA=",
+      "last_login": "2016-11-14T10:35:32.063Z",
+      "email": "harchenko.grape@gmail.com",
+      "vkuserid": 17610278,
+      "bdate": "1992-12-21",
+      "first_name": "\u0412\u0438\u0442\u0430\u043b\u0438\u0439",
+      "last_name": "\u0425\u0430\u0440\u0447\u0435\u043d\u043a\u043e",
+      "sex": "m",
+      "is_active": true,
+      "is_staff": true,
+      "is_teacher": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$98y1PwxigI3M$o2VwMSPyRyA8m5xgtBMQgwrXjHUATsztS3fWAyyR/dA=",
+      "last_login": "2016-11-15T15:46:13.537Z",
+      "email": "viiiz@yandex.ru",
+      "vkuserid": 170062431,
+      "bdate": "1999-07-06",
+      "first_name": "\u0418\u0432\u0430\u043d",
+      "last_name": "\u0418\u0448\u043a\u043e\u0432",
+      "sex": "m",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$Lp7MVapxVjWv$c9PXGjaXyGBbkMyNKPn59P08w00E44QdhopDe9Jxkm0=",
+      "last_login": "2016-11-16T17:17:52.389Z",
+      "email": "jana.bexer@gmail.com",
+      "vkuserid": 365569593,
+      "bdate": "2001-07-10",
+      "first_name": "\u042f\u043d\u0430",
+      "last_name": "\u0414\u043e\u043b\u0433\u0438\u0445",
+      "sex": "f",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$falHjxedp3Wt$ActXjCwK9BksoAGYD51EmnLBtu4FMBK3CaqT1HqVC4k=",
+      "last_login": "2016-11-17T20:25:23.819Z",
+      "email": "e_harchenko@mail.ru",
+      "vkuserid": null,
+      "bdate": "1972-06-04",
+      "first_name": "\u0415\u043b\u0435\u043d\u0430",
+      "last_name": "\u0425\u0430\u0440\u0447\u0435\u043d\u043a\u043e",
+      "sex": "f",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$0h12JLC4pepC$FdWIYBiNMPJypqR458itB4aU4xfK6RYW/fDXGALNcxU=",
+      "last_login": "2016-10-14T07:10:22.059Z",
+      "email": "apple_59@bk.ru",
+      "vkuserid": 64018193,
+      "bdate": "1994-02-14",
+      "first_name": "\u042e\u043b\u0438\u044f",
+      "last_name": "\u0420\u043e\u0434\u044b\u0433\u0438\u043d\u0430",
+      "sex": "f",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$2kFim2T6ZGKp$Vqht12bVeEK7/7zRYSjVt47NV1OtsUHMYKavDKVgVlw=",
+      "last_login": "2016-10-25T15:48:58.044Z",
+      "email": "vvv_po@list.ru",
+      "vkuserid": null,
+      "bdate": "2000-12-23",
+      "first_name": "\u0414\u0430\u043d\u0438\u043b",
+      "last_name": "\u041f\u043e\u043f\u043e\u0432",
+      "sex": "m",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$30ANzokHzJvU$+LLoHr9UThBy8X5G4Lqf/pnh31U4OKdOVnE+AHY9hGc=",
+      "last_login": "2016-10-27T15:55:16.893Z",
+      "email": "nikita24.10nm@yandex.ru",
+      "vkuserid": null,
+      "bdate": "2000-10-24",
+      "first_name": "\u041d\u0438\u043a\u0438\u0442\u0430",
+      "last_name": "\u041c\u0430\u043d\u0442\u0443\u0441\u043e\u0432",
+      "sex": "m",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$R31zOaRRDQqI$YMQRwTiN7qhuOB/tGGI1H4vhzlEV+m/Upj6P0OY9Z7w=",
+      "last_login": "2016-11-25T08:12:46.180Z",
+      "email": "test@test.com",
+      "vkuserid": null,
+      "bdate": "1980-01-01",
+      "first_name": "Test",
+      "last_name": "Test",
+      "sex": "m",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$zZDLE8TGl1Me$uMt3xqgx51jFvYlL6nOC3mZ7xwpd3o+fm7xBEG5D3Zc=",
+      "last_login": "2016-11-10T09:44:16.007Z",
+      "email": "dimacervencuk@gmail.com",
+      "vkuserid": null,
+      "bdate": "1999-11-12",
+      "first_name": "\u0414\u043c\u0438\u0442\u0440\u0438\u0439",
+      "last_name": "\u0427\u0435\u0440\u0432\u0435\u043d\u0447\u0443\u043a",
+      "sex": "m",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$2KISSMAZbXOH$x+57YLcUvrYhmfoA29lB5C/0MeZWEd90AJV9V89sIo4=",
+      "last_login": null,
+      "email": "benny-rey@mail.ru",
+      "vkuserid": null,
+      "bdate": "1986-07-16",
+      "first_name": "\u041d\u0438\u043a\u043e\u043b\u0430\u0439",
+      "last_name": "\u041a\u0435\u0434\u0438\u043d",
+      "sex": "m",
+      "is_active": false,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 12,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$zna9P6QZgmRa$CRC0shcWn0Q4gN9GkYnbrdApD6z/4o8zN+pJaXhlROc=",
+      "last_login": "2016-11-18T16:21:14.114Z",
+      "email": "89126732174@yandex.ru",
+      "vkuserid": 134862851,
+      "bdate": "1999-09-02",
+      "first_name": "\u041d\u0430\u0442\u0430\u043b\u044c\u044f",
+      "last_name": "\u0421\u043a\u043e\u0440\u0438\u043a",
+      "sex": "f",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 13,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$liY7vXqkDOKu$UDhNk+zm2UFeoODRFigcYoLL8nVTKImz3A9+SPc31KE=",
+      "last_login": "2016-11-20T12:37:11.097Z",
+      "email": "artemoresh@gmail.com",
+      "vkuserid": 102263149,
+      "bdate": "1999-12-15",
+      "first_name": "\u0410\u0440\u0442\u0451\u043c",
+      "last_name": "\u041e\u0440\u0435\u0448\u043a\u0438\u043d",
+      "sex": "m",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 14,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$hInSU33wsUMI$trjq8Z0cvcmR/AGI9kO4zEvSeI8qjMWDO12IXz6ERIk=",
+      "last_login": "2016-11-17T15:15:21.535Z",
+      "email": "verhozin16@mail.ru",
+      "vkuserid": null,
+      "bdate": "1999-11-04",
+      "first_name": "\u0410\u043b\u0435\u043a\u0441\u0435\u0439",
+      "last_name": "\u0412\u0435\u0440\u0445\u043e\u0437\u0438\u043d",
+      "sex": "m",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 16,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$vpsdjFMajMnu$9w3dYxn3pQRkN/RTUKMgv+xqMNnRa0fo/gKI1bWkULo=",
+      "last_login": "2016-11-23T19:32:01.496Z",
+      "email": "lolelomolo@gmail.com",
+      "vkuserid": null,
+      "bdate": "1999-10-19",
+      "first_name": "\u041e\u043b\u044c\u0433\u0430",
+      "last_name": "\u0421\u044b\u0447\u0435\u0432\u0430",
+      "sex": "f",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 17,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$nGRR6cSiK7La$y2nIu5mnbRIV9hinWCBfY0cy2guToy01Onj+7kD9z10=",
+      "last_login": "2016-11-24T09:49:14.506Z",
+      "email": "stasyamasya@gmail.com",
+      "vkuserid": null,
+      "bdate": "2000-07-08",
+      "first_name": "\u0410\u043d\u0430\u0441\u0442\u0430\u0441\u0438\u044f",
+      "last_name": "\u0421\u0442\u0435\u043f\u0430\u043d\u043e\u0432\u0430",
+      "sex": "f",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 20,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$U4wZ3DA3dqp2$NE+da0Lb5qh08cPeWazeh/wm5VvWiugLHzY3lku0Rqo=",
+      "last_login": "2016-11-24T12:48:11.389Z",
+      "email": "smirnovg.1@mail.ru",
+      "vkuserid": null,
+      "bdate": "2000-07-29",
+      "first_name": "\u0413\u0440\u0438\u0433\u043e\u0440\u0438\u0439",
+      "last_name": "\u0421\u043c\u0438\u0440\u043d\u043e\u0432",
+      "sex": "m",
+      "is_active": true,
+      "is_staff": false,
+      "is_teacher": false
+    }
+  }
+]
