@@ -1,4 +1,6 @@
-import json, urllib
+import json
+import urllib
+
 from quantzone import settings
 
 

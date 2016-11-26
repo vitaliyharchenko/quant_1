@@ -1,8 +1,8 @@
 from django.db import models
-from nodes.models import Subject
-from users.models import User
+
 from lms.models import StudentCourseRelation
-from nodes.models import Module
+from nodes.models import Module, Subject
+from users.models import User
 
 
 # Create your models here.
@@ -40,4 +40,3 @@ class CourseModuleRelation(models.Model):
     course = models.ForeignKey(Course)
     module = models.ForeignKey(Module)
     order = models.IntegerField()
-

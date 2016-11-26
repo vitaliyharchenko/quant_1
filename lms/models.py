@@ -1,7 +1,8 @@
 from django.db import models
+
 from nodes.models import Lesson, Module
-from users.models import User
 from tasks.models import LessonTask
+from users.models import User
 
 
 # Relation between student and node

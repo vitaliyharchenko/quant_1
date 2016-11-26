@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import StudentLessonRelation, StudentNodeRelation, StudentTeacherRelation
 
+from .models import (StudentLessonRelation, StudentNodeRelation,
+                     StudentTeacherRelation)
 
 # Register your models here.
 admin.site.register(StudentLessonRelation)

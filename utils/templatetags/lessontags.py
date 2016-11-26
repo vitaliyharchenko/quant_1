@@ -1,5 +1,6 @@
 # coding=utf-8
 from django import template
+
 from lms.models import StudentModuleRelation
 
 register = template.Library()

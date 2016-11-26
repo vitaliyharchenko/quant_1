@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Course, CourseModuleRelation, StudentCourseRelation
 
+from .models import Course, CourseModuleRelation, StudentCourseRelation
 
 # Register your models here.
 admin.site.register(Course)

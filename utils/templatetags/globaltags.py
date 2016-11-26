@@ -1,9 +1,9 @@
 # coding=utf-8
-from django import template
-from utils import vkontakte
 import markdown
+from django import template
 from pyembed.markdown import PyEmbedMarkdown
 
+from utils import vkontakte
 
 register = template.Library()
 

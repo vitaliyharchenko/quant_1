@@ -1,7 +1,8 @@
-from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from django_markdown.models import MarkdownField
+from django.db import models
 from django.utils import timezone
+from django_markdown.models import MarkdownField
+
 from users.models import User
 
 

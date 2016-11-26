@@ -1,14 +1,18 @@
 # coding=utf-8
 import random
+
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.core import signing
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
+
 from utils import mailing, vkontakte
-from .forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, ChangePasswordForm, ResetPassForm
+
+from .forms import (ChangePasswordForm, ResetPassForm, UserLoginForm,
+                    UserRegistrationForm, UserUpdateForm)
 from .models import User, UserActivation
 
 

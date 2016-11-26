@@ -1,10 +1,12 @@
-from django.shortcuts import render, HttpResponse
-from tasks.models import LessonTask
-from django.views.decorators.http import require_POST
-from nodes.models import Lesson
-from users.models import User
-from lms.models import StudentLessonRelation
 import datetime
+
+from django.shortcuts import HttpResponse, render
+from django.views.decorators.http import require_POST
+
+from lms.models import StudentLessonRelation
+from nodes.models import Lesson
+from tasks.models import LessonTask
+from users.models import User
 
 
 def tasks_view(request):

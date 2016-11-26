@@ -1,4 +1,5 @@
 from django.db import models
+
 from blocks.models import LessonBlockRelation
 from users.models import User
 

@@ -1,7 +1,8 @@
 from django.db import models
-from users.models import User
+
 from nodes.models import Lesson
 from results.models import LessonResult
+from users.models import User
 
 
 # Tasks
@@ -27,4 +28,3 @@ class LessonTask(Task):
 
     def __str__(self):
         return u'For {}, "{}"'.format(self.student, self.lesson)
-

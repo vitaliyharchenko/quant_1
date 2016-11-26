@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import User, UserActivation
 
+from .models import User, UserActivation
 
 # Register your models here.
 admin.site.register(User)
