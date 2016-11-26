@@ -188,12 +188,18 @@ Quant.zone
     pip3 install uwsgi
     ```
 
+7. Test uwsgi
+
+    ```
+    uwsgi --http :8000 --wsgi-file test.py
+    ```
+
 8. Make Django migrations
        
     ```
     cd /opt/quantzone
     python manage.py collectstatic
-    python manage.py makemigrations users teaching
+    python manage.py makemigrations users testing tasks results nodes lms courses blocks
     python manage.py migrate
     python manage.py createsuperuser
     ```
