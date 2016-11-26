@@ -16,7 +16,7 @@ class Block(models.Model):
             pass
 
         try:
-            title = self.choicequestion.question_text[:100]
+            title = self.choiceblock.question_text[:100]
         except AttributeError:
             pass
 
