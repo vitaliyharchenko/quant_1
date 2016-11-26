@@ -27,4 +27,28 @@
     </div>
 </div>
 
+<br>
+<br>
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Выполненные задания</li>
+        </ol>
+
+        {% for task in complete_tasks %}
+            <div class="card">
+                <div class="card-block">
+                    <span class="lead">
+                        <a href="{% url 'lesson_view' task.lesson.pk %}">{{ task.lesson }}</a>
+                        <small>
+                            &nbsp;&nbsp;&nbsp; {{ task.lesson_result.date }}&nbsp;&nbsp;&nbsp; Результат: {{ task.lesson_result.score }} из {{ task.lesson_result.max_score }}
+                        </small>
+                    </span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

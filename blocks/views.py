@@ -1,12 +1,10 @@
 from django.contrib import messages
+from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import HttpResponse, render
-
-from blocks.models import (Block, BlockResult, ChoiceBlock, FloatBlock,
-                           FloatBlockResult, TextBlock)
 from nodes.models import Lesson
-
-from .models import ChoiceBlockOption, ChoiceBlockResult, LessonBlockRelation
+from .models import LessonBlockRelation, ChoiceBlockOption
+from blocks.models import Block, ChoiceBlock, TextBlock, FloatBlock
+from results.models import BlockResult, FloatBlockResult, ChoiceBlockResult
 
 
 @login_required
@@ -47,21 +45,18 @@ def block_handler(request, block, extra_args):
         choice_block = ChoiceBlock.objects.get(pk=block.pk)
         return choice_block_handler(request, choice_block, extra_args)
     except ChoiceBlock.DoesNotExist:
-        print('not choice block')
         pass
 
     try:
         text_block = TextBlock.objects.get(pk=block.pk)
         return text_block_handler(request, text_block, extra_args)
     except TextBlock.DoesNotExist:
-        print('not text block')
         pass
 
     try:
         float_block = FloatBlock.objects.get(pk=block.pk)
         return float_block_handler(request, float_block, extra_args)
     except FloatBlock.DoesNotExist:
-        print('not float block')
         pass
 
     return HttpResponse("Непонятный тип блока")
@@ -119,7 +114,7 @@ def choice_block_handler(request, choice_block, extra_args):
             else:
                 score = 0
 
-        result = ChoiceBlockResult(user=request.user, block=choice_block, score=score, max_score=max_score,
+        result = ChoiceBlockResult(student=request.user, block=choice_block, score=score, max_score=max_score,
                                    choices=our_choices)
         result.save()
 
@@ -147,7 +142,7 @@ def float_block_handler(request, float_block, extra_args):
             message = u'Неверный ответ, должно было получиться {}'.format(float_block.answer)
             score = 0
 
-        result = FloatBlockResult(user=request.user, block=float_block, score=score, max_score=max_score,
+        result = FloatBlockResult(student=request.user, block=float_block, score=score, max_score=max_score,
                                   answer=our_answer)
         result.save()
 
@@ -161,10 +156,23 @@ def float_block_handler(request, float_block, extra_args):
 
 def text_block_handler(request, text_block, extra_args):
     if request.method == "POST":
-        result = BlockResult(user=request.user, block=text_block, score=1, max_score=1)
+        result = BlockResult(student=request.user, block=text_block, score=1, max_score=1)
         result.save()
         return HttpResponse('OK')
     else:
         # Works if we want simple view
         extra_args['text_block'] = text_block
         return render(request, 'teaching/text_block.html', extra_args)
+
+
+@login_required
+def block_view(request, block_id):
+    try:
+        block = Block.objects.get(id=block_id)
+        return block_handler(request, block, {})
+    except Block.DoesNotExist:
+        # TODO: add 404 page
+        messages.warning(request, "Такого объекта нет =(")
+        return redirect('index_view')
+
+    return render(request, 'teaching/block.html', args)

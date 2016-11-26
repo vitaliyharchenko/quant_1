@@ -27,20 +27,34 @@
 {% block block-scripts %}
 
     <script>
-        {% if lesson %}
+        {% if lesson or test %}
             $(document).ready(function() {
                 $('#answer-action').click(function() {
                     var answer = $("#answerfield").val();
                     answer = answer.replace(/,/g, '.');
 
+                    {% if lesson %}
+                        var url = '{% url "lesson_block_view" lesson.pk block_num %}';
+                    {% elif test %}
+                        var url = '{% url "test_block_view" test.pk block_num %}';
+                    {% endif %}
+
                     {% if last_block %}
-                        var tpl = '<a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Закончить урок</a>';
+                        {% if lesson %}
+                            var tpl = '<a href="{% url 'lesson_final_view' lesson.id %}" class="btn btn-primary btn-lg">Закончить урок</a>';
+                        {% elif test %}
+                            var tpl = '<a href="{% url 'test_final_view' test.id %}" class="btn btn-primary btn-lg">Закончить тест</a>';
+                        {% endif %}
                     {% elif next_block_num %}
-                        var tpl = '<a href="{% url 'lesson_block_view' lesson.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок ></a>';
+                        {% if lesson %}
+                            var tpl = '<a href="{% url 'lesson_block_view' lesson.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок ></a>';
+                        {% elif test %}
+                            var tpl = '<a href="{% url 'test_block_view' test.id next_block_num %}" class="btn btn-primary btn-lg">Следующий блок ></a>';
+                        {% endif %}
                     {% endif %}
 
                     $.ajax({
-                        url: '{% url "lesson_block_view" lesson.pk block_num %}',
+                        url: url,
                         data: {
                             csrfmiddlewaretoken: '{{ csrf_token }}',
                             action: 'answer',

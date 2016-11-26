@@ -9,13 +9,42 @@
 
                 <h2>{{ lesson.title }}</h2>
 
-                <p class="lead">Ваш результат: {{ summ }} из {{ max_summ }} ({% widthratio summ max_summ 100 %}%)</p>
+                <p class="lead">Ваш результат: {{ lesson_result.score }} из {{ lesson_result.max_score }} ({% widthratio lesson_result.score lesson_result.max_score 100 %}%)</p>
 
                 {% if glob_tasks|length > 0 %}
                     <p class="lead">Молодец, теперь выполни остальные задания</p>
                     <a href="{% url 'tasks_view' %}" class="btn btn-primary btn-lg">Перейти к заданиям</a>
                 {% else %}
                     <p class="lead">Молодец, теперь можешь отдохнуть</p>
+                {% endif %}
+
+                {% if lesson_result %}
+                    <hr>
+                    <p class="lead">Результаты</p>
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>#</th>
+                                <th>Название блока</th>
+                                <th>Результат</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for lesson_result_block_result_relation in lesson_result.lesson_result_block_result_relations %}
+                                <tr>
+                                    <td>
+                                        {{ forloop.counter }}.
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'block_view' lesson_result_block_result_relation.block_result.block.pk %}">{{ lesson_result_block_result_relation.block_result.block }}</a>
+                                    </td>
+                                    <td>
+                                        <a>{{ lesson_result_block_result_relation.block_result.score }} из {{ lesson_result_block_result_relation.block_result.max_score }}</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 {% endif %}
             </div>
         </div>

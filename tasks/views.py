@@ -10,8 +10,8 @@ from users.models import User
 
 
 def tasks_view(request):
-    tasks = LessonTask.objects.filter(student=request.user, is_finished=False)
-    args = {'tasks': tasks}
+    args = {'tasks': LessonTask.objects.filter(student=request.user, is_finished=False),
+            'complete_tasks': LessonTask.objects.filter(student=request.user, is_finished=True)}
     return render(request, 'teaching/tasks.html', args)
 
 
@@ -41,13 +41,20 @@ def lesson_task_create(request):
             student_lesson = StudentLessonRelation.objects.create(lesson=lesson, student=student, has_perm=True)
         student_lesson.save()
 
-        lesson_task = LessonTask.objects.create(
-            student=student,
-            teacher=teacher,
-            datetime_to=datetime_to,
-            datetime=datetime.datetime.now(),
-            lesson=lesson
-        )
-        lesson_task.save()
-
-    return HttpResponse('OK')
+        try:
+            lesson_task = LessonTask.objects.get(
+                student=student,
+                lesson=lesson,
+                is_finished=False
+            )
+            return HttpResponse('Такое задание уже есть')
+        except LessonTask.DoesNotExist:
+            lesson_task = LessonTask.objects.create(
+                student=student,
+                teacher=teacher,
+                datetime_to=datetime_to,
+                datetime=datetime.datetime.now(),
+                lesson=lesson
+            )
+            lesson_task.save()
+            return HttpResponse('Задание создано')

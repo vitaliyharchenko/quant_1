@@ -3,12 +3,12 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
         <div class="card">
             <div class="card-block">
                 <h2>Тест #{{ test.id }}</h2>
                 <p>{{ test.about }}</p>
-                <p>Вопросов: {{ test.blocks|length }}</p>
+                <p>Вопросов: {{ test.test_block_relations.count }}</p>
                 <a href="{% url 'test_block_view' test.id 1 %}" class="btn btn-primary">Начать</a>
             </div>
         </div>

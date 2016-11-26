@@ -1,0 +1,114 @@
+[
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 1,
+    "fields": {
+      "student": 4,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 2,
+    "fields": {
+      "student": 3,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 3,
+    "fields": {
+      "student": 6,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 4,
+    "fields": {
+      "student": 5,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 5,
+    "fields": {
+      "student": 7,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 6,
+    "fields": {
+      "student": 8,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 7,
+    "fields": {
+      "student": 9,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 8,
+    "fields": {
+      "student": 10,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 9,
+    "fields": {
+      "student": 13,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 10,
+    "fields": {
+      "student": 12,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 11,
+    "fields": {
+      "student": 14,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 12,
+    "fields": {
+      "student": 16,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 13,
+    "fields": {
+      "student": 17,
+      "teacher": 1
+    }
+  },
+  {
+    "model": "lms.studentteacherrelation",
+    "pk": 14,
+    "fields": {
+      "student": 20,
+      "teacher": 1
+    }
+  }
+]

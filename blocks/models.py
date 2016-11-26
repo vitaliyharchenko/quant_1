@@ -1,8 +1,6 @@
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from django.utils import timezone
 from django_markdown.models import MarkdownField
-
+from django.utils import timezone
 from users.models import User
 
 
@@ -86,40 +84,6 @@ class FloatBlock(Block):
 
     def __str__(self):
         return self.question_text
-
-
-# =================
-# Results of blocks
-# =================
-class BlockResult(models.Model):
-    class Meta:
-        verbose_name = 'Результат ответа'
-        verbose_name_plural = 'Результаты ответов'
-
-    user = models.ForeignKey(User)
-    block = models.ForeignKey(Block)
-    date = models.DateTimeField(default=timezone.now)
-    score = models.IntegerField(null=True, blank=True)
-    max_score = models.IntegerField()
-
-    def __str__(self):
-        return u'{}, {}, {}'.format(self.user, self.block, self.date)
-
-
-class ChoiceBlockResult(BlockResult):
-    class Meta:
-        verbose_name = 'Результат ответа на тестовый вопрос'
-        verbose_name_plural = 'Результаты ответов на тестовые вопросы'
-
-    choices = ArrayField(models.IntegerField())
-
-
-class FloatBlockResult(BlockResult):
-    class Meta:
-        verbose_name = 'Результат ответа на задачу'
-        verbose_name_plural = 'Результаты ответов на задачи'
-
-    answer = models.FloatField('Ответ')
 
 
 # Включение блоков в урок

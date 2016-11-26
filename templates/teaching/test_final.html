@@ -12,7 +12,6 @@
                 {% for result in results %}
                     <p><a href="{% url 'block_view' result.block.id %}">Вопрос #{{ result.block.id }}</a> | {{ result.score }}/{{ result.max_score }}</p>
                 {% endfor %}
-                <p><a href="{% url 'test_results_view' %}" class="btn btn-primary">К таблице результатов</a></p>
             </div>
         </div>
     </div>

@@ -24,7 +24,7 @@ class LessonTask(Task):
         verbose_name_plural = 'Домашние задания, уроки'
 
     lesson = models.ForeignKey(Lesson)
-    # lesson_result = models.ForeignKey(LessonResult, blank=True, null=True)
+    lesson_result = models.ForeignKey(LessonResult, blank=True, null=True)
 
     def __str__(self):
         return u'For {}, "{}"'.format(self.student, self.lesson)

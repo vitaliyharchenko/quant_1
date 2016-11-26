@@ -1,13 +1,10 @@
 from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
-
-from blocks.models import BlockResult
-from lms.models import StudentLessonRelation, StudentTeacherRelation
-from results.models import LessonResult
-from tasks.models import LessonTask
-
 from .models import Lesson
+from lms.models import StudentLessonRelation, StudentTeacherRelation
+from results.models import BlockResult, LessonResult, LessonResultBlockResultRelation
+from tasks.models import LessonTask
 
 
 def perm_for_lesson(request, lesson):
@@ -53,29 +50,26 @@ def lesson_final_view(request, lesson_id):
         lesson = Lesson.objects.get(id=lesson_id)
         args['lesson'] = lesson
 
-        results = []
         summ = 0
         max_summ = 0
 
+        lesson_result = LessonResult.objects.create(student=request.user, lesson=lesson, score=0, max_score=0)
+
         for lesson_block_relation in lesson.lesson_block_relations:
-            block_result = BlockResult.objects.filter(block=lesson_block_relation.block, user=request.user).latest(
+            block_result = BlockResult.objects.filter(block=lesson_block_relation.block, student=request.user).latest(
                 'date')
-            results.append(block_result)
             summ += block_result.score
             max_summ += block_result.max_score
 
-        args['summ'] = summ
-        args['max_summ'] = max_summ
+            lesson_result_block_result_relation = LessonResultBlockResultRelation.objects.create(
+                lesson_result=lesson_result, block_result=block_result)
+            lesson_result_block_result_relation.save()
 
-        try:
-            student_lesson = StudentLessonRelation.objects.get(student=request.user, lesson=lesson)
-        except StudentLessonRelation.DoesNotExist:
-            student_lesson = StudentLessonRelation.objects.create(student=request.user, lesson=lesson)
-        student_lesson.is_finished = True
-        student_lesson.save()
-
-        lesson_result = LessonResult.objects.create(student=request.user, lesson=lesson, score=summ, max_score=max_summ)
+        lesson_result.score = summ
+        lesson_result.max_score = max_summ
         lesson_result.save()
+
+        args['lesson_result'] = lesson_result
 
         try:
             tasks = LessonTask.objects.filter(student=request.user, lesson=lesson, is_finished=False)

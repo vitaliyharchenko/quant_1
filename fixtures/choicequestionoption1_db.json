@@ -1,0 +1,2730 @@
+[
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 2,
+    "fields": {
+      "choicequestion": 2,
+      "option_text": "\\(a\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 3,
+    "fields": {
+      "choicequestion": 2,
+      "option_text": "\\(\\frac{1}{4}a\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 4,
+    "fields": {
+      "choicequestion": 2,
+      "option_text": "\\(\\frac{1}{8}a\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 5,
+    "fields": {
+      "choicequestion": 2,
+      "option_text": "\\(4a\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 6,
+    "fields": {
+      "choicequestion": 3,
+      "option_text": "\\(0,5\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 7,
+    "fields": {
+      "choicequestion": 3,
+      "option_text": "\\(5\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 8,
+    "fields": {
+      "choicequestion": 3,
+      "option_text": "\\(36\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 9,
+    "fields": {
+      "choicequestion": 3,
+      "option_text": "\\(180\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 10,
+    "fields": {
+      "choicequestion": 4,
+      "option_text": "\\(\\frac{\\vec{F}}{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 11,
+    "fields": {
+      "choicequestion": 4,
+      "option_text": "\\(2\\vec{F}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 12,
+    "fields": {
+      "choicequestion": 4,
+      "option_text": "\\(8\\vec{F}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 13,
+    "fields": {
+      "choicequestion": 4,
+      "option_text": "\\(4\\vec{F}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 14,
+    "fields": {
+      "choicequestion": 5,
+      "option_text": "\\(18\\) \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 15,
+    "fields": {
+      "choicequestion": 5,
+      "option_text": "\\(2\\) \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 16,
+    "fields": {
+      "choicequestion": 5,
+      "option_text": "\\(1,67\\) \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 17,
+    "fields": {
+      "choicequestion": 5,
+      "option_text": "\\(0,5\\) \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 19,
+    "fields": {
+      "choicequestion": 7,
+      "option_text": "\\(750\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 20,
+    "fields": {
+      "choicequestion": 7,
+      "option_text": "\\(1,2\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 21,
+    "fields": {
+      "choicequestion": 7,
+      "option_text": "\\(0,6\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 22,
+    "fields": {
+      "choicequestion": 7,
+      "option_text": "\\(0,024\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 23,
+    "fields": {
+      "choicequestion": 8,
+      "option_text": "\u0417\u0435\u043c\u043b\u044f \u0438\u043c\u0435\u0435\u0442 \u043e\u0447\u0435\u043d\u044c \u0431\u043e\u043b\u044c\u0448\u0443\u044e \u043c\u0430\u0441\u0441\u0443",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 24,
+    "fields": {
+      "choicequestion": 8,
+      "option_text": "\u0432\u0441\u0435 \u0437\u0435\u043c\u043d\u044b\u0435 \u043f\u0440\u0435\u0434\u043c\u0435\u0442\u044b \u043e\u0447\u0435\u043d\u044c \u043c\u0430\u043b\u044b \u043f\u043e \u0441\u0440\u0430\u0432\u043d\u0435\u043d\u0438\u044e \u0441 \u0417\u0435\u043c\u043b\u0435\u0439",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 25,
+    "fields": {
+      "choicequestion": 8,
+      "option_text": "\u0441\u0438\u043b\u0430 \u0442\u044f\u0436\u0435\u0441\u0442\u0438 \u043f\u0440\u043e\u043f\u043e\u0440\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u0430 \u043c\u0430\u0441\u0441\u0435 \u0417\u0435\u043c\u043b\u0438",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 26,
+    "fields": {
+      "choicequestion": 8,
+      "option_text": "\u0441\u0438\u043b\u0430 \u0442\u044f\u0436\u0435\u0441\u0442\u0438 \u043f\u0440\u043e\u043f\u043e\u0440\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u0430 \u043c\u0430\u0441\u0441\u0435 \u0442\u0435\u043b\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 27,
+    "fields": {
+      "choicequestion": 9,
+      "option_text": "\\(12\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 28,
+    "fields": {
+      "choicequestion": 9,
+      "option_text": "\\(0,75\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 29,
+    "fields": {
+      "choicequestion": 9,
+      "option_text": "\\(48\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 30,
+    "fields": {
+      "choicequestion": 9,
+      "option_text": "\\(6\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 31,
+    "fields": {
+      "choicequestion": 10,
+      "option_text": "\\(0,15\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 32,
+    "fields": {
+      "choicequestion": 10,
+      "option_text": "\\(0,2\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 33,
+    "fields": {
+      "choicequestion": 10,
+      "option_text": "\\(3\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 34,
+    "fields": {
+      "choicequestion": 10,
+      "option_text": "\\(0,3\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 35,
+    "fields": {
+      "choicequestion": 11,
+      "option_text": "\u043f\u043e\u0434\u043d\u044f\u043b\u0438 \u043d\u0430 \\(7\\) \\(\u043c\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 36,
+    "fields": {
+      "choicequestion": 11,
+      "option_text": "\u043e\u043f\u0443\u0441\u0442\u0438\u043b\u0438 \u043d\u0430 \\(7\\) \\(\u043c\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 37,
+    "fields": {
+      "choicequestion": 11,
+      "option_text": "\u043f\u043e\u0434\u043d\u044f\u043b\u0438 \u043d\u0430 \\(1,5\\) \\(\u043c\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 38,
+    "fields": {
+      "choicequestion": 11,
+      "option_text": "\u043e\u043f\u0443\u0441\u0442\u0438\u043b\u0438 \u043d\u0430 \\(1,5\\) \\(\u043c\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 39,
+    "fields": {
+      "choicequestion": 12,
+      "option_text": "\\(3000\\) \\(\u0412\u0442\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 40,
+    "fields": {
+      "choicequestion": 12,
+      "option_text": "\\(333\\) \\(\u0412\u0442\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 41,
+    "fields": {
+      "choicequestion": 12,
+      "option_text": "\\(1200\\) \\(\u0412\u0442\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 42,
+    "fields": {
+      "choicequestion": 12,
+      "option_text": "\\(120\\) \\(\u0412\u0442\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 43,
+    "fields": {
+      "choicequestion": 13,
+      "option_text": "\\(75\\) \\(\u041f\u0430\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 44,
+    "fields": {
+      "choicequestion": 13,
+      "option_text": "\\(7,5\\) \\(\u041f\u0430\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 45,
+    "fields": {
+      "choicequestion": 13,
+      "option_text": "\\(0,13\\) \\(\u041f\u0430\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 46,
+    "fields": {
+      "choicequestion": 13,
+      "option_text": "\\(0,048\\) \\(\u041f\u0430\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 47,
+    "fields": {
+      "choicequestion": 14,
+      "option_text": "\\(200\\) \\(\u041f\u0430\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 48,
+    "fields": {
+      "choicequestion": 14,
+      "option_text": "\\(2000\\) \\(\u041f\u0430\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 49,
+    "fields": {
+      "choicequestion": 14,
+      "option_text": "\\(5000\\) \\(\u041f\u0430\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 50,
+    "fields": {
+      "choicequestion": 14,
+      "option_text": "\\(20000\\) \\(\u041f\u0430\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 51,
+    "fields": {
+      "choicequestion": 15,
+      "option_text": "\\(8\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 52,
+    "fields": {
+      "choicequestion": 15,
+      "option_text": "\\(4\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 53,
+    "fields": {
+      "choicequestion": 15,
+      "option_text": "\\(3\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 54,
+    "fields": {
+      "choicequestion": 15,
+      "option_text": "\\(0\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 55,
+    "fields": {
+      "choicequestion": 16,
+      "option_text": "\u043c\u043e\u0436\u0435\u0442, \u0435\u0441\u043b\u0438 \u0434\u0432\u0438\u0436\u0435\u0442\u0441\u044f \u0432 \u043f\u0440\u043e\u0442\u0438\u0432\u043e\u043f\u043e\u043b\u043e\u0436\u043d\u0443\u044e \u0441\u0442\u043e\u0440\u043e\u043d\u0443 \u0441\u043e \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u044c\u044e \\(1\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 56,
+    "fields": {
+      "choicequestion": 16,
+      "option_text": "\u043c\u043e\u0436\u0435\u0442, \u0435\u0441\u043b\u0438 \u0434\u0432\u0438\u0436\u0435\u0442\u0441\u044f \u0432 \u0442\u0443 \u0436\u0435 \u0441\u0442\u043e\u0440\u043e\u043d\u0443 \u0441\u043e \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u044c\u044e \\(1\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 57,
+    "fields": {
+      "choicequestion": 16,
+      "option_text": "\u043c\u043e\u0436\u0435\u0442, \u0435\u0441\u043b\u0438 \u0441\u0442\u043e\u0438\u0442 \u043d\u0430 \u044d\u0441\u043a\u0430\u043b\u0430\u0442\u043e\u0440\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 58,
+    "fields": {
+      "choicequestion": 16,
+      "option_text": "\u043d\u0435 \u043c\u043e\u0436\u0435\u0442 \u043d\u0438 \u043f\u0440\u0438 \u043a\u0430\u043a\u0438\u0445 \u0443\u0441\u043b\u043e\u0432\u0438\u044f\u0445",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 59,
+    "fields": {
+      "choicequestion": 17,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u0442\u044c \u043c\u0430\u0441\u0441\u0443 \u043c\u0430\u044f\u0442\u043d\u0438\u043a\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 60,
+    "fields": {
+      "choicequestion": 17,
+      "option_text": "\u0443\u043c\u0435\u043d\u044c\u0448\u0438\u0442\u044c \u043c\u0430\u0441\u0441\u0443 \u043c\u0430\u044f\u0442\u043d\u0438\u043a\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 61,
+    "fields": {
+      "choicequestion": 17,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u0442\u044c \u0434\u043b\u0438\u043d\u0443 \u043c\u0430\u044f\u0442\u043d\u0438\u043a\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 62,
+    "fields": {
+      "choicequestion": 17,
+      "option_text": "\u0443\u043c\u0435\u043d\u044c\u0448\u0438\u0442\u044c \u0434\u043b\u0438\u043d\u0443 \u043c\u0430\u044f\u0442\u043d\u0438\u043a\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 63,
+    "fields": {
+      "choicequestion": 18,
+      "option_text": "\\(10\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 64,
+    "fields": {
+      "choicequestion": 18,
+      "option_text": "\\(20\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 65,
+    "fields": {
+      "choicequestion": 18,
+      "option_text": "\\(30\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 66,
+    "fields": {
+      "choicequestion": 18,
+      "option_text": "\\(40\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 67,
+    "fields": {
+      "choicequestion": 19,
+      "option_text": "\\(7\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 68,
+    "fields": {
+      "choicequestion": 19,
+      "option_text": "\\(10\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 69,
+    "fields": {
+      "choicequestion": 19,
+      "option_text": "\\(20\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 70,
+    "fields": {
+      "choicequestion": 19,
+      "option_text": "\\(14,1\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 71,
+    "fields": {
+      "choicequestion": 20,
+      "option_text": "\\(2\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 72,
+    "fields": {
+      "choicequestion": 20,
+      "option_text": "\\(4\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 73,
+    "fields": {
+      "choicequestion": 20,
+      "option_text": "\\(\\sqrt{2}\\)  \u0440\u0430\u0437",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 74,
+    "fields": {
+      "choicequestion": 20,
+      "option_text": "\\(\\frac{\\sqrt{2}}{2}\\)   \u0440\u0430\u0437",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 75,
+    "fields": {
+      "choicequestion": 21,
+      "option_text": "\\(8\u00d710^{\u20132}\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 76,
+    "fields": {
+      "choicequestion": 21,
+      "option_text": "\\(4\u00d710^{\u20132}\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 77,
+    "fields": {
+      "choicequestion": 21,
+      "option_text": "\\(2\u00d710^{\u20132} \\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 78,
+    "fields": {
+      "choicequestion": 21,
+      "option_text": "\\(\\sqrt{34} \u00d710^{\u20132} \\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 79,
+    "fields": {
+      "choicequestion": 22,
+      "option_text": "\\(30\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 80,
+    "fields": {
+      "choicequestion": 22,
+      "option_text": "\\(10\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 81,
+    "fields": {
+      "choicequestion": 22,
+      "option_text": "\\(3\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 82,
+    "fields": {
+      "choicequestion": 22,
+      "option_text": "\\(2\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 83,
+    "fields": {
+      "choicequestion": 23,
+      "option_text": "\u043e\u0442\u0432\u0435\u0442\u0438\u0442\u044c \u043d\u0435\u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e, \u0442\u0430\u043a \u043a\u0430\u043a \u043d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u0430 \u043c\u0430\u0441\u0441\u0430 \u0441\u0430\u043d\u043e\u043a",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 84,
+    "fields": {
+      "choicequestion": 23,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u0442\u0441\u044f \u043d\u0430 \\(4\\) \\(\u041d/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 85,
+    "fields": {
+      "choicequestion": 23,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u0442\u0441\u044f \u043d\u0430 \\(100\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 86,
+    "fields": {
+      "choicequestion": 23,
+      "option_text": "\u0443\u043c\u0435\u043d\u044c\u0448\u0438\u0442\u0441\u044f \u043d\u0430 \\(100\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 87,
+    "fields": {
+      "choicequestion": 24,
+      "option_text": "\\(150\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 88,
+    "fields": {
+      "choicequestion": 24,
+      "option_text": "\\(300\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 89,
+    "fields": {
+      "choicequestion": 24,
+      "option_text": "\\(1500\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 90,
+    "fields": {
+      "choicequestion": 24,
+      "option_text": "\\(37,5\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 91,
+    "fields": {
+      "choicequestion": 25,
+      "option_text": "\\(0\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 92,
+    "fields": {
+      "choicequestion": 25,
+      "option_text": "\\(15\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 93,
+    "fields": {
+      "choicequestion": 25,
+      "option_text": "\\(30\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 94,
+    "fields": {
+      "choicequestion": 25,
+      "option_text": "\\(60\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 95,
+    "fields": {
+      "choicequestion": 26,
+      "option_text": "\\(36\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 96,
+    "fields": {
+      "choicequestion": 26,
+      "option_text": "\\(3,6\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 97,
+    "fields": {
+      "choicequestion": 26,
+      "option_text": "\\(6\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 98,
+    "fields": {
+      "choicequestion": 26,
+      "option_text": "\\(22,5\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 99,
+    "fields": {
+      "choicequestion": 27,
+      "option_text": "\\(5\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 100,
+    "fields": {
+      "choicequestion": 27,
+      "option_text": "\\(10\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 101,
+    "fields": {
+      "choicequestion": 27,
+      "option_text": "\\(15\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 102,
+    "fields": {
+      "choicequestion": 27,
+      "option_text": "\\(20\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 103,
+    "fields": {
+      "choicequestion": 28,
+      "option_text": "\u0442\u043e\u043b\u044c\u043a\u043e  \u0410",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 104,
+    "fields": {
+      "choicequestion": 28,
+      "option_text": "\u0442\u043e\u043b\u044c\u043a\u043e  \u0411",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 105,
+    "fields": {
+      "choicequestion": 28,
+      "option_text": "\u0410  \u0438  \u0411",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 106,
+    "fields": {
+      "choicequestion": 28,
+      "option_text": "\u043d\u0438  \u0410, \u043d\u0438  \u0411",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 107,
+    "fields": {
+      "choicequestion": 36,
+      "option_text": "\\(\\frac{\u03bd}{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 108,
+    "fields": {
+      "choicequestion": 36,
+      "option_text": "\\(2n\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 109,
+    "fields": {
+      "choicequestion": 36,
+      "option_text": "\\(n\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 110,
+    "fields": {
+      "choicequestion": 36,
+      "option_text": "\\(n^{2} \\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 111,
+    "fields": {
+      "choicequestion": 37,
+      "option_text": "\u0438\u0437\u043c\u0435\u043d\u044f\u0435\u0442\u0441\u044f \u0441 \u0447\u0430\u0441\u0442\u043e\u0442\u043e\u0439 \\(\\frac{\u03bd}{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 112,
+    "fields": {
+      "choicequestion": 37,
+      "option_text": "\u0438\u0437\u043c\u0435\u043d\u044f\u0435\u0442\u0441\u044f \u0441 \u0447\u0430\u0441\u0442\u043e\u0442\u043e\u0439 \\(n\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 113,
+    "fields": {
+      "choicequestion": 37,
+      "option_text": "\u0438\u0437\u043c\u0435\u043d\u044f\u0435\u0442\u0441\u044f \u0441 \u0447\u0430\u0441\u0442\u043e\u0442\u043e\u0439 \\(2n\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 114,
+    "fields": {
+      "choicequestion": 37,
+      "option_text": "\u043d\u0435 \u0438\u0437\u043c\u0435\u043d\u044f\u0435\u0442\u0441\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 115,
+    "fields": {
+      "choicequestion": 38,
+      "option_text": "\\(0,1\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 116,
+    "fields": {
+      "choicequestion": 38,
+      "option_text": "\\(0,5\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 117,
+    "fields": {
+      "choicequestion": 38,
+      "option_text": "\\(5\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 118,
+    "fields": {
+      "choicequestion": 38,
+      "option_text": "\\(10\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 119,
+    "fields": {
+      "choicequestion": 39,
+      "option_text": "\\(v + u\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 120,
+    "fields": {
+      "choicequestion": 39,
+      "option_text": "\\(v - u\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 121,
+    "fields": {
+      "choicequestion": 39,
+      "option_text": "\\(\\sqrt{v^{2} + u^{2}} \\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 122,
+    "fields": {
+      "choicequestion": 39,
+      "option_text": "\\(\\sqrt{v^{2} - u^{2}} \\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 123,
+    "fields": {
+      "choicequestion": 40,
+      "option_text": "\u043f\u043b\u0430\u043d\u0435\u0442 \u0432\u043e\u043a\u0440\u0443\u0433 \u0421\u043e\u043b\u043d\u0446\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 124,
+    "fields": {
+      "choicequestion": 40,
+      "option_text": "\u0440\u0430\u043a\u0435\u0442\u044b \u0432 \u043a\u043e\u0441\u043c\u0438\u0447\u0435\u0441\u043a\u043e\u043c \u043f\u0440\u043e\u0441\u0442\u0440\u0430\u043d\u0441\u0442\u0432\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 125,
+    "fields": {
+      "choicequestion": 40,
+      "option_text": "\u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043e\u0432 \u0432 \u0442\u0440\u0443\u0431\u0435 \u043a\u0438\u043d\u0435\u0441\u043a\u043e\u043f\u0430 \u0442\u0435\u043b\u0435\u0432\u0438\u0437\u043e\u0440\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 126,
+    "fields": {
+      "choicequestion": 40,
+      "option_text": "\u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043e\u0432 \u0432 \u0430\u0442\u043e\u043c\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 127,
+    "fields": {
+      "choicequestion": 41,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u0442\u0441\u044f \u0432 \\(2\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 128,
+    "fields": {
+      "choicequestion": 41,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u0442\u0441\u044f \u0432 \\(4\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 129,
+    "fields": {
+      "choicequestion": 41,
+      "option_text": "\u0443\u043c\u0435\u043d\u044c\u0448\u0438\u0442\u0441\u044f \u0432 \\(2\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 130,
+    "fields": {
+      "choicequestion": 41,
+      "option_text": "\u0443\u043c\u0435\u043d\u044c\u0448\u0438\u0442\u0441\u044f \u0432 \\(4\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 131,
+    "fields": {
+      "choicequestion": 42,
+      "option_text": "\u0441\u0431\u043b\u0438\u0436\u0430\u044e\u0442\u0441\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 132,
+    "fields": {
+      "choicequestion": 42,
+      "option_text": "\u0443\u0434\u0430\u043b\u044f\u044e\u0442\u0441\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 133,
+    "fields": {
+      "choicequestion": 42,
+      "option_text": "\u043d\u0435 \u0438\u0437\u043c\u0435\u043d\u044f\u044e\u0442 \u0440\u0430\u0441\u0441\u0442\u043e\u044f\u043d\u0438\u0435 \u0434\u0440\u0443\u0433 \u043e\u0442 \u0434\u0440\u0443\u0433\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 134,
+    "fields": {
+      "choicequestion": 42,
+      "option_text": "\u043c\u043e\u0433\u0443\u0442 \u0441\u0431\u043b\u0438\u0436\u0430\u0442\u044c\u0441\u044f, \u0430 \u043c\u043e\u0433\u0443\u0442 \u0438 \u0443\u0434\u0430\u043b\u044f\u0442\u044c\u0441\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 135,
+    "fields": {
+      "choicequestion": 43,
+      "option_text": "\\(2\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 136,
+    "fields": {
+      "choicequestion": 43,
+      "option_text": "\\(3\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 137,
+    "fields": {
+      "choicequestion": 43,
+      "option_text": "\\(4\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 138,
+    "fields": {
+      "choicequestion": 43,
+      "option_text": "\\(5\\) \u0440\u0430\u0437",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 139,
+    "fields": {
+      "choicequestion": 44,
+      "option_text": "\\(1\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 140,
+    "fields": {
+      "choicequestion": 44,
+      "option_text": "\\(2\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 141,
+    "fields": {
+      "choicequestion": 44,
+      "option_text": "\\(4\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 142,
+    "fields": {
+      "choicequestion": 44,
+      "option_text": "\\(8\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 143,
+    "fields": {
+      "choicequestion": 45,
+      "option_text": "\\(\\frac{mv^{2}}{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 144,
+    "fields": {
+      "choicequestion": 45,
+      "option_text": "\\(mv^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 145,
+    "fields": {
+      "choicequestion": 45,
+      "option_text": "\\(\\frac{mv^{2}}{4}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 146,
+    "fields": {
+      "choicequestion": 45,
+      "option_text": "0",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 147,
+    "fields": {
+      "choicequestion": 46,
+      "option_text": "1 \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 148,
+    "fields": {
+      "choicequestion": 46,
+      "option_text": "2 \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 149,
+    "fields": {
+      "choicequestion": 46,
+      "option_text": "3 \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 150,
+    "fields": {
+      "choicequestion": 46,
+      "option_text": "6 \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 151,
+    "fields": {
+      "choicequestion": 47,
+      "option_text": "\\(10^{5}\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 152,
+    "fields": {
+      "choicequestion": 47,
+      "option_text": "\\(10^{4}\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 153,
+    "fields": {
+      "choicequestion": 47,
+      "option_text": "\\(5\u00d710^{4}\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 154,
+    "fields": {
+      "choicequestion": 47,
+      "option_text": "\\(5\u00d710^{3}\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 155,
+    "fields": {
+      "choicequestion": 48,
+      "option_text": "\\(\u0410=\\frac{mv_{2}^{2}}{2}-\\frac{mv_{1}^{2}}{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 156,
+    "fields": {
+      "choicequestion": 48,
+      "option_text": "\\(\u0410=\\frac{mv_{2}^{2}}{2}+\\frac{mv_{1}^{2}}{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 157,
+    "fields": {
+      "choicequestion": 48,
+      "option_text": "\\(\u0410=mv_{2}^{2}-mv_{1}^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 158,
+    "fields": {
+      "choicequestion": 48,
+      "option_text": "\\(\u0410=mv_{2}^{2}+mv_{1}^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 159,
+    "fields": {
+      "choicequestion": 49,
+      "option_text": "\\(1,5\u00d710^{5}\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 160,
+    "fields": {
+      "choicequestion": 49,
+      "option_text": "\\(2,0\u00d710^{5}\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 161,
+    "fields": {
+      "choicequestion": 49,
+      "option_text": "\\(2,5\u00d710^{5}\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 162,
+    "fields": {
+      "choicequestion": 49,
+      "option_text": "\\(3\u00d710^{5}\\) \\(\u0414\u0436\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 163,
+    "fields": {
+      "choicequestion": 50,
+      "option_text": "\\(1\u00d710^{4}\\) \\(\u0412\u0442\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 164,
+    "fields": {
+      "choicequestion": 50,
+      "option_text": "\\(2\u00d710^{4}\\) \\(\u0412\u0442\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 165,
+    "fields": {
+      "choicequestion": 50,
+      "option_text": "\\(3\u00d710^{4}\\) \\(\u0412\u0442\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 166,
+    "fields": {
+      "choicequestion": 50,
+      "option_text": "\\(4\u00d710^{4}\\) \\(\u0412\u0442\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 167,
+    "fields": {
+      "choicequestion": 51,
+      "option_text": "\u043d\u0435 \u0438\u0437\u043c\u0435\u043d\u0438\u043b\u0430\u0441\u044c",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 168,
+    "fields": {
+      "choicequestion": 51,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u043b\u0430\u0441\u044c \u0432 \\(3\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 169,
+    "fields": {
+      "choicequestion": 51,
+      "option_text": "\u0443\u043c\u0435\u043d\u044c\u0448\u0438\u043b\u0430\u0441\u044c \u0432 \\(3\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 170,
+    "fields": {
+      "choicequestion": 51,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u043b\u0430\u0441\u044c \u0432 \\(9\\) \u0440\u0430\u0437",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 171,
+    "fields": {
+      "choicequestion": 52,
+      "option_text": "\\(\u0445_1\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 172,
+    "fields": {
+      "choicequestion": 52,
+      "option_text": "\\(\u0445_2\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 173,
+    "fields": {
+      "choicequestion": 52,
+      "option_text": "\\(\u0445_3\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 174,
+    "fields": {
+      "choicequestion": 52,
+      "option_text": "\\(\u0445_4\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 175,
+    "fields": {
+      "choicequestion": 53,
+      "option_text": "\\(31\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 176,
+    "fields": {
+      "choicequestion": 53,
+      "option_text": "\\(6,3\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 177,
+    "fields": {
+      "choicequestion": 53,
+      "option_text": "\\(0,3\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 178,
+    "fields": {
+      "choicequestion": 53,
+      "option_text": "\\(3,1\\) \\(\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 179,
+    "fields": {
+      "choicequestion": 54,
+      "option_text": "\u043f\u0435\u0440\u0438\u043e\u0434\u0438\u0447\u0435\u0441\u043a\u0438\u043c\u0438 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f\u043c\u0438 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u0438 \u0432\u0440\u0430\u0449\u0435\u043d\u0438\u044f \u0417\u0435\u043c\u043b\u0438 \u0432\u043e\u043a\u0440\u0443\u0433 \u0441\u0432\u043e\u0435\u0439 \u043e\u0441\u0438",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 180,
+    "fields": {
+      "choicequestion": 54,
+      "option_text": "\u043f\u0435\u0440\u0438\u043e\u0434\u0438\u0447\u0435\u0441\u043a\u0438\u043c\u0438 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f\u043c\u0438 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u0438 \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f \u0417\u0435\u043c\u043b\u0438 \u0432\u043e\u043a\u0440\u0443\u0433 \u0421\u043e\u043b\u043d\u0446\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 181,
+    "fields": {
+      "choicequestion": 54,
+      "option_text": "\u043e\u0442\u043b\u0438\u0447\u0438\u0435\u043c \u043e\u0442 \\(90\u00b0\\) \u0443\u0433\u043b\u0430 \u043d\u0430\u043a\u043b\u043e\u043d\u0430 \u043e\u0441\u0438 \u0432\u0440\u0430\u0449\u0435\u043d\u0438\u044f \u0417\u0435\u043c\u043b\u0438 \u0432\u043e\u043a\u0440\u0443\u0433 \u0441\u0432\u043e\u0435\u0439 \u043e\u0441\u0438 \u043a \u043f\u043b\u043e\u0441\u043a\u043e\u0441\u0442\u0438 \u0437\u0435\u043c\u043d\u043e\u0439 \u043e\u0440\u0431\u0438\u0442\u044b",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 182,
+    "fields": {
+      "choicequestion": 54,
+      "option_text": "\u043f\u0435\u0440\u0438\u043e\u0434\u0438\u0447\u0435\u0441\u043a\u0438\u043c\u0438 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f\u043c\u0438 \u043d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f \u043c\u043e\u0440\u0441\u043a\u0438\u0445 \u0442\u0435\u0447\u0435\u043d\u0438\u0439 \u0438 \u0446\u0438\u043a\u043b\u043e\u043d\u043e\u0432",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 183,
+    "fields": {
+      "choicequestion": 55,
+      "option_text": "\u0437\u0438\u043c\u043e\u0439 \u0417\u0435\u043c\u043b\u044f \u0434\u0432\u0438\u0436\u0435\u0442\u0441\u044f \u043c\u0435\u0434\u043b\u0435\u043d\u043d\u0435\u0435 \u043f\u043e \u043e\u0440\u0431\u0438\u0442\u0435 \u0432\u043e\u043a\u0440\u0443\u0433 \u0421\u043e\u043b\u043d\u0446\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 184,
+    "fields": {
+      "choicequestion": 55,
+      "option_text": "\u0437\u0438\u043c\u043e\u0439 \u0417\u0435\u043c\u043b\u044f \u0434\u0432\u0438\u0436\u0435\u0442\u0441\u044f \u0431\u044b\u0441\u0442\u0440\u0435\u0435 \u043f\u043e \u043e\u0440\u0431\u0438\u0442\u0435 \u0432\u043e\u043a\u0440\u0443\u0433 \u0421\u043e\u043b\u043d\u0446\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 185,
+    "fields": {
+      "choicequestion": 55,
+      "option_text": "\u0432 \u0434\u0435\u043a\u0430\u0431\u0440\u0435 \u043e\u0441\u044c \u0441\u0443\u0442\u043e\u0447\u043d\u043e\u0433\u043e \u0432\u0440\u0430\u0449\u0435\u043d\u0438\u044f \u0417\u0435\u043c\u043b\u0438 \u043d\u0430\u043a\u043b\u043e\u043d\u0435\u043d\u0430 \u0441\u0435\u0432\u0435\u0440\u043d\u044b\u043c \u043f\u043e\u043b\u0443\u0448\u0430\u0440\u0438\u0435\u043c \u043a \u0421\u043e\u043b\u043d\u0446\u0443",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 186,
+    "fields": {
+      "choicequestion": 55,
+      "option_text": "\u0432 \u0434\u0435\u043a\u0430\u0431\u0440\u0435 \u043e\u0441\u044c \u0441\u0443\u0442\u043e\u0447\u043d\u043e\u0433\u043e \u0432\u0440\u0430\u0449\u0435\u043d\u0438\u044f \u0417\u0435\u043c\u043b\u0438 \u043d\u0430\u043a\u043b\u043e\u043d\u0435\u043d\u0430 \u0442\u0430\u043a, \u0447\u0442\u043e \u0441\u0435\u0432\u0435\u0440\u043d\u043e\u0435 \u043f\u043e\u043b\u0443\u0448\u0430\u0440\u0438\u0435 \u0417\u0435\u043c\u043b\u0438 \u043f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u043e \u043e\u0442 \u0421\u043e\u043b\u043d\u0446\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 187,
+    "fields": {
+      "choicequestion": 56,
+      "option_text": "\u0432\u0435\u0440\u043d\u043e \u043f\u0440\u0438 \u043b\u044e\u0431\u044b\u0445 \u0443\u0441\u043b\u043e\u0432\u0438\u044f\u0445",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 188,
+    "fields": {
+      "choicequestion": 56,
+      "option_text": "\u0432\u0435\u0440\u043d\u043e \u0434\u043b\u044f \u0438\u043d\u0435\u0440\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0445 \u0441\u0438\u0441\u0442\u0435\u043c \u043e\u0442\u0441\u0447\u0435\u0442\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 189,
+    "fields": {
+      "choicequestion": 56,
+      "option_text": "\u0432\u0435\u0440\u043d\u043e \u0434\u043b\u044f \u043d\u0435\u0438\u043d\u0435\u0440\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0445 \u0441\u0438\u0441\u0442\u0435\u043c \u043e\u0442\u0441\u0447\u0435\u0442\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 190,
+    "fields": {
+      "choicequestion": 56,
+      "option_text": "\u043d\u0435\u0432\u0435\u0440\u043d\u043e \u043d\u0438 \u0434\u043b\u044f \u043a\u0430\u043a\u0438\u0445 \u0441\u0438\u0441\u0442\u0435\u043c \u043e\u0442\u0441\u0447\u0435\u0442\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 191,
+    "fields": {
+      "choicequestion": 57,
+      "option_text": "\u0442\u043e\u043b\u044c\u043a\u043e \u0434\u043b\u044f \u043c\u0435\u0445\u0430\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u044f\u0432\u043b\u0435\u043d\u0438\u0439",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 192,
+    "fields": {
+      "choicequestion": 57,
+      "option_text": "\u0434\u043b\u044f \u043c\u0435\u0445\u0430\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u0438 \u0442\u0435\u043f\u043b\u043e\u0432\u044b\u0445 \u044f\u0432\u043b\u0435\u043d\u0438\u0439",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 193,
+    "fields": {
+      "choicequestion": 57,
+      "option_text": "\u0434\u043b\u044f \u043c\u0435\u0445\u0430\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0445, \u0442\u0435\u043f\u043b\u043e\u0432\u044b\u0445 \u0438 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043c\u0430\u0433\u043d\u0438\u0442\u043d\u044b\u0445 \u044f\u0432\u043b\u0435\u043d\u0438\u0439",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 194,
+    "fields": {
+      "choicequestion": 57,
+      "option_text": "\u0434\u043b\u044f \u043b\u044e\u0431\u044b\u0445 \u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u044f\u0432\u043b\u0435\u043d\u0438\u0439",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 195,
+    "fields": {
+      "choicequestion": 58,
+      "option_text": "\u043b\u044e\u0431\u043e\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u044b \u0442\u0435\u043b \u0432 \u043b\u044e\u0431\u043e\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u0435 \u043e\u0442\u0441\u0447\u0435\u0442\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 196,
+    "fields": {
+      "choicequestion": 58,
+      "option_text": "\u043b\u044e\u0431\u043e\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u044b \u0442\u0435\u043b \u043f\u0440\u0438 \u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f\u0445 \u043b\u044e\u0431\u044b\u043c\u0438 \u0441\u0438\u043b\u0430\u043c\u0438 \u0432 \u0438\u043d\u0435\u0440\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0445 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 \u043e\u0442\u0441\u0447\u0435\u0442\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 197,
+    "fields": {
+      "choicequestion": 58,
+      "option_text": "\u0437\u0430\u043c\u043a\u043d\u0443\u0442\u043e\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u044b \u0442\u0435\u043b, \u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0443\u044e\u0449\u0438\u0445 \u0442\u043e\u043b\u044c\u043a\u043e \u0441\u0438\u043b\u0430\u043c\u0438 \u0443\u043f\u0440\u0443\u0433\u043e\u0441\u0442\u0438 \u0438 \u0441\u0438\u043b\u0430\u043c\u0438 \u0432\u0441\u0435\u043c\u0438\u0440\u043d\u043e\u0433\u043e \u0442\u044f\u0433\u043e\u0442\u0435\u043d\u0438\u044f, \u0432 \u0438\u043d\u0435\u0440\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0445 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 \u043e\u0442\u0441\u0447\u0435\u0442\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 198,
+    "fields": {
+      "choicequestion": 58,
+      "option_text": "\u0437\u0430\u043c\u043a\u043d\u0443\u0442\u043e\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u044b \u0442\u0435\u043b, \u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0443\u044e\u0449\u0438\u0445 \u043b\u044e\u0431\u044b\u043c\u0438 \u0441\u0438\u043b\u0430\u043c\u0438, \u0432 \u0438\u043d\u0435\u0440\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0445 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 \u043e\u0442\u0441\u0447\u0435\u0442\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 199,
+    "fields": {
+      "choicequestion": 59,
+      "option_text": "\u0441\u0438\u043b\u0430 \u0438 \u0443\u0441\u043a\u043e\u0440\u0435\u043d\u0438\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 200,
+    "fields": {
+      "choicequestion": 59,
+      "option_text": "\u0441\u0438\u043b\u0430 \u0438 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u044c",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 201,
+    "fields": {
+      "choicequestion": 59,
+      "option_text": "\u0441\u0438\u043b\u0430 \u0438 \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 202,
+    "fields": {
+      "choicequestion": 59,
+      "option_text": "\u0443\u0441\u043a\u043e\u0440\u0435\u043d\u0438\u0435 \u0438 \u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 203,
+    "fields": {
+      "choicequestion": 60,
+      "option_text": "\u0443\u0441\u043a\u043e\u0440\u0435\u043d\u0438\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 204,
+    "fields": {
+      "choicequestion": 60,
+      "option_text": "\u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 205,
+    "fields": {
+      "choicequestion": 60,
+      "option_text": "\u0442\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 206,
+    "fields": {
+      "choicequestion": 60,
+      "option_text": "\u043a\u0438\u043d\u0435\u0442\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u044d\u043d\u0435\u0440\u0433\u0438\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 207,
+    "fields": {
+      "choicequestion": 61,
+      "option_text": "\u043d\u0435 \u0438\u0437\u043c\u0435\u043d\u0438\u043b\u0441\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 208,
+    "fields": {
+      "choicequestion": 61,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u043b\u0441\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 209,
+    "fields": {
+      "choicequestion": 61,
+      "option_text": "\u0443\u043c\u0435\u043d\u044c\u0448\u0438\u043b\u0441\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 210,
+    "fields": {
+      "choicequestion": 61,
+      "option_text": "\u043e\u0442\u0432\u0435\u0442 \u0437\u0430\u0432\u0438\u0441\u0438\u0442 \u043e\u0442 \u0434\u043b\u0438\u043d\u044b \u043d\u0438\u0442\u0438 \u043c\u0430\u044f\u0442\u043d\u0438\u043a\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 211,
+    "fields": {
+      "choicequestion": 62,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u043b\u0430\u0441\u044c \u0432 \\(\\sqrt{2}\\) \u0440\u0430\u0437",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 212,
+    "fields": {
+      "choicequestion": 62,
+      "option_text": "\u0443\u0432\u0435\u043b\u0438\u0447\u0438\u043b\u0430\u0441\u044c \u0432 \\(2\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 213,
+    "fields": {
+      "choicequestion": 62,
+      "option_text": "\u0443\u043c\u0435\u043d\u044c\u0448\u0438\u043b\u0430\u0441\u044c \u0432 \\(2\\) \u0440\u0430\u0437\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 214,
+    "fields": {
+      "choicequestion": 62,
+      "option_text": "\u0443\u043c\u0435\u043d\u044c\u0448\u0438\u043b\u0430\u0441\u044c \u0432 \\(\\sqrt{2}\\) \u0440\u0430\u0437",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 215,
+    "fields": {
+      "choicequestion": 63,
+      "option_text": "\\(\\frac{2}{3}\\) \\( v\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 216,
+    "fields": {
+      "choicequestion": 63,
+      "option_text": "\\(\\frac{3}{2}\\) \\( v\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 217,
+    "fields": {
+      "choicequestion": 63,
+      "option_text": "\\(\\frac{1}{2}\\) \\( v\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 218,
+    "fields": {
+      "choicequestion": 63,
+      "option_text": "\\(\\frac{1}{4}\\) \\( v\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 219,
+    "fields": {
+      "choicequestion": 64,
+      "option_text": "\\(0,4\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 220,
+    "fields": {
+      "choicequestion": 64,
+      "option_text": "\\(0,8\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 221,
+    "fields": {
+      "choicequestion": 64,
+      "option_text": "\\(4\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 222,
+    "fields": {
+      "choicequestion": 64,
+      "option_text": "\\(16\\) \\(\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 223,
+    "fields": {
+      "choicequestion": 65,
+      "option_text": "\\(2,45\\) \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 224,
+    "fields": {
+      "choicequestion": 65,
+      "option_text": "\\(4,9\\) \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 225,
+    "fields": {
+      "choicequestion": 65,
+      "option_text": "\\(19,6\\) \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 226,
+    "fields": {
+      "choicequestion": 65,
+      "option_text": "\\(39,2\\) \\(\u043c/\u0441^{2}\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 227,
+    "fields": {
+      "choicequestion": 66,
+      "option_text": "\\(9\\) \u0440\u0430\u0437 \u0434\u043b\u0438\u043d\u043d\u0435\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 228,
+    "fields": {
+      "choicequestion": 66,
+      "option_text": "\\(3\\) \u0440\u0430\u0437\u0430 \u0434\u043b\u0438\u043d\u043d\u0435\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 229,
+    "fields": {
+      "choicequestion": 66,
+      "option_text": "\\(\\sqrt{3}\\) \u0440\u0430\u0437 \u0434\u043b\u0438\u043d\u043d\u0435\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 230,
+    "fields": {
+      "choicequestion": 66,
+      "option_text": "\\(\\sqrt{3}\\) \u0440\u0430\u0437 \u043a\u043e\u0440\u043e\u0447\u0435",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 231,
+    "fields": {
+      "choicequestion": 67,
+      "option_text": "\u00ab\u043c\u0430\u0440\u0441\u0438\u0430\u043d\u0441\u043a\u0438\u0439\u00bb \u0437\u0430\u043a\u043e\u043d \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u043c\u0435\u0445\u0430\u043d\u0438\u0447\u0435\u0441\u043a\u043e\u0439 \u044d\u043d\u0435\u0440\u0433\u0438\u0438 \u0441\u043e\u0432\u043f\u0430\u0434\u0430\u043b \u0431\u044b \u0441 \u0437\u0435\u043c\u043d\u044b\u043c, \u043e\u0434\u043d\u0430\u043a\u043e \u0432 \u0437\u0430\u043a\u043e\u043d\u0435 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u0438\u043c\u043f\u0443\u043b\u044c\u0441\u0430 \u043f\u0440\u0438\u0448\u043b\u043e\u0441\u044c \u0431\u044b \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u0442\u044c \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u0438\u043c\u043f\u0443\u043b\u044c\u0441 \u0432\u0441\u0435\u0445 \u0442\u0435\u043b",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 232,
+    "fields": {
+      "choicequestion": 67,
+      "option_text": "\u0435\u0435 \u0443\u0447\u0435\u043d\u044b\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u043b\u0438 \u0431\u044b \u0442\u043e\u0447\u043d\u043e \u0442\u0430\u043a\u0438\u0435 \u0436\u0435 \u0437\u0430\u043a\u043e\u043d\u044b \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 233,
+    "fields": {
+      "choicequestion": 67,
+      "option_text": "\u043e\u0431\u0430 \u0437\u0430\u043a\u043e\u043d\u0430 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u043d\u0430 \u041c\u0430\u0440\u0441\u0435 \u0438\u043c\u0435\u043b\u0438 \u0431\u044b \u0434\u0440\u0443\u0433\u0443\u044e \u0444\u043e\u0440\u043c\u0443\u043b\u0438\u0440\u043e\u0432\u043a\u0443",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 234,
+    "fields": {
+      "choicequestion": 67,
+      "option_text": "\u0432 \u0437\u0430\u043a\u043e\u043d\u0435 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u043c\u0435\u0445\u0430\u043d\u0438\u0447\u0435\u0441\u043a\u043e\u0439 \u044d\u043d\u0435\u0440\u0433\u0438\u0438 \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u043b\u043e\u0441\u044c \u0431\u044b \u0431\u00f3\u043b\u044c\u0448\u0435\u0435 \u0440\u0430\u0441\u0441\u0442\u043e\u044f\u043d\u0438\u0435 \u041c\u0430\u0440\u0441\u0430 \u043e\u0442 \u0421\u043e\u043b\u043d\u0446\u0430, \u0441\u0440\u0430\u0432\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0441 \u0440\u0430\u0441\u0441\u0442\u043e\u044f\u043d\u0438\u0435\u043c \u0417\u0435\u043c\u043b\u0438 \u043e\u0442 \u0421\u043e\u043b\u043d\u0446\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 235,
+    "fields": {
+      "choicequestion": 68,
+      "option_text": "\\(4,0\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 236,
+    "fields": {
+      "choicequestion": 68,
+      "option_text": "\\(4,2\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 237,
+    "fields": {
+      "choicequestion": 68,
+      "option_text": "\\(3,2\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 238,
+    "fields": {
+      "choicequestion": 68,
+      "option_text": "\\(6,4\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 239,
+    "fields": {
+      "choicequestion": 69,
+      "option_text": "\\(1\\) \\(\u0441\u043c\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 240,
+    "fields": {
+      "choicequestion": 69,
+      "option_text": "\\(2\\) \\(\u0441\u043c\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 241,
+    "fields": {
+      "choicequestion": 69,
+      "option_text": "\\(3\\) \\(\u0441\u043c\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 242,
+    "fields": {
+      "choicequestion": 69,
+      "option_text": "\\(4\\) \\(\u0441\u043c\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 243,
+    "fields": {
+      "choicequestion": 70,
+      "option_text": "\u043d\u0435 \u0437\u0430\u0432\u0438\u0441\u0438\u0442 \u043e\u0442 \u043c\u0430\u0441\u0441\u044b \u0442\u0435\u043b",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 244,
+    "fields": {
+      "choicequestion": 70,
+      "option_text": "\u043f\u0440\u043e\u043f\u043e\u0440\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e \u043c\u0430\u0441\u0441\u0435 \u0442\u0435\u043b\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 245,
+    "fields": {
+      "choicequestion": 70,
+      "option_text": "\u043e\u0431\u0440\u0430\u0442\u043d\u043e \u043f\u0440\u043e\u043f\u043e\u0440\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e \u043c\u0430\u0441\u0441\u0435 \u0442\u0435\u043b\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 246,
+    "fields": {
+      "choicequestion": 70,
+      "option_text": "\u043e\u0431\u0440\u0430\u0442\u043d\u043e \u043f\u0440\u043e\u043f\u043e\u0440\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e \u043a\u0432\u0430\u0434\u0440\u0430\u0442\u0443 \u043c\u0430\u0441\u0441\u044b \u0442\u0435\u043b\u0430",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 247,
+    "fields": {
+      "choicequestion": 71,
+      "option_text": "\\(0\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 248,
+    "fields": {
+      "choicequestion": 71,
+      "option_text": "\\(0,005\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": true
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 249,
+    "fields": {
+      "choicequestion": 71,
+      "option_text": "\\(0,16\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  },
+  {
+    "model": "teaching.choicequestionoption",
+    "pk": 250,
+    "fields": {
+      "choicequestion": 71,
+      "option_text": "\\(1,6\\) \\(\u043a\u0433\u00d7\u043c/\u0441\\)",
+      "option_image": "",
+      "help_text": "",
+      "is_true": false
+    }
+  }
+]
