@@ -221,6 +221,23 @@ the web client <-> Django | works
     ```
 the web client <-> uWSGI <-> Django | works
 
+10. Configure nginx
+
+    ````
+    sudo nano /etc/nginx/sites-available/quantzone
+    cd /etc/nginx/sites-enabled
+    sudo ln -s ../sites-available/quantzone
+    sudo rm default
+    sudo service nginx restart
+    
+    sudo chown -R www-data:www-data /var/log/nginx;
+    sudo chmod -R 755 /var/log/nginx;
+    sudo nginx -t
+    
+    go to http://quant.zone/static/css/main.css
+    ```
+Nginx serving static and media correctly
+
 11. Run Django by uWSGI globally
 
     ```
@@ -238,20 +255,6 @@ the web client <-> uWSGI <-> Django | works
 
 the web client <-> the web server |works
 
-13. Set up nginx
-
-    ````
-    sudo nano /etc/nginx/sites-available/quantzone
-    cd /etc/nginx/sites-enabled
-    sudo ln -s ../sites-available/quantzone
-    sudo rm default
-    sudo service nginx restart
-    
-    go to http://quant.zone/static/css/main.css
-    ```
-    
-Nginx serving static and media correctly
-
 14. Set up sockets
 
     ```
@@ -259,6 +262,7 @@ Nginx serving static and media correctly
     uwsgi --socket :8001 --wsgi-file test.py --chmod-socket=664
     
     sudo chmod -R 777 quantzone.sock
+    sudo chown www-data /opt/quantzone/quantzone.sock
     uwsgi --socket quantzone.sock --wsgi-file test.py --chmod-socket=666
     
     go to http://quant.zone
@@ -282,6 +286,8 @@ the web client <-> the web server <-> the socket <-> uWSGI <-> Python | works co
     sudo mkdir /opt/uwsgi/vassals
     
     sudo ln -s /opt/quantzone/uwsgi.ini /opt/uwsgi/vassals/
+    
+    sudo chown -R www-data:www-data /opt;
     
     sudo uwsgi --emperor /opt/uwsgi/vassals --uid www-data --gid www-data
     ```
