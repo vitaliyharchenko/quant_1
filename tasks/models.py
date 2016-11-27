@@ -8,7 +8,7 @@ from users.models import User
 # Tasks
 class Task(models.Model):
     student = models.ForeignKey(User, related_name='task_student')
-    teacher = models.ForeignKey(User, related_name='task_teacher')
+    teacher = models.ForeignKey(User, related_name='task_teacher', limit_choices_to={'is_teacher': True})
     datetime = models.DateTimeField(null=True, blank=True)
     datetime_to = models.DateTimeField(null=True, blank=True)
     is_finished = models.BooleanField('Закончил?', default=False)

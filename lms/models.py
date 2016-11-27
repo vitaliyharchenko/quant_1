@@ -55,7 +55,7 @@ class StudentCourseRelation(models.Model):
 # Relation between student and teacher
 class StudentTeacherRelation(models.Model):
     student = models.ForeignKey(User, related_name=u'student')
-    teacher = models.ForeignKey(User, related_name=u'teacher')
+    teacher = models.ForeignKey(User, related_name=u'teacher', limit_choices_to={'is_teacher': True})
 
     class Meta:
         verbose_name = 'Связь ученика с учителем'

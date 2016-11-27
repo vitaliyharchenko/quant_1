@@ -10,7 +10,7 @@ from users.models import User
 class Course(models.Model):
     title = models.CharField('Название курса', max_length=300)
     subject = models.ForeignKey(Subject)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User, verbose_name=u"Автор", limit_choices_to={'is_teacher': True})
     about = models.TextField()
 
     class Meta:
