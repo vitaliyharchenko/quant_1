@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Country, Region, City, Place
+from .models import *
 
 
 class RegionInline(admin.TabularInline):
@@ -16,3 +16,5 @@ class CountryAdmin(admin.ModelAdmin):
 admin.site.register(City)
 admin.site.register(Country, CountryAdmin)
 admin.site.register(Place)
+admin.site.register(Office)
+admin.site.register(СlassRoom)

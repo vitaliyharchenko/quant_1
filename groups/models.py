@@ -1,5 +1,6 @@
 from django.db import models
 
+from events.models import Seminar
 from nodes.models import Subject
 from users.models import User
 
@@ -18,7 +19,7 @@ class Group(models.Model):
         return self.title
 
 
-class StudentGroup(models.Model):
+class StudentGroupRelation(models.Model):
     class Meta:
         verbose_name = 'Участие студента в группе'
         verbose_name_plural = 'Участие студента в группе'
@@ -28,4 +29,16 @@ class StudentGroup(models.Model):
     student = models.ForeignKey(User)
 
     def __str__(self):
-        return u'{} in "{}"'.format(self.student, self.group.title)
+        return u'{} in "{}"'.format(self.student, self.group)
+
+
+class GroupSeminarRelation(models.Model):
+    class Meta:
+        verbose_name = 'Связь группы и семинара'
+        unique_together = ('group', 'seminar')
+
+    group = models.ForeignKey(Group)
+    seminar = models.ForeignKey(Seminar)
+
+    def __str__(self):
+        return u'{} in "{}"'.format(self.group, self.seminar)
