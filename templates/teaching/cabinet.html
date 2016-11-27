@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a href="{% url 'user_view' student_teacher.student.pk %}">
-                            <span class="lead">{{ student_teacher.student }}</span>
+                            {{ student_teacher.student }}
                         </a>
                         <a data-toggle="collapse" href="#collapse{{ student_teacher.pk }}" aria-expanded="true" aria-controls="collapse{{ student_teacher.pk }}">
                             Открыть
