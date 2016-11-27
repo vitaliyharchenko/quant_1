@@ -81,9 +81,9 @@ class UserActivation(models.Model):
     request_time = models.DateTimeField(default=timezone.now)
     confirm_time = models.DateTimeField('Дата активации', blank=True, null=True)
 
-    def __str__(self):
-        return self.user.email
-
     class Meta:
         verbose_name = u'Активациия пользователя'
         verbose_name_plural = u'Активации пользователей'
+
+    def __str__(self):
+        return self.user.email

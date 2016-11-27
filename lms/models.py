@@ -12,28 +12,28 @@ from users.models import User
 #   -> StudentUnit
 #   -> StudentLesson
 class StudentNodeRelation(models.Model):
-    class Meta:
-        verbose_name = 'Связь ученика с узлом'
-
     student = models.ForeignKey(User, verbose_name=u'Student')
     has_perm = models.BooleanField('Имеет доступ?', default=False)
 
+    class Meta:
+        verbose_name = 'Связь ученика с узлом'
+
 
 class StudentModuleRelation(StudentNodeRelation):
+    module = models.ForeignKey(Module)
+
     class Meta:
         verbose_name = 'Связь ученика с уроком'
-
-    module = models.ForeignKey(Module)
 
     def __str__(self):
         return u'{} in "{}"'.format(self.student, self.module)
 
 
 class StudentLessonRelation(StudentNodeRelation):
+    lesson = models.ForeignKey(Lesson)
+
     class Meta:
         verbose_name = 'Связь ученика с уроком'
-
-    lesson = models.ForeignKey(Lesson)
 
     def __str__(self):
         return u'{} in "{}"'.format(self.student, self.lesson)
@@ -41,12 +41,12 @@ class StudentLessonRelation(StudentNodeRelation):
 
 # Relation between student and course
 class StudentCourseRelation(models.Model):
-    class Meta:
-        verbose_name = 'Связь ученика с курсом'
-
     course = models.ForeignKey('courses.Course')
     student = models.ForeignKey(User, verbose_name=u'Student')
     has_perm = models.BooleanField('Имеет доступ?', default=False)
+
+    class Meta:
+        verbose_name = 'Связь ученика с курсом'
 
     def __str__(self):
         return u'{} in "{}"'.format(self.student, self.course)
@@ -54,11 +54,11 @@ class StudentCourseRelation(models.Model):
 
 # Relation between student and teacher
 class StudentTeacherRelation(models.Model):
-    class Meta:
-        verbose_name = 'Связь ученика с учителем'
-
     student = models.ForeignKey(User, related_name=u'student')
     teacher = models.ForeignKey(User, related_name=u'teacher')
+
+    class Meta:
+        verbose_name = 'Связь ученика с учителем'
 
     def __str__(self):
         return u'{} in "{}"'.format(self.student, self.teacher)

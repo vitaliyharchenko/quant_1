@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from blocks.models import LessonBlockRelation
@@ -11,22 +12,22 @@ from users.models import User
 #           -> Unit
 #               -> Lesson
 class Node(models.Model):
+    title = models.CharField('Название объекта', max_length=300)
+
     class Meta:
         verbose_name = 'Узел'
         verbose_name_plural = 'Узлы'
-
-    title = models.CharField('Название объекта', max_length=300)
 
     def __str__(self):
         return self.title
 
 
 class Subject(Node):
+    image = models.ImageField('Картинка', upload_to='subjects/', null=True, blank=True)
+
     class Meta:
         verbose_name = 'Предмет'
         verbose_name_plural = 'Предметы'
-
-    image = models.ImageField('Картинка', upload_to='subjects/', null=True, blank=True)
 
     @property
     def subject_modules(self):
@@ -54,14 +55,14 @@ class Unit(Node):
 
 
 class Lesson(Node):
+    about = models.TextField('Описание урока')
+
     class Meta:
         verbose_name = 'Урок'
         verbose_name_plural = 'Уроки'
 
-    about = models.TextField('Описание урока')
-
     def get_absolute_url(self):
-        return "/lesson/%i" % self.id
+        return reverse('lesson_view', args=[self.id])
 
     @property
     def lesson_block_relations(self):
@@ -75,12 +76,12 @@ class Lesson(Node):
 #       -> ModuleUnitRelation
 #           -> UnitLessonRelation
 class NodeRelation(models.Model):
+    parent = models.ForeignKey(Node, verbose_name=u'Parent', related_name=u'parent_in_node_relation')
+    child = models.ForeignKey(Node, verbose_name=u'Child', related_name=u'child_in_node_relation')
+
     class Meta:
         verbose_name = 'Связь между узлами'
         verbose_name_plural = 'Связи между узлами'
-
-    parent = models.ForeignKey(Node, verbose_name=u'Parent', related_name=u'parent_in_node_relation')
-    child = models.ForeignKey(Node, verbose_name=u'Child', related_name=u'child_in_node_relation')
 
     def __str__(self):
         return "{} in {}".format(self.child, self.parent)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 from lms.models import StudentCourseRelation
 from nodes.models import Module, Subject
@@ -7,20 +8,20 @@ from users.models import User
 
 # Create your models here.
 class Course(models.Model):
-    class Meta:
-        verbose_name = 'Курс'
-        verbose_name_plural = 'Курсы'
-
     title = models.CharField('Название курса', max_length=300)
     subject = models.ForeignKey(Subject)
     owner = models.ForeignKey(User)
     about = models.TextField()
 
+    class Meta:
+        verbose_name = 'Курс'
+        verbose_name_plural = 'Курсы'
+
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return "/course/%i" % self.id
+        return reverse('course_view', args=[self.id])
 
     @property
     def student_courses(self):

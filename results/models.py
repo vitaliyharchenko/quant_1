@@ -9,19 +9,22 @@ from users.models import User
 
 
 class Result(models.Model):
-
     student = models.ForeignKey(User, verbose_name=u'Ученик')
     date = models.DateTimeField(default=timezone.now)
     score = models.IntegerField(null=True, blank=True)
     max_score = models.IntegerField()
 
+    class Meta:
+        verbose_name = 'Результат'
+        verbose_name_plural = 'Результаты'
+
 
 class LessonResult(Result):
+    lesson = models.ForeignKey(Lesson, verbose_name=u'Урок')
+
     class Meta:
         verbose_name = 'Результат урока'
         verbose_name_plural = 'Результаты уроков'
-
-    lesson = models.ForeignKey(Lesson, verbose_name=u'Урок')
 
     def __str__(self):
         return u'{}, {}, {}'.format(self.student, self.lesson, self.date)
@@ -32,11 +35,11 @@ class LessonResult(Result):
 
 
 class TestResult(Result):
+    test = models.ForeignKey(Test, verbose_name=u'Тест')
+
     class Meta:
         verbose_name = 'Результат теста'
         verbose_name_plural = 'Результаты тестов'
-
-    test = models.ForeignKey(Test, verbose_name=u'Тест')
 
     def __str__(self):
         return u'{}, {}, {}'.format(self.student, self.test, self.date)
@@ -46,38 +49,38 @@ class TestResult(Result):
 # Results of blocks
 # =================
 class BlockResult(Result):
+    block = models.ForeignKey(Block)
+
     class Meta:
         verbose_name = 'Результат ответа на блок'
         verbose_name_plural = 'Результаты ответов на блоки'
-
-    block = models.ForeignKey(Block)
 
     def __str__(self):
         return u'{}, {}, {}'.format(self.student, self.block, self.date)
 
 
 class ChoiceBlockResult(BlockResult):
+    choices = ArrayField(models.IntegerField())
+
     class Meta:
         verbose_name = 'Результат ответа на тестовый вопрос'
         verbose_name_plural = 'Результаты ответов на тестовые вопросы'
 
-    choices = ArrayField(models.IntegerField())
-
 
 class FloatBlockResult(BlockResult):
+    answer = models.FloatField('Ответ')
+
     class Meta:
         verbose_name = 'Результат ответа на задачу'
         verbose_name_plural = 'Результаты ответов на задачи'
-
-    answer = models.FloatField('Ответ')
 
 
 # ========================
 # Relation between results
 # ========================
 class LessonResultBlockResultRelation(models.Model):
-    class Meta:
-        verbose_name = 'Связь результата урока с результатом блока'
-
     lesson_result = models.ForeignKey(LessonResult)
     block_result = models.ForeignKey(BlockResult)
+
+    class Meta:
+        verbose_name = 'Связь результата урока с результатом блока'

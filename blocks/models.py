@@ -1,5 +1,5 @@
+from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils import timezone
 from django_markdown.models import MarkdownField
 
 from users.models import User
@@ -32,7 +32,7 @@ class Block(models.Model):
             return u'Block #{}'.format(self.id)
 
     def get_absolute_url(self):
-        return "/block/%i" % self.id
+        return reverse('block_view', args=[self.id])
 
 
 class TextBlock(Block):
@@ -96,3 +96,6 @@ class LessonBlockRelation(models.Model):
     class Meta:
         verbose_name = 'включение блока в урок'
         verbose_name_plural = 'включения блоков в урок'
+
+    def __str__(self):
+        return "{} in {}".format(self.block, self.lesson)
