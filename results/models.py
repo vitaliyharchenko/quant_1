@@ -1,10 +1,11 @@
-from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.utils import timezone
+
 from blocks.models import Block
-from users.models import User
 from nodes.models import Lesson
 from testing.models import Test
-from django.contrib.postgres.fields import ArrayField
+from users.models import User
 
 
 class Result(models.Model):

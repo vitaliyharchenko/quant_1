@@ -1,10 +1,13 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Lesson
+from django.shortcuts import redirect, render
+
 from lms.models import StudentLessonRelation, StudentTeacherRelation
-from results.models import BlockResult, LessonResult, LessonResultBlockResultRelation
+from results.models import (BlockResult, LessonResult,
+                            LessonResultBlockResultRelation)
 from tasks.models import LessonTask
+
+from .models import Lesson
 
 
 def perm_for_lesson(request, lesson):

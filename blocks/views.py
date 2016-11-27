@@ -1,10 +1,12 @@
 from django.contrib import messages
-from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import HttpResponse, redirect, render
+
+from blocks.models import Block, ChoiceBlock, FloatBlock, TextBlock
 from nodes.models import Lesson
-from .models import LessonBlockRelation, ChoiceBlockOption
-from blocks.models import Block, ChoiceBlock, TextBlock, FloatBlock
-from results.models import BlockResult, FloatBlockResult, ChoiceBlockResult
+from results.models import BlockResult, ChoiceBlockResult, FloatBlockResult
+
+from .models import ChoiceBlockOption, LessonBlockRelation
 
 
 @login_required

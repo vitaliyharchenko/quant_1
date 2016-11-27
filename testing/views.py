@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from testing.models import Test, TestBlockRelation
+from django.shortcuts import redirect, render
+
 from blocks.views import block_handler
-from results.models import TestResult, BlockResult
+from results.models import BlockResult, TestResult
+from testing.models import Test, TestBlockRelation
 
 
 # Create your views here.

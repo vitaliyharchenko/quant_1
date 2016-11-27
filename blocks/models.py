@@ -1,6 +1,7 @@
 from django.db import models
-from django_markdown.models import MarkdownField
 from django.utils import timezone
+from django_markdown.models import MarkdownField
+
 from users.models import User
 
 
