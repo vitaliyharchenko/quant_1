@@ -82,6 +82,9 @@ class NodeRelation(models.Model):
     parent = models.ForeignKey(Node, verbose_name=u'Parent', related_name=u'parent_in_node_relation')
     child = models.ForeignKey(Node, verbose_name=u'Child', related_name=u'child_in_node_relation')
 
+    def __str__(self):
+        return "{} in {}".format(self.child, self.parent)
+
 
 class SubjectModuleRelation(NodeRelation):
     class Meta:
