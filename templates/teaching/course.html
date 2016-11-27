@@ -37,6 +37,7 @@
             {% if student_course or current_user == course.owner %}
                 <div id="accordion" aria-multiselectable="true">
                     {% for course_module_relation in course.course_module_relations %}
+                        <hr>
                         <h3>{{ forloop.counter }}. {{ course_module_relation.module }}</h3>
                         {% for module_unit_relation in course_module_relation.module.module_unit_relations %}
                             <div class="card">

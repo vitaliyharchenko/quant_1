@@ -40,3 +40,6 @@ class CourseModuleRelation(models.Model):
     course = models.ForeignKey(Course)
     module = models.ForeignKey(Module)
     order = models.IntegerField()
+
+    def __str__(self):
+        return "{} in {}".format(self.module, self.course)
