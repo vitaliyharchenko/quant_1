@@ -113,8 +113,8 @@ Quant.zone
 6. Save all data to .json file and load locally
 
     ```
-    python manage.py dumpdata --exclude contenttypes > db.json
-    scp root@188.93.211.161:/opt/quantzone/db.json /Users/vitaliyharchenko/Dev
+    python manage.py dumpdata --exclude contenttypes > fixtures/db.json
+    scp root@188.93.211.161:/opt/quantzone/fixtures/db.json /Users/vitaliyharchenko/Dev/quantzone
     ```
 
 7. Create png file with models relation
@@ -306,3 +306,9 @@ the web client <-> the web server <-> the socket <-> uWSGI <-> Python | works co
     ```    
     change port nginx to 80
     ```
+    
+### Advices
+
+1. Work in coding style: https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/
+
+2. 
