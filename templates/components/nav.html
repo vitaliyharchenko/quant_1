@@ -25,9 +25,6 @@
                 {% endif %}
                 {% if current_user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'courses_view' %}">Курсы</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'tasks_view' %}">
                             Мои задания
                             {% if glob_tasks %}
