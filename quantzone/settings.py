@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'bootstrapform',
     'blocks',
     'courses',
+    'events',
     'lms',
     'nodes',
     'organizations',

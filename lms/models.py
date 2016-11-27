@@ -1,5 +1,6 @@
 from django.db import models
 
+from events.models import Seminar
 from nodes.models import Lesson, Module
 from tasks.models import LessonTask
 from users.models import User
@@ -37,6 +38,19 @@ class StudentLessonRelation(StudentNodeRelation):
 
     def __str__(self):
         return u'{} in "{}"'.format(self.student, self.lesson)
+
+
+# Relation between student and seminar
+class StudentSeminarRelation(models.Model):
+    seminar = models.ForeignKey(Seminar, verbose_name=u"Семинар")
+    student = models.ForeignKey(User, verbose_name=u'Студент')
+    had_visit = models.BooleanField('Посетил?', default=False)
+
+    class Meta:
+        verbose_name = 'Связь ученика с семинаром'
+
+    def __str__(self):
+        return u'{} in "{}"'.format(self.student, self.seminar)
 
 
 # Relation between student and course
