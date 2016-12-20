@@ -1,0 +1,129 @@
+{% extends 'base_landing.html' %}
+{% load staticfiles %}
+
+{% block content-fluid %}
+    {#  FIXME:inline styles  #}
+    <div class="jumbotron jumbotron-fluid" style="background: #eee url('/static/images/background-formulas.png'); background-size: cover;">
+        <div class="container">
+            <h1 class="display-3">Физико-математический интенсив</h1>
+            <hr>
+            <p class="lead">Разбор и самостоятельное решение всех задач профильных экзаменов</p>
+            <p class="lead">Полный набор необходимого теоретического материала с дополнительными указаниями</p>
+            <p class="lead">Получите уверенность в своих силах и толчок для дальнейшей подготовки</p>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-xs-6">
+                <div class="text-xs-center">
+                    <p class="display-2">2</p>
+                    <p class="display-4">учителя</p>
+                    <br class="hidden-md-up">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-6">
+                <div class="text-xs-center">
+                    <p class="display-2">3</p>
+                    <p class="display-4">дня</p>
+                    <br class="hidden-md-up">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-6">
+                <div class="text-xs-center">
+                    <p class="display-2">6</p>
+                    <p class="display-4">учеников</p>
+                    <br class="hidden-md-up">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-6">
+                <div class="text-xs-center">
+                    <p class="display-2">18</p>
+                    <p class="display-4">часов</p>
+                    <br class="hidden-md-up">
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <h2 class="page-header">Преподаватели интенсива</h2>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'images/teachers/harchenko.png' %}">
+                    <div class="card-block">
+                        <h4 class="card-title">Виталий Харченко</h4>
+                        <h6 class="card-subtitle text-muted">Физика</h6>
+                        <hr>
+                        <p class="card-text">Репетиторский опыт – с 2011 года</p>
+                        <p class="card-text">Абсолютный победитель всероссийской конференции "Шаг в будущее" 2009</p>
+                        <p class="card-text">С 2014 года – преподаватель физики категории А в учебном центре Юниум</p>
+                        <p class="card-text">С 2016 года – тренирует олимпиадников в СУНЦ УрФУ</p>
+                        <p class="card-text">Умеет привить интерес к предмету, развить абстрактное техническое мышление, помочь в выборе ВУЗа и профессии.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'images/teachers/paramonova.png' %}">
+                    <div class="card-block">
+                        <h4 class="card-title">Екатерина Парамонова</h4>
+                        <h6 class="card-subtitle text-muted">Математика</h6>
+                        <hr>
+                        <p class="card-text">Лауреат премии губернатора Пермского края “За лучшие результаты ЕГЭ”</p>
+                        <p class="card-text">Призёр олимпиад ПНИПУ и ИТМО по математике и информатике</p>
+                        <p class="card-text">Награждена знаком “Отличник учёбы” УрФУ</p>
+                        <p class="card-text">Может показать, что математика - не просто набор абстрактных символов, формул и алгоритмов, а красивая наука, которая учит мыслить логически.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <h2 class="page-header">Занятия проходят в центре города</h2>
+                <br>
+                <div class="hidden-sm-down">
+                    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=li9hKLknHCkYafq8i6gYEC1Wi8Dydd3e&amp;width=100%25&amp;height=396&amp;lang=ru_RU&amp;sourceType=constructor&amp;scroll=false"></script>
+                </div>
+                <div class="hidden-md-up">
+                    <a href="https://yandex.ru/maps/?um=constructor:li9hKLknHCkYafq8i6gYEC1Wi8Dydd3e&amp;source=constructorStatic" target="_blank"><img src="https://api-maps.yandex.ru/services/constructor/1.0/static/?sid=li9hKLknHCkYafq8i6gYEC1Wi8Dydd3e&amp;width=600&amp;height=350&amp;lang=ru_RU&amp;sourceType=constructor" alt="" style="border: 0;" /></a>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-xs-center">
+                    <h2 class="h1 hidden-sm-down">Только практика, только реальные задачи ЕГЭ!</h2>
+                    <h2 class="h1 hidden-sm-down">Для любого уровня подготовки.</h2>
+
+                    <h2 class="h3 hidden-md-up">Только практика, только реальные задачи ЕГЭ!</h2>
+                    <h2 class="h3 hidden-md-up">Для любого уровня подготовки.</h2>
+                    <br>
+                    <p class="lead">Свяжитесь с нами и запишитесь на интенсив 5-7 января 2017 года.</p>
+                    <p class="display-2 hidden-md-down">+7 (343) 288 52 76</p>
+                    <p class="display-4 hidden-lg-up hidden-sm-down">+7 (343) 288 52 76</p>
+                    <p class="lead hidden-lg-up hidden-md-up">+7 (343) 288 52 76</p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+    </div>
+
+{% endblock %}
