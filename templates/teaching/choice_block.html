@@ -6,7 +6,7 @@
     <p class="lead">Тестовый вопрос #{{ choice_block.id }}</p>
     <p>{{ choice_block.question_text|markdown_rendered|safe }}</p>
     {% if choice_block.image %}
-        <p class="text-xs-center">
+        <p class="text-center">
             <img src="{{ choice_block.image.url }}">
         </p>
     {% endif %}

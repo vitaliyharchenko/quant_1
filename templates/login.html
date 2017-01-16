@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-xs-12 text-xs-center">
+                        <div class="col-12 text-center">
                             <br/>
                             <h2>Авторизация</h2>
                             <p>
@@ -17,7 +17,7 @@
                     </div>
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-6">
                                 <form action="" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
@@ -34,7 +34,7 @@
                                     <a href="{% url 'resetpass_view' %}">Забыли пароль?</a>
                                 </form>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-6">
                                 {% url 'login_view' as login_url %}
                                 <a class="btn btn-primary btn-block" href="{% vk_auth_link login_url %}">VK</a>
                             </div>

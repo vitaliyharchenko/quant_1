@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'courses_view' %}">Мои курсы</a></li>
                 <li class="breadcrumb-item active">{{ course.title }}</li>
@@ -27,7 +27,7 @@
                 </div>
                 {% if not student_course and current_user != course.owner %}
                     <div class="row">
-                        <div class="col-xs-12 text-xs-center"><br>
+                        <div class="col-12 text-center"><br>
                             <a href="" class="btn btn-primary disabled" data-toggle="tooltip" data-placement="top" title="Пока недоступно">Курс недоступен</a>
                         </div>
                     </div>

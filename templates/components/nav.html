@@ -2,16 +2,14 @@
 
 {% block nav %}
 
-    <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+    <nav class="navbar navbar-toggleable-md fixed-top navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <a class="navbar-brand" href="/">
             <img src="{% static 'images/logo.png' %}" alt="brand" height="30">
         </a>
-        <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar" aria-controls="exCollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            &#9776;
-        </button>
-        <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar">
-            <br class="hidden-sm-up">
-            <br class="hidden-sm-up">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="nav navbar-nav">
                 {% if current_user.is_staff %}
                     <li class="nav-item">

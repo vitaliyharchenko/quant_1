@@ -13,7 +13,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-6">
                         {% url 'login_view' as login_url %}
                         <form action="{{ login_url }}" method="post">
                             {% csrf_token %}
@@ -31,7 +31,7 @@
                             <a href="{% url 'resetpass_view' %}">Забыли пароль?</a>
                         </form>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-6">
                         {% url 'login_view' as login_url %}
                         <a class="btn btn-primary btn-block" href="{% vk_auth_link login_url %}">VK</a>
                     </div>

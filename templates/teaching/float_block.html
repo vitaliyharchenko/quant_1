@@ -7,7 +7,7 @@
     <p class="lead">Задача #{{ float_block.id }}</p>
     <p>{{ float_block.question_text|markdown_rendered|safe }}</p>
     {% if float_block.image %}
-        <p class="text-xs-center">
+        <p class="text-center">
             <img src="{{ float_block.image.url }}">
         </p>
     {% endif %}
