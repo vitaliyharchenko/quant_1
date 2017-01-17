@@ -15,14 +15,19 @@
                 </div>
                 <div class="card-block">
                     <div class="row">
-                        <form action="" method="post" enctype='multipart/form-data' action="{% url 'reg_view' %}")>
-                            {% csrf_token %}
-                            {{ form|bootstrap }}
-                            <button class="btn btn-primary btn-block" type="submit">Зарегистрироваться</button>
-                        </form>
+                        <div class="col-12">
+                            {% include "components/messages.html" %}
+                            <form action="" method="post" enctype='multipart/form-data' action="{% url 'reg_view' %}")>
+                                {% csrf_token %}
+                                {{ form|bootstrap }}
+                                <button class="btn btn-primary btn-block" type="submit">Зарегистрироваться</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block messages %}{% endblock %}
