@@ -11,7 +11,7 @@
                 <h3>{{ user.get_full_name }}</h3>
 
                 {% if user.is_teacher %}
-                    <span class="tag tag-default">Учитель</span>
+                    <span class="badge badge-default">Учитель</span>
                     &nbsp;&nbsp;
                 {% endif %}
 
@@ -21,14 +21,18 @@
                     <a href="{% url 'user_update_view' %}">Редактировать</a>
                 {% endif %}
 
+                {% if user.phone %}
+                    <br>
+                    <br>
+                    <a>Телефон: {{ user.phone }}</a>
+                {% endif %}
+
                 {% if user.vkuserid %}
                     <br>
                     <br>
-                    <p>
-                        <a href="{% vk_profile_link user.vkuserid %}" target="_blank">
-                            <img src="{% static 'images/vk.png' %}" width="32">
-                        </a>
-                    </p>
+                    <a href="{% vk_profile_link user.vkuserid %}" target="_blank">
+                        <img src="{% static 'images/vk.png' %}" width="32">
+                    </a>
                 {% endif %}
             </div>
         </div>
