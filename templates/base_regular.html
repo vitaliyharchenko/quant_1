@@ -5,7 +5,9 @@
     <div class="container container-first">
         <div class="row">
             <div class="col-sm-12">
-                {% include "components/messages.html" %}
+                {% block messages %}
+                    {% include "components/messages.html" %}
+                {% endblock %}
                 {% block content %}{% endblock %}
             </div>
         </div>

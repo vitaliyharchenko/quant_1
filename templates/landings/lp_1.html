@@ -12,16 +12,16 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h2>Изучаемые предметы</h2>
             </div>
         </div>
         <br>
         <div class="row">
             {% for subject in subjects %}
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-6">
                     <div class="card">
-                        <div class="card-block text-xs-center">
+                        <div class="card-block text-center">
                             <img src="{{ subject.image.url }}" width="100%"/>
                             <hr/>
                             <h5 class="hidden-md-down">{{ subject.title }}</h5>
@@ -74,6 +74,7 @@
                         <p class="card-text">Умеет привить интерес к предмету, развить абстрактное техническое мышление, помочь в выборе ВУЗа и профессии.</p>
                     </div>
                 </div>
+                <br>
             </div>
             <div class="col-md-6">
                 <div class="card">
@@ -88,6 +89,7 @@
                         <p class="card-text">Может показать, что математика - не просто набор абстрактных символов, формул и алгоритмов, а красивая наука, которая учит мыслить логически.</p>
                     </div>
                 </div>
+                <br>
             </div>
         </div>
         <div class="row">
@@ -106,6 +108,7 @@
                         <p class="card-text">Практикует деятельностно-ориентированный подход к изучению русского языка, помогает развить межпредметные умения и критическое мышление и, конечно же, почувствовать любовь к великому и могучему!</p>
                     </div>
                 </div>
+                <br>
             </div>
             <div class="col-md-6">
                 <div class="card">
@@ -121,6 +124,7 @@
                         <p class="card-text">Помогает понять, что история это не только скучные даты, но интересные события, люди, загадки.</p>
                     </div>
                 </div>
+                <br>
             </div>
         </div>
 
@@ -135,7 +139,7 @@
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-6">
-                <div class="text-xs-center">
+                <div class="text-center">
                     <img src="{% static 'images/icons/landing/intense.png' %}" alt="Card image cap">
                     <div class="card-block">
                         <h4 class="card-title">Интенсивность</h4>
@@ -145,7 +149,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="text-xs-center">
+                <div class="text-center">
                     <img src="{% static 'images/icons/landing/cost.png' %}" alt="Card image cap">
                     <div class="card-block">
                         <h4 class="card-title">Стоимость</h4>
@@ -156,7 +160,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="text-xs-center">
+                <div class="text-center">
                     <img src="{% static 'images/icons/landing/interactivity.png' %}" alt="Card image cap">
                     <div class="card-block">
                         <h4 class="card-title">Интерактивность</h4>
@@ -166,7 +170,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="text-xs-center">
+                <div class="text-center">
                     <img src="{% static 'images/icons/landing/chat.png' %}" alt="Card image cap">
                     <div class="card-block">
                         <h4 class="card-title">Открытость</h4>
@@ -183,7 +187,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="text-xs-center">
+                <div class="text-center">
                     <h2 class="h1 hidden-sm-down">Мы переворачиваем обучение!</h2>
                     <h2 class="h3 hidden-md-up">Мы переворачиваем обучение!</h2>
                     <p>Выберите интересующий курс и свяжитесь с нами</p>

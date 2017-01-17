@@ -5,7 +5,7 @@
 {% block content %}
 
     <div class="row">
-        <div class="col-xs-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+        <div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
             <div class="card">
                 <div class="card-block">
                     <h2>{{ lesson.title }}</h2>
@@ -16,32 +16,35 @@
                     <a href="{% url 'lesson_block_view' lesson.pk 1 %}" class="btn btn-primary btn-lg">Начать</a>
                     {% if current_user.is_teacher %}
                         <hr>
-                        <div class="card">
-                            <div class="card-header">
-                                Задать как домашку
-                            </div>
-                            <div class="card-block">
-                                <div class="form-group">
-                                    <label>Выберите ученика</label>
-                                    <select class="form-control" id="student_id">
-                                        {% for student_teacher in student_teachers %}
-                                            <option value="{{ student_teacher.student.id }}">{{ student_teacher.student }}</option>
-                                        {% endfor %}
-                                    </select>
+                        <a class="btn btn-secondary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Задать как домашку
+                        </a>
+                        <div class="collapse" id="collapseExample">
+                            <br>
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="form-group">
+                                        <label>Выберите ученика</label>
+                                        <select class="form-control" id="student_id">
+                                            {% for student_teacher in student_teachers %}
+                                                <option value="{{ student_teacher.student.id }}">{{ student_teacher.student }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Дней на выполнение задания</label>
+                                        <select class="form-control" id="days">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6" selected>6</option>
+                                            <option value="7">7</option>
+                                        </select>
+                                    </div>
+                                    <button id="homework" class="btn btn-primary">Задать домашку</button>
                                 </div>
-                                <div class="form-group">
-                                    <label>Дней на выполнение задания</label>
-                                    <select class="form-control" id="days">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6" selected>6</option>
-                                        <option value="7">7</option>
-                                    </select>
-                                </div>
-                                <button id="homework" class="btn btn-primary">Задать домашку</button>
                             </div>
                         </div>
                     {% endif %}

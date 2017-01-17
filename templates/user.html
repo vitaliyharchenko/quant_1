@@ -5,29 +5,33 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-xs-12">
-        <h3>{{ user.get_full_name }}</h3>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <h3>{{ user.get_full_name }}</h3>
 
-        {% if user.is_teacher %}
-            <span class="tag tag-default">Учитель</span>
-            &nbsp;&nbsp;
-        {% endif %}
+                {% if user.is_teacher %}
+                    <span class="tag tag-default">Учитель</span>
+                    &nbsp;&nbsp;
+                {% endif %}
 
-        {% if not my_profile %}
-            <small> Последний раз заходил{% ifequal user.sex 'f' %}a{% endifequal %}: {{ user.last_login }}</small>
-        {% else %}
-            <a href="{% url 'user_update_view' %}">Редактировать</a>
-        {% endif %}
-    
-        {% if user.vkuserid %}
-            <br>
-            <br>
-            <p>
-                <a href="{% vk_profile_link user.vkuserid %}" target="_blank">
-                    <img src="{% static 'images/vk.png' %}" width="32">
-                </a>
-            </p>
-        {% endif %}
+                {% if not my_profile %}
+                    <small> Последний раз заходил{% ifequal user.sex 'f' %}a{% endifequal %}: {{ user.last_login }}</small>
+                {% else %}
+                    <a href="{% url 'user_update_view' %}">Редактировать</a>
+                {% endif %}
+
+                {% if user.vkuserid %}
+                    <br>
+                    <br>
+                    <p>
+                        <a href="{% vk_profile_link user.vkuserid %}" target="_blank">
+                            <img src="{% static 'images/vk.png' %}" width="32">
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 

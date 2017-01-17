@@ -15,7 +15,7 @@
                     {% if messages %}
                         {% for message in messages %}
                             {% if message.extra_tags == 'info' %}
-                                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -43,7 +43,7 @@
                     {% if messages %}
                         {% for message in messages %}
                             {% if message.extra_tags == 'integration' %}
-                                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -73,8 +73,7 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
+            <br>
             <div class="card">
                 <div class="card-block">
                     <h3>Сменить пароль</h3>
@@ -82,7 +81,7 @@
                     {% if messages %}
                         {% for message in messages %}
                             {% if message.extra_tags == 'changepass' %}
-                                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>

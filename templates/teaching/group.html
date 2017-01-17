@@ -4,7 +4,7 @@
 {% block content %}
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'groups_view' %}">Мои группы</a></li>
                 <li class="breadcrumb-item active">{{ group.title }}</li>
@@ -90,7 +90,7 @@
                                             <hr>
                                             <form action="">
                                                 <div class="row">
-                                                    <div class="col-xs-6">
+                                                    <div class="col-6">
                                                         <div class="form-group">
                                                             <label>Выберите, во сколько вы оцениваете свою работу в классе сегодня</label>
                                                             <select class="form-control studentgrouplesson-action" id="own-{{ studentlesson.id }}">
