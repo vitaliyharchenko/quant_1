@@ -2,23 +2,18 @@
 
 {% block nav %}
 
-    <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+    <nav class="navbar fixed-top navbar-toggleable navbar-light bg-faded">
         <a class="navbar-brand" href="/">
             <img class="hidden-xs-down" src="{% static 'images/logo.png' %}" alt="brand" height="30">
             <img class="hidden-sm-up" src="{% static 'images/logo.png' %}" alt="brand" height="20">
         </a>
-        <ul class="nav navbar-nav pull-xs-right">
-            <li class="nav-item">
-                <div class="hidden-xs-down">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
                     <a class="navbar-brand">+7 (343) 288 52 76</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <div class="hidden-sm-up">
-                    <a class="navbar-text text-muted hidden-sm-up">+7 (343) 288 52 76</a>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </nav>
 
 {% endblock %}
