@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_markdown',
     'bootstrapform',
+    'phonenumbers',
     'blocks',
     'courses',
     'events',
