@@ -1,4 +1,5 @@
 import json
+import ssl
 import urllib
 
 from quantzone import settings
@@ -28,7 +29,8 @@ def auth_code(code, redirect_uri):
     url = url.format(settings.VKONTAKTE_APP['APPID'], settings.VKONTAKTE_APP['SECRET'], code, settings.CURRENT_HOST,
                      redirect_uri)
     try:
-        response = urllib.request.urlopen(url)
+        context = ssl._create_unverified_context()
+        response = urllib.request.urlopen(url, context=context)
     except Exception as e:
         raise AuthError('Auth error', 'Unauthorized', e)
     response = response.read().decode()

@@ -153,6 +153,7 @@ def user_update_view(request):
             access_token, user_id = vkontakte.auth_code(code, reverse('user_update_view'))
         except vkontakte.AuthError as e:
             messages.warning(request, u'Ошибка OAUTH авторизации {}'.format(e), extra_tags='integration')
+            print(e)
             return redirect('user_update_view')
         try:
             user = User.objects.get(vkuserid=user_id)
