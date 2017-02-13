@@ -3,11 +3,7 @@ Quant.zone
 
 Наше LMS приложение
 
-**Requirements for local development:** Python 3.4, PostgreSQL, Gulp, NodeJS, Graphviz
-
-**Requirements for python:** requirements.txt
-
-**Requirements for frontend:** package.json
+**Requirements for local development:** Python 3.6, PostgreSQL, Gulp, NodeJS, Graphviz
 
 ## Local dev:
 
@@ -17,33 +13,24 @@ Quant.zone
     https://github.com/vitaliyharchenko/quantzone.git
     ```
 
-2. For local development create copy of quantzone/settings_dev.py named settings_local.py
+2. Build docker containers
 
     ```
-    import os
-
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-    DEBUG = True
-    CURRENT_HOST = 'http://127.0.0.1:8000'
-    ALLOWED_HOSTS = ['http://127.0.0.1:8000']
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'qdb',
-            'HOST': 'localhost',
-            'PASSWORD': '***',
-         'USER': 'quser',
-      }
-    }
-
-    STATIC_URL = '/static/'
-    STATIC_ROOT = '/static/'
-    STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
-    )
+    docker-compose build
     ```
+
+3. For frontend development:
+
+    ```
+    docker-compose run web /usr/bin/python3.5 /data/web/quantzone/manage.py makemigrations blocks courses events groups lms nodes organizations places results tasks testing users
+    docker-compose run web /usr/bin/python3.5 /data/web/quantzone/manage.py migrate
+    docker-compose run web /usr/bin/python3.5 /data/web/quantzone/manage.py collectstatic
+    docker-compose run web /usr/bin/python3.5 /data/web/quantzone/manage.py loaddata /data/web/quantzone/fixtures/db_final.json
+    ```
+
+https://oauth.vk.com/authorize?client_id=5551024&display=popup&redirect_uri=http://0.0.0.0/user/update&response_type=code&v=5.41
+https://oauth.vk.com/access_token?client_id=5551024&client_secret=8C6BjXZii7PDzryIX2QG&redirect_uri=127.0.0.1:8000/login
+
 
 3. Install Graphvis (http://django-extensions.readthedocs.io/en/latest/graph_models.html)
 
