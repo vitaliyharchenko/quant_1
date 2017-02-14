@@ -77,7 +77,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'utils.context_processors.logged_in_user',
                 'utils.context_processors.tasks_counter',
-                'social_auth.context_processors.social_auth_by_type_backends',
             ],
         },
     },
@@ -186,15 +185,6 @@ VKONTAKTE_APP = {
     'SECRET': '8C6BjXZii7PDzryIX2QG',
     'APPID': '5551024'
 }
-
-AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.OpenIDBackend',
-    'social_auth.backends.facebook.FacebookBackend',
-    'social_auth.backends.contrib.vk.VKOpenAPIBackend',
-    'social_auth.backends.contrib.vk.VKOAuth2Backend',
-)
-
-LOGIN_REDIRECT_URL = '/login'
 
 # EMail
 
