@@ -47,7 +47,6 @@ INSTALLED_APPS = (
     'users',
     'results',
     'django_extensions',
-    # 'social_auth',
 )
 
 MIDDLEWARE_CLASSES = [

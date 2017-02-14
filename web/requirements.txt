@@ -21,4 +21,3 @@ pyparsing
 python-markdown-math
 requests
 six
-django-social-auth
