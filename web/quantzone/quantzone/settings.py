@@ -13,7 +13,7 @@ SECRET_KEY = '=2i%u$ja1b_+sshmzyade0tz%u#c14ln45f1za9c7t=5+b8j!r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'test.quant.zone']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '188.127.249.128', 'test.quant.zone']
 
 if 'CURRENT_HOST' in os.environ:
     CURRENT_HOST = os.environ['CURRENT_HOST']
