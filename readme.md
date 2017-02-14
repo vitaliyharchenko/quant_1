@@ -10,16 +10,23 @@ Quant.zone
 1. Git clone
 
     ```
-    https://github.com/vitaliyharchenko/quantzone.git
+    ssh root@188.127.249.128
+    oGWRAKrle8so
+    git clone -b dev https://github.com/vitaliyharchenko/quantzone.git
     ```
 
-2. Build docker containers
+2. [Install Docker on Ubuntu 16.04 x64](https://docs.docker.com/engine/installation/linux/ubuntu/)
+
+3. [Install Docker Compose](https://docs.docker.com/compose/install/)
+
+3. Build docker containers
 
     ```
+    cd /quantzone
     docker-compose build
     ```
 
-3. For frontend development:
+4. For frontend development:
 
     ```
     docker-compose run web /usr/bin/python3.5 /data/web/quantzone/manage.py makemigrations blocks courses events groups lms nodes organizations places results tasks testing users
