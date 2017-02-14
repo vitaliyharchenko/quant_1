@@ -20,5 +20,4 @@ RUN apk del -r python3-dev postgresql
 COPY . /data/web/
 RUN mkdir -p quantzone/static/admin
 
-# TODO: commands for production ready (collectstatic, migrate etc)
-# CMD ["data/web/prod_run.sh"]
+CMD ["data/web/prod_run.sh"]
