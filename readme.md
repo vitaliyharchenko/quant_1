@@ -19,6 +19,18 @@ Quant.zone
 
 3. [Install Docker Compose](https://docs.docker.com/compose/install/)
 
+4. Specify env file, etc:
+
+   ```
+   DB_NAME=qdb
+   DB_USER=quser
+   DB_PASS=4203
+   DB_SERVICE=postgres
+   DB_PORT=5432
+
+   CURRENT_HOST=0.0.0.0
+   ```
+
 3. Build docker containers
 
     ```
