@@ -41,10 +41,8 @@ Quant.zone
 4. For frontend development:
 
     ```
-    docker-compose run web /usr/bin/python3.5 /data/web/quantzone/manage.py makemigrations blocks courses events groups lms nodes organizations places results tasks testing users
-    docker-compose run web /usr/bin/python3.5 /data/web/quantzone/manage.py migrate
-    docker-compose run web /usr/bin/python3.5 /data/web/quantzone/manage.py collectstatic
-    docker-compose run web /usr/bin/python3.5 /data/web/quantzone/manage.py loaddata /data/web/quantzone/fixtures/db_final.json
+    docker-compose run web /bin/sh
+    # sh prod_run.sh
     ```
 
 https://oauth.vk.com/authorize?client_id=5551024&display=popup&redirect_uri=http://0.0.0.0/user/update&response_type=code&v=5.41
