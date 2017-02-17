@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Всем привет!</h1>
+
+            <p class="lead">Квант - это образовательная платформа, которая призвана сделать твое обучение веселее и легче.</p>
+            <p class="lead">Читай теорию дома, смотри интересные видео, выполняй домашние работы в удобное время.</p>
+            {% if not current_user %}
+                <hr class="m-y-2">
+                <p>
+                    <a href="">
+                        Присоединяйтесь к нам!
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

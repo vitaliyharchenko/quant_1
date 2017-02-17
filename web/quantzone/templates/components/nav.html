@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+{% block nav %}
+
+    <nav class="navbar navbar-toggleable-md fixed-top navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/logo.png' %}" alt="brand" height="30">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="nav navbar-nav">
+                {% if current_user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                {% endif %}
+                {% if current_user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="">{{ current_user.get_full_name }}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Зарегистрироваться</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Войти</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
