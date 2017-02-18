@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_fluid.html" %}
 {% load staticfiles %}
 
 {% block content %}
@@ -6,15 +6,14 @@
         <div class="container">
             <h1 class="display-3">Всем привет!</h1>
 
-            <p class="lead">Квант - это образовательная платформа, которая призвана сделать твое обучение веселее и легче.</p>
-            <p class="lead">Читай теорию дома, смотри интересные видео, выполняй домашние работы в удобное время.</p>
-            {% if not current_user %}
-                <hr class="m-y-2">
-                <p>
-                    <a href="">
-                        Присоединяйтесь к нам!
-                    </a>
-                </p>
+            {% if user.is_authenticated %}
+                <div class="user-details">
+                    You are logged in as <code>{{ user.username }}</code>!
+                </div>
+            {% else %}
+                <a href="{% url "social:begin" "vk-oauth2" %}">VK Login</a>
+                <br>
+                <a href="{% url "social:begin" "facebook" %}">Facebook login</a>
             {% endif %}
         </div>
     </div>

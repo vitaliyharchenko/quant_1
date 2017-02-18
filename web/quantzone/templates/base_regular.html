@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+    <div class="container container-first">
+        <div class="row">
+            <div class="col-sm-12">
+                {% block messages %}
+                    {% include "components/messages.html" %}
+                {% endblock %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

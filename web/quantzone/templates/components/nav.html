@@ -11,21 +11,24 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="nav navbar-nav">
-                {% if current_user.is_staff %}
+                {% if user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="/admin">Admin</a>
                     </li>
                 {% endif %}
-                {% if current_user %}
+                {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="">{{ current_user.get_full_name }}</a>
+                        <a class="nav-link" href="">{{ user.get_full_name }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'auth:logout' %}?next=?next={% url 'pages:index' %}">Выйти</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="">Зарегистрироваться</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Войти</a>
+                        <a class="nav-link" href="{% url 'admin:login' %}">Войти</a>
                     </li>
                 {% endif %}
             </ul>

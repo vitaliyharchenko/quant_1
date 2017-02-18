@@ -21,3 +21,5 @@ pyparsing
 python-markdown-math
 requests
 six
+
+social-auth-core[all]
