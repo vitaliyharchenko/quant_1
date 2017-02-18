@@ -1,0 +1,26 @@
+{% extends "base_regular.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container">
+        <p class="lead">{{ user.get_full_name }}</p>
+        <p>{{ user.email }}</p>
+        <p>You are logged in as <code>{{ user.username }}</code>!</p>
+        <hr>
+        <p>Интеграция с сайтами</p>
+        {% for auth in user_social_auths %}
+            <p>
+                {% if auth.uid %}
+                    <form class="form-inline" action="{% url "social:disconnect" auth.provider %}" method="POST">
+                        {% csrf_token %}
+                        <label for="">{{ auth.provider }}: {{ auth.uid }}</label>
+                        <button class="btn btn-link" type="submit">Отключить</button>
+                    </form>
+                {% else %}
+                    {{ auth.provider }}:
+                    <a href="{% url "social:begin" auth.provider %}">Прикрепить</a>
+                {% endif %}
+            </p>
+        {% endfor %}
+    </div>
+{% endblock %}

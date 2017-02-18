@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'users',
+
     'social_django',
 ]
 
@@ -49,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',  # python-social-auth
 ]
 
 ROOT_URLCONF = 'quantzone.urls'
@@ -58,6 +62,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR,  'templates'),
+            os.path.join(BASE_DIR,  'users/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -66,8 +71,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+
+                'social_django.context_processors.backends',  # python-social-auth
+                'social_django.context_processors.login_redirect',  # python-social-auth
             ],
         },
     },
@@ -111,6 +117,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_URL = '/'
 
+SOCIAL_AUTH_BACKENDS = ['facebook', 'vk-oauth2']
+
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
@@ -118,10 +126,11 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_FORCE_EMAIL_VALIDATION = True
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '5876404'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'BJWFERLVuOMQeulhxA4U'
-SOCIAL_AUTH_VK_SCOPE = ['email']
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email', 'photos', 'friends']
 
 SOCIAL_AUTH_FACEBOOK_KEY = '712666222248627'
 SOCIAL_AUTH_FACEBOOK_SECRET = '4e6472c7ac4274c12384d41c729e6161'
@@ -131,9 +140,9 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 }
 
 SOCIAL_AUTH_FORCE_EMAIL_VALIDATION = True
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile'
 SOCIAL_AUTH_INACTIVE_USER_URL = '/inactive-user/'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/new-users-redirect-url/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/profile'
 
 SOCIAL_AUTH_PIPELINE = (
     # Get the information we can about the user and return it in a simple
@@ -156,10 +165,11 @@ SOCIAL_AUTH_PIPELINE = (
 
     # Make up a username for this person, appends a random string at the end if
     # there's any collision.
-    # 'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.get_username',
 
     # Send a validation email to the user to verify its email address.
     # Disabled by default.
+    # TODO: add email validation pipeline
     # 'social_core.pipeline.mail.mail_validation',
 
     # Associates the current social details with another user account with
@@ -167,7 +177,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.associate_by_email',
 
     # Create a user account if we haven't found one yet.
-    # 'social_core.pipeline.user.create_user',
+    'social_core.pipeline.user.create_user',
 
     # Create the record that associates the social account with the user.
     'social_core.pipeline.social_auth.associate_user',
@@ -178,6 +188,22 @@ SOCIAL_AUTH_PIPELINE = (
 
     # Update the user record with any changed info from the auth service.
     'social_core.pipeline.user.user_details',
+)
+
+SOCIAL_AUTH_DISCONNECT_PIPELINE = (
+    # Verifies that the social association can be disconnected from the current
+    # user (ensure that the user login mechanism is not compromised by this
+    # disconnection).
+    'social_core.pipeline.disconnect.allowed_to_disconnect',
+
+    # Collects the social associations to disconnect.
+    'social_core.pipeline.disconnect.get_entries',
+
+    # Revoke any access_token when possible.
+    'social_core.pipeline.disconnect.revoke_tokens',
+
+    # Removes the social associations.
+    'social_core.pipeline.disconnect.disconnect',
 )
 
 # Internationalization
