@@ -117,11 +117,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_URL = '/'
 
-SOCIAL_AUTH_BACKENDS = ['facebook', 'vk-oauth2']
+SOCIAL_AUTH_BACKENDS = ['facebook', 'vk-oauth2', 'instagram']
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -138,6 +139,9 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
   'locale': 'ru_RU'
 }
+
+SOCIAL_AUTH_INSTAGRAM_KEY = 'e34e63574e004a87aba9237ccddbdae1'
+SOCIAL_AUTH_INSTAGRAM_SECRET = 'e4a0c18280f64d0c9674aee9043b51c7'
 
 SOCIAL_AUTH_FORCE_EMAIL_VALIDATION = True
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile'
@@ -190,6 +194,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
+# TODO: catch not_allowed_to_disconnect_error
 SOCIAL_AUTH_DISCONNECT_PIPELINE = (
     # Verifies that the social association can be disconnected from the current
     # user (ensure that the user login mechanism is not compromised by this
