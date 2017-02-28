@@ -1,0 +1,19 @@
+web:
+  restart: always
+  build: ./web/
+  expose:
+    - "8000"
+  env_file: env
+  volumes:
+    - ./web:/data/web
+  command: /bin/sh -c "cd /data/web/quantzone && /usr/bin/gunicorn quantzone.wsgi:application -w 2 -b :8000"
+
+nginx:
+  restart: always
+  build: ./nginx/
+  ports:
+    - "80:80"
+  volumes_from:
+    - web
+  links:
+    - web:web
