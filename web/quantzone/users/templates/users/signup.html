@@ -1,0 +1,32 @@
+{% extends "base_regular.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-block">
+                <h2>Регистрация</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.html_name != 'username' %}
+                            <div class="form-group {% if field.errors %}has-danger{% endif %}">
+                                <input id="{{ field.id_for_label }}"
+                                       name="{{ field.html_name }}"
+                                       class="form-control"
+                                       placeholder="{{ field.label }}"
+                                       type="{% if 'password' in field.html_name %}password{% endif %}"
+                                       value="{% if field.value %}{{ field.value }}{% endif %}">
+                                <div class="form-control-feedback">{{ field.errors }}</div>
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <button class="btn" type="submit">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

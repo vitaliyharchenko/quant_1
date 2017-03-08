@@ -22,4 +22,8 @@ python-markdown-math
 requests
 six
 
-social-auth-core[all]
+# Dev
+coverage
+webtest
+django-webtest
+django-coverage

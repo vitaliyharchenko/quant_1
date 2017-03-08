@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
-# Register your models here.
+# Adding Profile inline to default Django Admin
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
