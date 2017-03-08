@@ -11,9 +11,7 @@
                     You are logged in as <code>{{ user.username }}</code>!
                 </div>
             {% else %}
-                <a href="{% url "social:begin" "vk-oauth2" %}">VK Login</a>
-                <br>
-                <a href="{% url "social:begin" "facebook" %}">Facebook login</a>
+                Please Login
             {% endif %}
         </div>
     </div>
