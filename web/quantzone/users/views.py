@@ -149,7 +149,6 @@ def social_auth(request, backend):
         scope = 'offline,email'
         raw_link = 'https://oauth.vk.com/authorize?client_id={appid}&scope={scope}&display=popup&redirect_uri=http://{host}{redirect_url}&response_type=code&v=5.41'
         link = raw_link.format(scope=scope, host=current_site.domain, redirect_url=redirect_url, appid=APPID)
-        print(link)
         return redirect(link)
 
 
@@ -171,7 +170,6 @@ def social_auth_complete(request, backend):
         return HttpResponse(json.dumps({'error': 'Auth error, have not response', 'description': str(e)}), content_type="application/json")
     response = response.read().decode()
     response = json.loads(response)
-    print(response)
     if 'error' in response:
         return HttpResponse(json.dumps({'error': 'Auth error, response with errors', 'description': response['error']}), content_type="application/json")
 
@@ -188,8 +186,6 @@ def social_auth_complete(request, backend):
 
             api_response = api_response.read().decode()
             api_response = json.loads(api_response)
-
-            print(api_response)
 
             try:
                 email = response['email']
