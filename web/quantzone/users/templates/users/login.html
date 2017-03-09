@@ -1,0 +1,72 @@
+{% extends "base_regular.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="modal-title">
+                            Вход
+                        </h4>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form method="post">
+                                    {% csrf_token %}
+
+                                    <div class="form-group {% if form.username.errors %}has-danger{% endif %}">
+                                        <input id="{{ form.username.id_for_label }}"
+                                               name="{{ form.username.html_name }}"
+                                               class="form-control"
+                                               placeholder="Email или никнейм"
+                                               type="text"
+                                               value="{% if form.username.value %}{{ form.username.value }}{% endif %}">
+                                        <div class="form-control-feedback">{{ form.username.errors }}</div>
+                                        {% if form.username.help_text %}
+                                            <small class="form-text text-muted">{{ form.username.help_text|safe }}</small>
+                                        {% endif %}
+                                    </div>
+
+                                     <div class="form-group {% if form.password.errors %}has-danger{% endif %}">
+                                        <input id="{{ form.password.id_for_label }}"
+                                               name="{{ form.password.html_name }}"
+                                               class="form-control"
+                                               placeholder="{{ form.password.label }}"
+                                               type="password"
+                                               value="{% if field.value %}{{ form.password.value }}{% endif %}">
+                                        <div class="form-control-feedback">{{ form.password.errors }}</div>
+                                        {% if form.password.help_text %}
+                                            <small class="form-text text-muted">{{ form.password.help_text|safe }}</small>
+                                        {% endif %}
+                                    </div>
+                                    <button class="btn" type="submit">Войти</button>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <a href="{% url 'users:social_auth_begin' 'vk' %}" class="btn btn-primary btn-block">
+                                            VK
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="">Забыли пароль?</a>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="{% url 'users:signup' %}">Я не зарегистрирован</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

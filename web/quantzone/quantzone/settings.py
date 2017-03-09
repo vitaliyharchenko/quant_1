@@ -93,6 +93,20 @@ DATABASES = {
 }
 
 
+# Authentication
+AUTHENTICATION_BACKENDS = [
+    'users.backend.EmailAuth', # Login w/ email
+    'django.contrib.auth.backends.ModelBackend',  # Login w/ username
+]
+
+LOGIN_REDIRECT_URL = 'users:profile'
+
+VKONTAKTE = {
+    'SECRET': 'BJWFERLVuOMQeulhxA4U',
+    'APPID': '5876404'
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 

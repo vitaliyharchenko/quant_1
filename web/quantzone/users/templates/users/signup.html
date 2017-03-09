@@ -3,30 +3,65 @@
 
 {% block content %}
     <div class="container">
-        <div class="card">
-            <div class="card-block">
-                <h2>Регистрация</h2>
-                <form method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        {% if field.html_name != 'username' %}
-                            <div class="form-group {% if field.errors %}has-danger{% endif %}">
-                                <input id="{{ field.id_for_label }}"
-                                       name="{{ field.html_name }}"
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="modal-title">
+                            Регистрация
+                        </h4>
+                    </div>
+                    <div class="card-block">
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <div class="form-group {% if form.email.errors %}has-danger{% endif %}">
+                                <input id="{{ form.email.id_for_label }}"
+                                       name="{{ form.email.html_name }}"
                                        class="form-control"
-                                       placeholder="{{ field.label }}"
-                                       type="{% if 'password' in field.html_name %}password{% endif %}"
-                                       value="{% if field.value %}{{ field.value }}{% endif %}">
-                                <div class="form-control-feedback">{{ field.errors }}</div>
-                                {% if field.help_text %}
-                                    <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                                       placeholder="Email"
+                                       type="email"
+                                       value="{% if form.email.value %}{{ form.email.value }}{% endif %}">
+                                <div class="form-control-feedback">{{ form.email.errors }}</div>
+                                {% if form.email.help_text %}
+                                    <small class="form-text text-muted">{{ form.email.help_text|safe }}</small>
                                 {% endif %}
                             </div>
-                        {% endif %}
-                    {% endfor %}
-                    <button class="btn" type="submit">Sign up</button>
-                </form>
+
+                            <hr>
+
+                            <div class="form-group {% if form.password1.errors %}has-danger{% endif %}">
+                                <input id="{{ form.password1.id_for_label }}"
+                                       name="{{ form.password1.html_name }}"
+                                       class="form-control"
+                                       placeholder="Пароль"
+                                       type="password"
+                                       value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}">
+                                <div class="form-control-feedback">{{ form.password1.errors }}</div>
+                                {% if form.password1.help_text %}
+                                    <small class="form-text text-muted">{{ form.password1.help_text|safe }}</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.password2.errors %}has-danger{% endif %}">
+                                <input id="{{ form.password2.id_for_label }}"
+                                       name="{{ form.password2.html_name }}"
+                                       class="form-control"
+                                       placeholder="Пароль еще раз"
+                                       type="password"
+                                       value="{% if form.password2.value %}{{ form.password2.value }}{% endif %}">
+                                <div class="form-control-feedback">{{ form.password2.errors }}</div>
+                                {% if form.password2.help_text %}
+                                    <small class="form-text text-muted">{{ form.password2.help_text|safe }}</small>
+                                {% endif %}
+                            </div>
+
+                            <button class="btn" type="submit">Sign up</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 {% endblock %}

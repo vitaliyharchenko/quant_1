@@ -1,0 +1,12 @@
+{% extends "base_regular.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container">
+        <h2>Активация успешно выполнена</h2>
+        <h3>Теперь пройдите туториал</h3>
+        <p>
+            <a href="{% url 'users:profile' %}">Ваш профиль</a>
+        </p>
+    </div>
+{% endblock %}

@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ValidationError
 
+from .models import Profile
+
 
 class SignUpForm(UserCreationForm):
     username = forms.CharField(required=False)
@@ -36,3 +38,15 @@ class SignUpForm(UserCreationForm):
         if commit:
             obj.save()
         return obj
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('birth_date', 'email_confirmed')
