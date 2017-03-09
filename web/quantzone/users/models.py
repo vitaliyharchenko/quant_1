@@ -57,7 +57,14 @@ def update_user_profile(sender, instance, created, **kwargs):
 @receiver(pre_save, sender=User)
 def user_profile(sender, instance, **kwargs):
     # Set complete flag if must
-    if not instance.has_usable_password or not instance.email:
-        instance.is_complete = False
-    else:
-        instance.is_complete = True
+    try:
+        instance.profile
+        if not instance.has_usable_password or not instance.email:
+            instance.profile.is_complete = False
+            if not instance.email:
+                instance.profile.email_confirmed = False
+        else:
+            instance.profile.is_complete = True
+    except User.profile.RelatedObjectDoesNotExist:
+        pass
+

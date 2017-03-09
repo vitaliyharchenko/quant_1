@@ -70,7 +70,7 @@
                                     {% endif %}
                                 </div>
 
-                                <div class="form-group {% if user_form.email.errors %}has-danger{% endif %} {% if not profile_form.email_confirmed.value %}has-warning{% endif %}">
+                                <div class="form-group {% if user_form.email.errors %}has-danger{% endif %} {% if not profile_form.email_confirmed.value or not user_form.email.value %}has-warning{% endif %}">
                                     <label class="form-control-label" for="{{ user_form.email.id_for_label }}">
                                         <small>
                                             {{ user_form.email.label }}
@@ -78,11 +78,15 @@
                                     </label>
                                     <input id="{{ user_form.email.id_for_label }}"
                                            name="{{ user_form.email.html_name }}"
-                                           class="form-control {% if not profile_form.email_confirmed.value %}form-control-warning{% endif %}"
+                                           class="form-control {% if not profile_form.email_confirmed.value or not user_form.email.value %}form-control-warning{% endif %}"
                                            placeholder="Email"
                                            type="email"
                                            value="{% if user_form.email.value %}{{ user_form.email.value }}{% endif %}">
-                                    {% if not profile_form.email_confirmed.value %}
+                                    {% if not user_form.email.value %}
+                                        <div class="form-control-feedback">
+                                            Укажите актуальный почтовый адрес
+                                        </div>
+                                    {% elif not profile_form.email_confirmed.value %}
                                         <div class="form-control-feedback">
                                             <a class="text-muted text-truncate" href="{% url 'users:send_activation' %}">
                                                 <u>Подтвердите</u>

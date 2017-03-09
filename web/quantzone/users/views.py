@@ -229,6 +229,7 @@ def social_auth_complete(request, backend):
                         token=response['access_token'],
                         email=email
                     )
+                    print(social_auth)
                     social_auth.save()
                     user.backend = 'django.contrib.auth.backends.ModelBackend'
                     login(request, user)
