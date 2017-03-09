@@ -15,9 +15,12 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md-6">
-                            <h3>Личная информация</h3>
                             <form method="post">
                                 {% csrf_token %}
+
+                                <p class="lead">Личная информация</p>
+
+                                {{ user.profile.is_complete }}
 
                                 <div class="form-group {% if user_form.first_name.errors %}has-danger{% endif %}">
                                     <label class="form-control-label" for="{{ user_form.first_name.id_for_label }}">
@@ -31,8 +34,13 @@
                                            placeholder="Имя"
                                            type="text"
                                            value="{% if user_form.first_name.value %}{{ user_form.first_name.value }}{% endif %}">
-
-                                    <div class="form-control-feedback">{{ user_form.first_name.errors }}</div>
+                                    {% if user_form.first_name.errors %}
+                                        <div class="form-control-feedback">
+                                            {% for error in user_form.first_name.errors %}
+                                                <p>{{ error|escape }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                     {% if user_form.first_name.help_text %}
                                         <small class="form-text text-muted">{{ user_form.first_name.help_text|safe }}</small>
                                     {% endif %}
@@ -50,41 +58,51 @@
                                            placeholder="Фамилия"
                                            type="text"
                                            value="{% if user_form.last_name.value %}{{ user_form.last_name.value }}{% endif %}">
-
-                                    <div class="form-control-feedback">{{ user_form.last_name.errors }}</div>
+                                    {% if user_form.last_name.errors %}
+                                        <div class="form-control-feedback">
+                                            {% for error in user_form.last_name.errors %}
+                                                <p>{{ error|escape }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                     {% if user_form.last_name.help_text %}
                                         <small class="form-text text-muted">{{ user_form.last_name.help_text|safe }}</small>
                                     {% endif %}
                                 </div>
 
-                                <div class="form-group {% if user_form.email.errors or not profile_form.email_confirmed.value %}has-danger{% endif %}">
+                                <div class="form-group {% if user_form.email.errors %}has-danger{% endif %} {% if not profile_form.email_confirmed.value %}has-warning{% endif %}">
                                     <label class="form-control-label" for="{{ user_form.email.id_for_label }}">
                                         <small>
                                             {{ user_form.email.label }}
                                         </small>
                                     </label>
-                                    <div class="input-group">
-                                        <input id="{{ user_form.email.id_for_label }}"
-                                               name="{{ user_form.email.html_name }}"
-                                               class="form-control form-control-success"
-                                               placeholder="Email"
-                                               type="email"
-                                               value="{% if user_form.email.value %}{{ user_form.email.value }}{% endif %}">
-                                        {% if profile_form.email_confirmed.value %}
-                                            <span class="input-group-addon" id="basic-addon2">Подтвержден</span>
-                                        {% else %}
-                                            <span class="input-group-addon" id="basic-addon2">
-                                                <a href="{% url 'users:send_activation' %}">
-                                                    Подтвердите
-                                                </a>
-                                            </span>
-                                        {% endif %}
-                                    </div>
-                                    <div class="form-control-feedback">{{ user_form.email.errors }}</div>
+                                    <input id="{{ user_form.email.id_for_label }}"
+                                           name="{{ user_form.email.html_name }}"
+                                           class="form-control {% if not profile_form.email_confirmed.value %}form-control-warning{% endif %}"
+                                           placeholder="Email"
+                                           type="email"
+                                           value="{% if user_form.email.value %}{{ user_form.email.value }}{% endif %}">
+                                    {% if not profile_form.email_confirmed.value %}
+                                        <div class="form-control-feedback">
+                                            <a class="text-muted text-truncate" href="{% url 'users:send_activation' %}">
+                                                <u>Подтвердите</u>
+                                            </a>
+                                            &nbsp;свой почтовый адрес
+                                        </div>
+                                    {% endif %}
+                                    {% if user_form.email.errors %}
+                                        <div class="form-control-feedback">
+                                            {% for error in user_form.email.errors %}
+                                                <p>{{ error|escape }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                     {% if user_form.email.help_text %}
                                         <small class="form-text text-muted">{{ user_form.email.help_text|safe }}</small>
                                     {% endif %}
                                 </div>
+
+                                {{ profile_form.email_confirmed.as_hidden }}
 
                                 <div class="form-group {% if profile_form.birth_date.errors %}has-danger{% endif %}">
                                     <label class="form-control-label" for="{{ profile_form.birth_date.id_for_label }}">
@@ -97,9 +115,14 @@
                                            class="form-control"
                                            placeholder="Дата рождения"
                                            type="email"
-                                           value="{% if profile_form.birth_date.value %}{{ profile_form.birth_date.value }}{% endif %}">
-
-                                    <div class="form-control-feedback">{{ profile_form.birth_date.errors }}</div>
+                                           value="{% if profile_form.birth_date.value %}{{ profile_form.birth_date.value|date:"d.m.Y" }}{% endif %}">
+                                    {% if profile_form.birth_date.errors %}
+                                        <div class="form-control-feedback">
+                                            {% for error in profile_form.birth_date.errors %}
+                                                <p>{{ error|escape }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                     {% if profile_form.birth_date.help_text %}
                                         <small class="form-text text-muted">{{ profile_form.birth_date.help_text|safe }}</small>
                                     {% endif %}
@@ -107,9 +130,69 @@
 
                                 <button class="btn" type="submit">Сохранить изменения</button>
                             </form>
+
+                            <hr>
+
+                            <form method="post" action="{% url 'users:change_password' %}">
+                                {% csrf_token %}
+                                <p class="lead">Смена пароля</p>
+
+                                <div class="form-group {% if password_set_form.new_password1.errors %}has-danger{% endif %} {% if not user.has_usable_password %}has-warning{% endif %}">
+                                    <label class="form-control-label" for="{{ password_set_form.new_password1.id_for_label }}">
+                                        <small>
+                                            {{ password_set_form.new_password1.label }}
+                                        </small>
+                                    </label>
+                                    <input id="{{ password_set_form.new_password1.id_for_label }}"
+                                           name="{{ password_set_form.new_password1.html_name }}"
+                                           class="form-control {% if not user.has_usable_password %}form-control-warning{% endif %}"
+                                           placeholder="Новый пароль"
+                                           type="password"
+                                           value="{% if password_set_form.new_password1.value %}{{ password_set_form.new_password1.value }}{% endif %}">
+                                    {% if not user.has_usable_password %}
+                                        <div class="form-control-feedback">Задайте пароль для своего аккаунта для активации</div>
+                                    {% endif %}
+                                    {% if password_set_form.new_password1.errors %}
+                                        <div class="form-control-feedback">
+                                            {% for error in password_set_form.new_password1.errors %}
+                                                <p>{{ error|escape }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% if password_set_form.new_password1.help_text %}
+                                        <small class="form-text text-muted">{{ password_set_form.new_password1.help_text|safe }}</small>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group {% if password_set_form.new_password2.errors %}has-danger{% endif %}">
+                                    <label class="form-control-label" for="{{ password_set_form.new_password2.id_for_label }}">
+                                        <small>
+                                            {{ password_set_form.new_password2.label }}
+                                        </small>
+                                    </label>
+                                    <input id="{{ password_set_form.new_password2.id_for_label }}"
+                                           name="{{ password_set_form.new_password2.html_name }}"
+                                           class="form-control"
+                                           placeholder="Подтверждение нового пароля"
+                                           type="password"
+                                           value="{% if password_set_form.new_password2.value %}{{ password_set_form.new_password2.value }}{% endif %}">
+                                    {% if password_set_form.new_password2.errors %}
+                                        <div class="form-control-feedback">
+                                            {% for error in password_set_form.new_password2.errors %}
+                                                <p>{{ error|escape }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% if password_set_form.new_password2.help_text %}
+                                        <small class="form-text text-muted">{{ password_set_form.new_password2.help_text|safe }}</small>
+                                    {% endif %}
+                                </div>
+
+                                <button class="btn" type="submit">Сохранить изменения</button>
+                            </form>
                         </div>
                         <div class="col-md-6">
-                            <h3>Интеграция с сайтами</h3>
+                            <p class="lead">Интеграция с сайтами</p>
                             {% if vk_social_auth %}
                                 <p>
                                     {{ vk_social_auth.provider }}: {{ vk_social_auth.uid }}

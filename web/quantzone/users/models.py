@@ -13,6 +13,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(u'Дата рождения', null=True, blank=True)
     email_confirmed = models.BooleanField(default=False)
+    is_complete = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "данные пользователя"
@@ -26,7 +27,7 @@ class UserSocialAuth(models.Model):
     provider = models.CharField(max_length=32)
     uid = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
-    token = models.CharField(max_length=32, db_index=True)
+    token = models.CharField(max_length=255, db_index=True)
     extra_data = models.TextField()
 
     class Meta:
@@ -39,23 +40,24 @@ class UserSocialAuth(models.Model):
 
 @receiver(pre_save, sender=User)
 def unique_user_email(sender, **kwargs):
-    email = kwargs['instance'].email
     username = kwargs['instance'].username
 
     if not username:
         raise ValidationError("username required")
 
-    if not email:
-        raise ValidationError("email required")
 
-    # TODO: must be in tests
-    # if sender.objects.filter(email=email).exclude(username=username).count():
-    #     raise ValidationError("email needs to be unique")
-
-
-# Create Profile object for every new user
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
+    # Create Profile object for every new user
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+
+@receiver(pre_save, sender=User)
+def user_profile(sender, instance, **kwargs):
+    # Set complete flag if must
+    if not instance.has_usable_password or not instance.email:
+        instance.is_complete = False
+    else:
+        instance.is_complete = True
