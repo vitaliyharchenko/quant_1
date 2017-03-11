@@ -1,158 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="utf-8">
-<style>
+{% extends "base_regular.html" %}
+{% load globaltags %}
 
-    .link {
-        fill: none;
-        stroke: #666;
-        stroke-width: 1.5px;
-    }
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="graph"></div>
+                    <style>
+                        .link {
+                            fill: none;
+                            stroke: #666;
+                            stroke-width: 1.5px;
+                        }
+                        #licensing {
+                            fill: green;
+                        }
+                        .link.licensing {
+                            stroke: green;
+                        }
+                        .link.resolved {
+                            stroke-dasharray: 0, 2 1;
+                        }
+                        circle {
+                            fill: #ccc;
+                            stroke: #333;
+                            stroke-width: 1.5px;
+                        }
+                        text {
+                            font: 10px sans-serif;
+                            pointer-events: none;
+                            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+                        }
+                    </style>
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                    <script src="//d3js.org/d3.v3.min.js"></script>
+                    <script>
 
-    #licensing {
-        fill: green;
-    }
+                        // http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
+                        /*;*/
 
-    .link.licensing {
-        stroke: green;
-    }
+                        var links = [];
+                        var graph = '{{ s|safe }}';
+                        graph = JSON.parse(graph);
+                        callbackFuncWithData(graph);
 
-    .link.resolved {
-        stroke-dasharray: 0, 2 1;
-    }
+                        function callbackFuncWithData(jsonGraph) {
+                            console.log(jsonGraph);
+                            console.log(jsonGraph['directed']);
 
-    circle {
-        fill: #ccc;
-        stroke: #333;
-        stroke-width: 1.5px;
-    }
+                            console.log(jsonGraph.links);
+                            links = links.concat(jsonGraph.links);
 
-    text {
-        font: 10px sans-serif;
-        pointer-events: none;
-        text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-    }
-
-</style>
-<body>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script>
-
-    // http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
-    /*;*/
-
-    var links = [];
-    var graph = '{{ s|safe }}';
-    graph = JSON.parse(graph);
-    callbackFuncWithData(graph);
-
-    function callbackFuncWithData(jsonGraph) {
-        console.log(jsonGraph);
-        console.log(jsonGraph['directed']);
-
-        console.log(jsonGraph.links);
-        links = links.concat(jsonGraph.links);
-
-        console.log(links);
-        var nodes = {};
+                            console.log(links);
+                            var nodes = {};
 
 // Compute the distinct nodes from the links.
-        links.forEach(function (link) {
+                            links.forEach(function (link) {
 //console.log(jsonGraph.nodes[link.source]);
-            link.source = nodes[link.source] || (nodes[link.source] = {name: jsonGraph.nodes[link.source].id});
-            link.target = nodes[link.target] || (nodes[link.target] = {name: jsonGraph.nodes[link.target].id});
-        });
+                                link.source = nodes[link.source] || (nodes[link.source] = {name: jsonGraph.nodes[link.source].id});
+                                link.target = nodes[link.target] || (nodes[link.target] = {name: jsonGraph.nodes[link.target].id});
+                            });
 
-        var width = 3500,
-            height = 1000;
+                            var width = 1000,
+                                height = 1500;
 
-        var force = d3.layout.force()
-            .nodes(d3.values(nodes))
-            .links(links)
-            .size([width, height])
-            .linkDistance(200)
-            .charge(-500)
-            .on("tick", tick)
-            .start()
+                            var force = d3.layout.force()
+                                .nodes(d3.values(nodes))
+                                .links(links)
+                                .size([width, height])
+                                .linkDistance(200)
+                                .charge(-500)
+                                .on("tick", tick)
+                                .start()
 //console.log(nodes)
-        var drag = force.drag()
-            .on("dragstart", dragstart);
+                            var drag = force.drag()
+                                .on("dragstart", dragstart);
 
-        var svg = d3.select("body").append("svg")
-            .attr("width", width)
-            .attr("height", height);
+                            var svg = d3.select(".graph").append("svg")
+                                .attr("width", width)
+                                .attr("height", height);
 
 // Per-type markers, as they don't inherit styles.
-        svg.append("defs").selectAll("marker")
-            .data(["suit", "licensing", "resolved"])
-            .enter().append("marker")
-            .attr("id", function (d) {
-                return d;
-            })
-            .attr("viewBox", "0 -5 10 10")
-            .attr("refX", 15)
-            .attr("refY", -1.5)
-            .attr("markerWidth", 6)
-            .attr("markerHeight", 6)
-            .attr("orient", "auto")
-            .append("path")
-            .attr("d", "M0,-5L10,0L0,5");
+                            svg.append("defs").selectAll("marker")
+                                .data(["suit", "licensing", "resolved"])
+                                .enter().append("marker")
+                                .attr("id", function (d) {
+                                    return d;
+                                })
+                                .attr("viewBox", "0 0 0 0")
+                                .attr("refX", 65)
+                                .attr("refY", -1.5)
+                                .attr("markerWidth", 0)
+                                .attr("markerHeight", 0)
+                                .attr("orient", "auto")
+                                .append("path")
+                                .attr("d", "M0,-5L10,0L0,5");
 
-        var path = svg.append("g").selectAll("path")
-            .data(force.links())
-            .enter().append("path")
-            .attr("class", function (d) {
-                return "link suit"
-            })
-            .attr("marker-end", function (d) {
-                return "url(#suit)";
-            });
+                            var path = svg.append("g").selectAll("path")
+                                .data(force.links())
+                                .enter().append("path")
+                                .attr("class", function (d) {
+                                    return "link suit"
+                                })
+                                .attr("marker-end", function (d) {
+                                    return "url(#suit)";
+                                });
 
-        var circle = svg.append("g").selectAll("circle")
-            .data(force.nodes())
-            .enter().append("circle")
-            .attr("r", 6)
-            .call(drag);
+                            var circle = svg.append("g").selectAll("circle")
+                                .data(force.nodes())
+                                .enter().append("circle")
+                                .attr("r", 6)
+                                .call(drag);
 
-        var text = svg.append("g").selectAll("text")
-            .data(force.nodes())
-            .enter().append("text")
-            .attr("x", 16)
-            .attr("y", ".31em")
-            .text(function (d) {
-                return d.name;
-            });
+                            var text = svg.append("g").selectAll("text")
+                                .data(force.nodes())
+                                .enter().append("text")
+                                .attr("x", 16)
+                                .attr("y", ".31em")
+                                .text(function (d) {
+                                    return d.name;
+                                });
 
 // Use elliptical arc path segments to doubly-encode directionality.
-        function tick() {
-            path.attr("d", linkArc);
-            circle.attr("transform", transform);
-            text.attr("transform", transform);
-        }
+                            function tick() {
+                                path.attr("d", linkArc);
+                                circle.attr("transform", transform);
+                                text.attr("transform", transform);
+                            }
 
-        function linkArc(d) {
-            var dx = d.target.x - d.source.x,
-                dy = d.target.y - d.source.y,
-                dr = Math.sqrt(dx * dx + dy * dy);
-            return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
-        }
+                            function linkArc(d) {
+                                var dx = d.target.x - d.source.x,
+                                    dy = d.target.y - d.source.y,
+                                    dr = Math.sqrt(dx * dx + dy * dy);
+                                return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+                            }
 
-        function transform(d) {
-            return "translate(" + d.x + "," + d.y + ")";
-        }
+                            function transform(d) {
+                                return "translate(" + d.x + "," + d.y + ")";
+                            }
 
-        function dblclick(d) {
-            d3.select(this).classed("fixed", d.fixed = false);
-        }
+                            function dblclick(d) {
+                                d3.select(this).classed("fixed", d.fixed = false);
+                            }
 
-        function dragstart(d) {
-            d3.select(this).classed("fixed", d.fixed = true);
-        }
+                            function dragstart(d) {
+                                d3.select(this).classed("fixed", d.fixed = true);
+                            }
 
-    }
+                        }
 
-</script>
-</body>
-</html>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block messages %}
+{% endblock %}
