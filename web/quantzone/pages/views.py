@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from nodes.models import Subject, Node, NodeRelation
+from nodes.models import Subject, Node, NodeRelation, SubjectTag
 import json
 import networkx as nx
 from networkx.readwrite import json_graph
@@ -34,8 +34,9 @@ def graph_view(request):
     print(f)
     text = f.read()
     arr = text.split('\n')
+    tag = SubjectTag.objects.get(pk=2)
     for unit in arr:
-        Node.objects.create(title=unit, subject_tag=2)
+        Node.objects.create(title=unit, subject_tag=tag)
 
 
 
