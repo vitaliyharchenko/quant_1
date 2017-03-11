@@ -30,4 +30,14 @@ def graph_view(request):
     data = json_graph.node_link_data(dg)
     s = json.dumps(data)
 
+    f = open("fixtures/feb17/me.txt", 'r')
+    print(f)
+    text = f.read()
+    arr = text.split('\n')
+    for unit in arr:
+        Node.objects.create(title=unit, subject_tag=2)
+
+
+
+
     return render(request, 'graph.html', {'s': s})
