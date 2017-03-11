@@ -10,8 +10,16 @@ from blocks.models import LessonBlockRelation
 #       -> Module
 #           -> Unit
 #               -> Lesson
+class SubjectTag(models.Model):
+    title = models.CharField('Название объекта', max_length=300)
+
+    def __str__(self):
+        return self.title
+
+
 class Node(models.Model):
     title = models.CharField('Название объекта', max_length=300)
+    subject_tag = models.ForeignKey(SubjectTag)
 
     class Meta:
         verbose_name = 'Узел'
