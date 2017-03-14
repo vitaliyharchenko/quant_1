@@ -6,6 +6,7 @@
         <div class="col-md-6 offset-md-3">
             <div class="card">
                 <div class="card-block">
+                    <div class="graph"></div>
                     <style>
 
                         .link {
@@ -84,7 +85,7 @@
                             var drag = force.drag()
                                 .on("dragstart", dragstart);
 
-                            var svg = d3.select("body").append("svg")
+                            var svg = d3.select(".graph").append("svg")
                                 .attr("width", width)
                                 .attr("height", height);
 
