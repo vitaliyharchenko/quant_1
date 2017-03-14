@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-block">
                     <div class="graph"></div>
@@ -70,8 +70,8 @@
                                 link.target = nodes[link.target] || (nodes[link.target] = {name: jsonGraph.nodes[link.target].id});
                             });
 
-                            var width = 3500,
-                                height = 1000;
+                            var width = 1000,
+                                height = 1200;
 
                             var force = d3.layout.force()
                                 .nodes(d3.values(nodes))
