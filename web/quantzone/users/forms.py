@@ -25,18 +25,20 @@ class SignUpForm(UserCreationForm):
     def save(self, commit=True):
         obj = super(SignUpForm, self).save(commit=False)
 
-        # generate username from email
+        # generate username from email (all before @)
         email = obj.email
         username, _, _ = email.partition('@')
 
+        # if username conflict - add random string
         if User.objects.filter(username=username).count():
-            hash = randint(100, 999)
-            username = username + str(hash)
-            print(username)
+            rand_hash = randint(100, 999)
+            username += str(rand_hash)
 
         obj.username = username
+
         if commit:
             obj.save()
+
         return obj
 
 

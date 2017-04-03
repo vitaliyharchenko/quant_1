@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {'template_name': 'users/login.html'}, name='login'),
 
     url(r'^social_auth/(?P<backend>[^/]+)$', views.social_auth, name='social_auth_begin'),
-    url(r'^auth_complete/(?P<backend>[^/]+)$', views.social_auth_complete, name='social_auth_complete'),
+    url(r'^social_auth_complete/(?P<backend>[^/]+)$', views.social_auth_complete, name='social_auth_complete'),
 
     url(r'^send_activation/$', views.send_activation, name='send_activation'),
 

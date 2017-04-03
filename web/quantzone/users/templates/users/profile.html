@@ -20,7 +20,7 @@
 
                                 <p class="lead">Личная информация</p>
 
-                                {{ user.profile.is_complete }}
+                                Активирован: {{ user.profile.is_complete }}
 
                                 <div class="form-group {% if user_form.first_name.errors %}has-danger{% endif %}">
                                     <label class="form-control-label" for="{{ user_form.first_name.id_for_label }}">

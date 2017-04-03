@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'users',
 
     # Third party
-    'crispy_forms',
 
     # Dev
     'django_coverage',
