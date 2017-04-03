@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.contrib.auth.forms import PasswordResetForm, PasswordChangeForm
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -94,9 +96,8 @@ def send_activation_email(request, user):
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': account_activation_token.make_token(user),
     })
-    user.email_user(subject, message)
-
-    return True
+    return send_mail(subject, '', settings.EMAIL_HOST_USER, [user.email], html_message=message,
+                     fail_silently=True)
 
 
 # Success signup page
@@ -256,3 +257,79 @@ def social_auth_complete(request, backend):
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
             return redirect('users:profile')
+
+
+# Deassociate user email
+@login_required
+def social_auth_delete(request, backend):
+    # TODO: deactivate social auth, but still have in DB
+    user = User.objects.get(pk=request.user.pk)
+    if not user.has_usable_password() or not user.email or not user.profile.email_confirmed:
+        messages.success(request, 'Невозможно отвязать социальный профиль, у вас не остается возможностей для входа!')
+        return redirect('users:profile')
+    social_auth = UserSocialAuth.objects.get(provider=backend, user=request.user).delete()
+    return redirect('users:profile')
+
+
+# Reset password starting point
+def password_reset(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                messages.warning(request, 'Пожалуйста, исправьте ошибки.')
+                return render(request, 'users/password_reset.html', {'form': form})
+
+            current_site = get_current_site(request)
+            subject = 'Сброс пароля'
+            message = render_to_string('email/password_reset_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            send_mail(subject, '', settings.EMAIL_HOST_USER, [user.email], html_message=message,
+                             fail_silently=True)
+            return redirect('users:password_reset_done')
+        else:
+            messages.warning(request, 'Пожалуйста, исправьте ошибки.')
+    else:
+        form = PasswordResetForm()
+    return render(request, 'users/password_reset.html', {'form': form})
+
+
+# Success start reset password
+def password_reset_done(request):
+    return render(request, 'users/password_reset_done.html')
+
+
+# Link in reset password email
+def password_reset_confirm(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('users:password_reset_complete')
+            else:
+                messages.warning(request, 'Исправьте ошибки')
+        else:
+            form = SetPasswordForm(user)
+        return render(request, 'users/password_reset_confirm.html', {'form': form})
+    else:
+        messages.warning(request, 'Что-то пошло не так')
+        return render(request, 'users/password_reset_incomplete.html')
+
+
+# Success finish reset password
+def password_reset_complete(request):
+    return render(request, 'users/password_reset_complete.html')

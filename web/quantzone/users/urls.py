@@ -12,6 +12,7 @@ urlpatterns = [
 
     url(r'^social_auth/(?P<backend>[^/]+)$', views.social_auth, name='social_auth_begin'),
     url(r'^social_auth_complete/(?P<backend>[^/]+)$', views.social_auth_complete, name='social_auth_complete'),
+    url(r'^social_auth_delete/(?P<backend>[^/]+)$', views.social_auth_delete, name='social_auth_delete'),
 
     url(r'^send_activation/$', views.send_activation, name='send_activation'),
 
@@ -20,4 +21,11 @@ urlpatterns = [
 
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
+
+    url(r'^password_reset/$', views.password_reset, name='password_reset'),
+    url(r'^password_reset/start/$', views.password_reset_done, name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        views.password_reset_confirm, name='password_reset_confirm'),
+    url(r'^reset/done/$', views.password_reset_complete, name='password_reset_complete'),
+
 ]

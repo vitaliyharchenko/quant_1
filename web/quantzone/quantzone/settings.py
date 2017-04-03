@@ -101,7 +101,7 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = 'users:profile'
 
 VKONTAKTE = {
-    'SECRET': 'BJWFERLVuOMQeulhxA4U',
+    'SECRET': '1Hx5BmUCiSIWMhQVHsx6',
     'APPID': '5876404'
 }
 
@@ -145,11 +145,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(BASE_DIR, 'cover')
 
 
-# Email
+# Email (https://pdd.yandex.ru)
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_HOST_USER = 'info@easysport.online'
-EMAIL_HOST_PASSWORD = 'sportsport123456'
-EMAIL_SUBJECT_PREFIX = '[TEST] '
+EMAIL_HOST_USER = 'info@quant.zone'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = 'quantzone1'
+EMAIL_SUBJECT_PREFIX = '[Quant] '

@@ -6,7 +6,14 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-block">
-                    <code>{{ user.username }}</code>
+                    <p>
+                        <code>{{ user.username }}</code>
+                    </p>
+                    {% if user.profile.is_complete %}
+                        <p>
+                            <code>Активирован</code>
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -19,8 +26,6 @@
                                 {% csrf_token %}
 
                                 <p class="lead">Личная информация</p>
-
-                                Активирован: {{ user.profile.is_complete }}
 
                                 <div class="form-group {% if user_form.first_name.errors %}has-danger{% endif %}">
                                     <label class="form-control-label" for="{{ user_form.first_name.id_for_label }}">
@@ -199,12 +204,14 @@
                             <p class="lead">Интеграция с сайтами</p>
                             {% if vk_social_auth %}
                                 <p>
-                                    {{ vk_social_auth.provider }}: {{ vk_social_auth.uid }}
-                                    <a href="">Отключить</a>
+                                    <img src="{% static 'images/icons/social/vk.png' %}" width="32"/> (id{{ vk_social_auth.uid }})
+                                    <a href="{% url 'users:social_auth_delete' 'vk' %}">Отключить</a>
                                 </p>
                             {% else %}
-                                vk:
-                                <a href="{% url 'users:social_auth_begin' 'vk' %}">Прикрепить</a>
+                                <p>
+                                    <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
+                                    <a href="{% url 'users:social_auth_begin' 'vk' %}">Прикрепить</a>
+                                </p>
                             {% endif %}
                         </div>
                     </div>
