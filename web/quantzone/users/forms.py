@@ -45,15 +45,13 @@ class SignUpForm(UserCreationForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'email', 'username')
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        try:
-            user = User.objects.get(email=email)
-            raise ValidationError("Почтовый адрес уже занят")
-        except User.DoesNotExist:
-            pass
+        username = self.cleaned_data.get('username')
+        if email and User.objects.filter(email=email).exclude(username=username).count():
+            raise forms.ValidationError(u"Почтовый адрес уже занят")
 
         if not email:
             raise ValidationError("Почтовый адрес не может быть пустым")
