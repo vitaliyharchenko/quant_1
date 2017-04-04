@@ -47,15 +47,18 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'email', 'username')
 
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        username = self.cleaned_data.get("username")
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        email = cleaned_data.get("email")
+        username = cleaned_data.get("username")
+        # print(cleaned_data)
         if email and User.objects.filter(email=email).exclude(username=username).count():
-            raise ValidationError(u"Почтовый адрес уже занят")
+            self.add_error('email', u"Почтовый адрес уже занят")
+            # raise ValidationError()
 
         if not email:
-            raise ValidationError("Почтовый адрес не может быть пустым")
-        return email
+            self.add_error('email', u"Почтовый адрес не может быть пустым")
+        return cleaned_data
 
 
 class ProfileForm(forms.ModelForm):

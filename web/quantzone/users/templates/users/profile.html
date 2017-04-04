@@ -182,7 +182,7 @@
                                            name="{{ profile_form.birth_date.html_name }}"
                                            class="form-control"
                                            placeholder="Дата рождения"
-                                           type="email"
+                                           type="date"
                                            value="{% if profile_form.birth_date.value %}{{ profile_form.birth_date.value|date:"d.m.Y" }}{% endif %}">
                                     {% if profile_form.birth_date.errors %}
                                         <div class="form-control-feedback">
