@@ -49,6 +49,12 @@ class UserForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
+        try:
+            user = User.objects.get(email=email)
+            raise ValidationError("Почтовый адрес уже занят")
+        except User.DoesNotExist:
+            pass
+
         if not email:
             raise ValidationError("Почтовый адрес не может быть пустым")
         return email

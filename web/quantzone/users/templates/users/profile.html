@@ -13,9 +13,11 @@
 
                                 <p class="lead">
                                     Личная информация
-                                    {% if user.profile.is_complete %}{% if user.profile.is_complete %}
+                                    {% if user.profile.is_complete %}
                                         <span class="badge badge-success">Активирован</span>
-                                    {% endif %}{% endif %}
+                                    {% else %}
+                                        <span class="badge badge-danger">Не активирован</span>
+                                    {% endif %}
                                 </p>
 
                                 <div class="form-group {% if profile_form.avatar.errors %}has-danger{% endif %}">
