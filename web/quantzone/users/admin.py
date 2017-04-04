@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Profile, UserSocialAuth
+from .models import Profile, UserSocialAuth, EmailConfirmation
 
 
 # Adding Profile inline to default Django Admin
@@ -18,3 +18,4 @@ admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
 admin.site.register(UserSocialAuth)
+admin.site.register(EmailConfirmation)

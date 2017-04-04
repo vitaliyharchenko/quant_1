@@ -47,8 +47,14 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'email')
 
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if not email:
+            raise ValidationError("Почтовый адрес не может быть пустым")
+        return email
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('birth_date', 'email_confirmed')
+        fields = ('birth_date', 'email_confirmed', 'avatar')

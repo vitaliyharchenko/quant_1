@@ -18,7 +18,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from .forms import SignUpForm, UserForm, ProfileForm
 from .tokens import account_activation_token
-from .models import UserSocialAuth
+from .models import UserSocialAuth, EmailConfirmation
 
 
 # Profile view with forms
@@ -27,7 +27,8 @@ def profile(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        profile_form = ProfileForm(request.POST, request.FILES or None, instance=request.user.profile)
+        password_set_form = SetPasswordForm(request.user)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
@@ -120,6 +121,20 @@ def activate(request, uidb64, token):
         user = None
 
     if user is not None and account_activation_token.check_token(user, token):
+
+        try:
+            email_confirmation = EmailConfirmation.objects.get(user=user)
+            confirmed_email = email_confirmation.email
+            if confirmed_email != user.email:
+                email_confirmation.email = user.email
+                email_confirmation.save()
+        except EmailConfirmation.DoesNotExist:
+            email_confirmation = EmailConfirmation.objects.create(
+                user=user,
+                email=user.email
+            )
+            email_confirmation.save()
+
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()

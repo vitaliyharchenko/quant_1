@@ -3,29 +3,84 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-block">
-                    <p>
-                        <code>{{ user.username }}</code>
-                    </p>
-                    {% if user.profile.is_complete %}
-                        <p>
-                            <code>Активирован</code>
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-block">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <form method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
 
-                                <p class="lead">Личная информация</p>
+                                <p class="lead">
+                                    Личная информация
+                                    {% if user.profile.is_complete %}{% if user.profile.is_complete %}
+                                        <span class="badge badge-success">Активирован</span>
+                                    {% endif %}{% endif %}
+                                </p>
+
+                                <div class="form-group {% if profile_form.avatar.errors %}has-danger{% endif %}">
+                                    <label class="form-control-label" for="{{ profile_form.avatar.id_for_label }}">
+                                        <small>
+                                            {{ profile_form.avatar.label }}
+                                        </small>
+                                    </label>
+                                    <br>
+                                    {% if user.profile.avatar %}
+                                        <img src="{{ user.profile.avatar.url }}" alt="" class="img-thumbnail avatar">
+                                    {% endif %}
+
+                                    <label class="custom-file">
+                                        <input type="file"
+                                               accept="image"
+                                               class="custom-file-input"
+                                               id="{{ profile_form.avatar.id_for_label }}"
+                                               name="{{ profile_form.avatar.html_name }}">
+                                        <span class="custom-file-control"
+                                              data-content="{% if user.profile.avatar %}{{ user.profile.avatar }}{% else %}Загрузите фотографию{% endif %}"></span>
+                                    </label>
+
+                                    <script>
+                                        $('body').on('change', 'input[type="file"]', function (ev) {
+                                            value = $('#id_avatar').val();
+                                            splitvalue = value.split("\\");
+                                            name = splitvalue[splitvalue.length-1];
+
+                                            $('.custom-file-control').attr('data-content', name);
+                                            alert(name);
+                                        });
+                                    </script>
+
+                                    <style>
+                                        .avatar {
+                                            max-height: 200px;
+                                        }
+                                        .custom-file {
+                                            width:100%;
+                                        }
+                                        .custom-file-control {
+                                            overflow: hidden;
+                                        }
+                                        .custom-file-control::after {
+                                            content: attr(data-content) !important;
+                                            white-space: nowrap;  }
+                                        .custom-file-control::before{
+                                            content: "{% if user.profile.avatar %}Сменить аватар...{% else %}Выбрать...{% endif %}";
+                                        }
+                                    </style>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label">
+                                        <small>
+                                             Никнейм
+                                        </small>
+                                    </label>
+                                    <input class="form-control"
+                                           type="text"
+                                           value="{% if user.username %}{{ user.username }}{% endif %}"
+                                           readonly>
+                                </div>
 
                                 <div class="form-group {% if user_form.first_name.errors %}has-danger{% endif %}">
                                     <label class="form-control-label" for="{{ user_form.first_name.id_for_label }}">
@@ -139,9 +194,31 @@
 
                                 <button class="btn" type="submit">Сохранить изменения</button>
                             </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <p class="lead">Интеграция с сайтами</p>
+                            {% if vk_social_auth %}
+                                <p>
+                                    <img src="{% static 'images/icons/social/vk.png' %}" width="32"/> (id{{ vk_social_auth.uid }})
+                                    <a href="{% url 'users:social_auth_delete' 'vk' %}">Отключить</a>
+                                </p>
+                            {% else %}
+                                <p>
+                                    <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
+                                    <a href="{% url 'users:social_auth_begin' 'vk' %}">Прикрепить</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
 
-                            <hr>
+                    <br>
 
+                    <div class="card">
+                        <div class="card-block">
                             <form method="post" action="{% url 'users:change_password' %}">
                                 {% csrf_token %}
                                 <p class="lead">Смена пароля</p>
@@ -199,20 +276,6 @@
 
                                 <button class="btn" type="submit">Сохранить изменения</button>
                             </form>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="lead">Интеграция с сайтами</p>
-                            {% if vk_social_auth %}
-                                <p>
-                                    <img src="{% static 'images/icons/social/vk.png' %}" width="32"/> (id{{ vk_social_auth.uid }})
-                                    <a href="{% url 'users:social_auth_delete' 'vk' %}">Отключить</a>
-                                </p>
-                            {% else %}
-                                <p>
-                                    <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
-                                    <a href="{% url 'users:social_auth_begin' 'vk' %}">Прикрепить</a>
-                                </p>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
