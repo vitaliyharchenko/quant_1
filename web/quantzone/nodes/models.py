@@ -4,6 +4,13 @@ from django.db import models
 from blocks.models import LessonBlockRelation
 
 
+DEFINITION = 1
+METHOD = 2
+CHOISES = (
+    (DEFINITION, 'Понятие'),
+    (METHOD, 'Метод')
+)
+
 # Nodes - nodes of learning graph
 # objects with nodes class are:
 #   -> Subject
@@ -20,6 +27,8 @@ class SubjectTag(models.Model):
 class Node(models.Model):
     title = models.CharField('Название объекта', max_length=300)
     subject_tag = models.ForeignKey(SubjectTag)
+    type_tag = models.PositiveSmallIntegerField(choices=CHOISES)
+
 
     class Meta:
         verbose_name = 'Узел'

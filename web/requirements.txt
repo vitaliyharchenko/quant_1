@@ -4,7 +4,7 @@ django-bootstrap-form==3.2.1
 django-extensions==1.7.4
 django-markdown-app==0.8.6
 Markdown==2.6.6
-Pillow==3.3.1
+Pillow
 psycopg2==2.6.2
 pydot==1.2.3
 pydotplus==2.0.2
