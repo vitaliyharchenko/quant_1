@@ -176,7 +176,9 @@ def get_vk_user_info(access_token):
     context = ssl._create_unverified_context()
     api_response = urllib.request.urlopen(api_url, context=context)
     api_response = api_response.read().decode()
-    return json.loads(api_response)
+    json_response = json.loads(api_response)
+    response = json_response['response']
+    return response
 
 
 def build_vk_access_link(request, backend):
@@ -224,11 +226,18 @@ def social_auth_complete(request, backend):
     # if authenticated - it is request from profile page for connect social profile
     if request.user.is_authenticated():
         # if this social profile is already connected - we can not connect it twice
-        if UserSocialAuth.objects.filter(provider=backend, uid=response['user_id'], is_active=True).count():
-            messages.warning(request, 'Аккаунт уже прикреплен к другому профилю.')
-            return redirect('users:profile')
-        # if this social profile is not connected - we can take user info from api and create connection
-        else:
+        try:
+            existing_social_auth = UserSocialAuth.objects.get(provider=backend, uid=response['user_id'])
+            if request.user != existing_social_auth.user:
+                messages.warning(request, 'Аккаунт уже прикреплен к другому профилю.')
+                return redirect('users:profile')
+            else:
+                api_response = get_vk_user_info(access_token)
+                existing_social_auth.extra_data = api_response
+                existing_social_auth.is_active = True
+                existing_social_auth.save()
+                return redirect('users:profile')
+        except UserSocialAuth.DoesNotExist:
             api_response = get_vk_user_info(access_token)
 
             new_social_auth = UserSocialAuth.objects.create(

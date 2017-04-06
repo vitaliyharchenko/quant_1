@@ -211,6 +211,7 @@
                                     <img src="{% static 'images/icons/social/vk.png' %}" width="32"/> (id{{ vk_social_auth.uid }})
                                     <a href="{% url 'users:social_auth_delete' 'vk' %}">Отключить</a>
                                 </p>
+                                {{ vk_social_auth.extra_data }}
                             {% else %}
                                 <p>
                                     <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
