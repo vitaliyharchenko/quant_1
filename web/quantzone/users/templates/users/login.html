@@ -13,6 +13,25 @@
                     </div>
                     <div class="card-block">
                         <div class="row">
+                            <div class="col-md-12">
+                                {% if form.non_field_errors %}
+                                    {% for error in form.non_field_errors %}
+                                        <div class="alert alert-warning alert-dismissible fade show"
+                                             role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <strong>{{ error }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                    <script type="text/javascript">
+                                        setInterval(function () {
+                                            $(".alert").alert('close')
+                                        }, 5000);
+                                    </script>
+                                {% endif %}
+                            </div>
+
                             <div class="col-md-6">
                                 <form method="post">
                                     {% csrf_token %}

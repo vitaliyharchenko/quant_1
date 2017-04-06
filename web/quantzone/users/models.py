@@ -31,6 +31,7 @@ class UserSocialAuth(models.Model):
     email = models.CharField(max_length=255)
     token = models.CharField(max_length=255, db_index=True)
     extra_data = models.TextField()
+    is_active = models.BooleanField(u'Активна', default=True)
 
     class Meta:
         app_label = "users"

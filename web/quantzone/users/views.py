@@ -1,6 +1,7 @@
 import ssl
 import urllib
 import json
+from random import randint
 
 from django.contrib import messages
 from django.shortcuts import render, redirect, reverse, HttpResponse
@@ -43,7 +44,7 @@ def profile(request):
         password_set_form = SetPasswordForm(request.user)
 
     try:
-        vk_social_auth = UserSocialAuth.objects.get(user=request.user, provider='vk')
+        vk_social_auth = UserSocialAuth.objects.get(user=request.user, provider='vk', is_active=True)
     except UserSocialAuth.DoesNotExist:
         vk_social_auth = None
 
@@ -152,6 +153,10 @@ def account_activation_success(request):
     return render(request, 'users/account_activation_success.html')
 
 
+# ===========
+# SOCIAL AUTH
+# ===========
+
 # Social auth starting point
 def social_auth(request, backend):
     if backend == 'vk':
@@ -165,109 +170,139 @@ def social_auth(request, backend):
         return redirect(link)
 
 
+def get_vk_user_info(access_token):
+    api_url = "https://api.vk.com/method/users.get?fields=photo_id&access_token={}&v=5.62"
+    api_url = api_url.format(access_token)
+    context = ssl._create_unverified_context()
+    api_response = urllib.request.urlopen(api_url, context=context)
+    api_response = api_response.read().decode()
+    return json.loads(api_response)
+
+
+def build_vk_access_link(request, backend):
+    if backend == 'vk':
+        url = "https://oauth.vk.com/access_token?client_id={}&client_secret={}&code={}&redirect_uri=http://{}{}"
+        appid = settings.VKONTAKTE['APPID']
+        secret = settings.VKONTAKTE['SECRET']
+        code = request.GET['code']
+        current_site = get_current_site(request)
+        redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
+        url = url.format(appid, secret, code, current_site.domain, redirect_url)
+        return url
+    else:
+        return HttpResponse(
+            json.dumps({
+                'error': 'Auth error, response with errors',
+                'description': 'Unknown auth backend {}'.format(backend)
+            }),
+            content_type="application/json"
+        )
+
+
 # Success social auth point
 def social_auth_complete(request, backend):
-    # build link for getting access token
-    url = "https://oauth.vk.com/access_token?client_id={}&client_secret={}&code={}&redirect_uri=http://{}{}"
-    appid = settings.VKONTAKTE['APPID']
-    secret = settings.VKONTAKTE['SECRET']
-    code = request.GET['code']
-    current_site = get_current_site(request)
-    redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
-    url = url.format(appid, secret, code, current_site.domain, redirect_url)
-
-    # read response from server
+    # try to get access token
     try:
         context = ssl._create_unverified_context()
+        url = build_vk_access_link(request, backend)
         response = urllib.request.urlopen(url, context=context)
     except Exception as e:
         return HttpResponse(json.dumps({'error': 'Auth error, have not response', 'description': str(e)}), content_type="application/json")
     response = response.read().decode()
     response = json.loads(response)
+
+    access_token = response['access_token']
+    user_social_id = response['user_id']
+    try:
+        email = response['email']
+    except KeyError:
+        email = None
+
     if 'error' in response:
         return HttpResponse(json.dumps({'error': 'Auth error, response with errors', 'description': response['error']}), content_type="application/json")
 
+    # if authenticated - it is request from profile page for connect social profile
     if request.user.is_authenticated():
-        # if authenticated - it is request from profile page for connect social profile
-        if UserSocialAuth.objects.filter(provider=backend, uid=response['user_id']).count():
-            # if this social profile is already connected - we can not connect it twice
+        # if this social profile is already connected - we can not connect it twice
+        if UserSocialAuth.objects.filter(provider=backend, uid=response['user_id'], is_active=True).count():
             messages.warning(request, 'Аккаунт уже прикреплен к другому профилю.')
             return redirect('users:profile')
+        # if this social profile is not connected - we can take user info from api and create connection
         else:
-            # if this social profile is not connected - we can take user info from api
-            api_url = "https://api.vk.com/method/users.get?fields=photo_id&access_token={}&v=5.62"
-            api_url = api_url.format(response['access_token'])
-            context = ssl._create_unverified_context()
-            api_response = urllib.request.urlopen(api_url, context=context)
-            api_response = api_response.read().decode()
-            api_response = json.loads(api_response)
-            # TODO: save api response
-
-            # if this social profile is not connected - we can create this connection
-            try:
-                email = response['email']
-            except KeyError:
-                email = None
+            api_response = get_vk_user_info(access_token)
 
             new_social_auth = UserSocialAuth.objects.create(
                 user=request.user,
                 provider=backend,
-                uid=response['user_id'],
-                token=response['access_token'],
-                email=email
+                uid=user_social_id,
+                token=access_token,
+                email=email,
+                extra_data=api_response
             )
             new_social_auth.save()
             return redirect('users:profile')
+    # if not authenticated - it is request for login
     else:
-        # if not authenticated - it is request for login
+        # try to login by already existed connection
         try:
-            # try to login by already existed connection
             social_auth = UserSocialAuth.objects.get(provider=backend, uid=response['user_id'])
+
+            # renew extra data
+            api_response = get_vk_user_info(response['access_token'])
+            social_auth.extra_data = api_response
+            social_auth.is_active = True
+            social_auth.save()
+
             user = social_auth.user
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
             return redirect('users:profile')
+        # if not login - try to associate by email
         except UserSocialAuth.DoesNotExist:
-            # if not login - try to associate by email
-            try:
-                email = response['email']
-            except KeyError:
-                email = None
-
             if email:
                 try:
                     user = User.objects.get(email=email)
                     if user.profile.email_confirmed:
-                        social_auth = UserSocialAuth.objects.create(
+                        api_response = get_vk_user_info(response['access_token'])
+                        new_social_auth = UserSocialAuth.objects.create(
                             user=user,
                             provider=backend,
                             uid=response['user_id'],
                             token=response['access_token'],
-                            email=email
+                            email=email,
+                            extra_data=api_response
                         )
-                        social_auth.save()
+                        new_social_auth.save()
                         user.backend = 'django.contrib.auth.backends.ModelBackend'
                         login(request, user)
                         return redirect('users:profile')
                 except User.DoesNotExist:
                     pass
 
-            # if not login and not associate to email - create profile and connection
-            generic_username = backend + str(response['user_id'])
+            # if not associate to email - create profile and connection
+            generic_username = backend + str(user_social_id)
+
+            # if username conflict - add random string
+            if User.objects.filter(username=generic_username).count():
+                rand_hash = randint(100, 999)
+                generic_username += str(rand_hash)
+
             user = User.objects.create_user(
                 username=generic_username,
                 email=email
             )
             user.save()
 
-            social_auth = UserSocialAuth.objects.create(
+            api_response = get_vk_user_info(response['access_token'])
+            new_social_auth = UserSocialAuth.objects.create(
                 user=user,
                 provider=backend,
-                uid=response['user_id'],
-                token=response['access_token'],
-                email=email
+                uid=user_social_id,
+                token=access_token,
+                email=email,
+                extra_data=api_response
             )
-            social_auth.save()
+            new_social_auth.save()
 
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
@@ -282,7 +317,9 @@ def social_auth_delete(request, backend):
     if not user.has_usable_password() or not user.email or not user.profile.email_confirmed:
         messages.success(request, 'Невозможно отвязать социальный профиль, у вас не остается возможностей для входа!')
         return redirect('users:profile')
-    social_auth = UserSocialAuth.objects.get(provider=backend, user=request.user).delete()
+    social_auth = UserSocialAuth.objects.get(provider=backend, user=request.user)
+    social_auth.is_active = False
+    social_auth.save()
     return redirect('users:profile')
 
 
@@ -295,7 +332,7 @@ def password_reset(request):
             try:
                 user = User.objects.get(email=email)
             except User.DoesNotExist:
-                messages.warning(request, 'Пожалуйста, исправьте ошибки.')
+                messages.warning(request, 'Такого почтового ящика нет в базе.')
                 return render(request, 'users/password_reset.html', {'form': form})
 
             current_site = get_current_site(request)
