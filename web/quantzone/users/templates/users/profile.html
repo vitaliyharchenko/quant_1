@@ -38,11 +38,11 @@
                                                id="{{ profile_form.avatar.id_for_label }}"
                                                name="{{ profile_form.avatar.html_name }}">
                                         <span class="custom-file-control"
-                                              data-content="{% if user.profile.avatar %}{{ user.profile.avatar }}{% else %}Загрузите фотографию{% endif %}"></span>
+                                              data-content="{% if not user.profile.avatar %}Загрузите фотографию{% endif %}"></span>
                                     </label>
 
                                     <script>
-                                        $('body').on('change', 'input[type="file"]', function (ev) {
+                                        $('body').on('change', '.custom-file-input', function (ev) {
                                             value = $('#id_avatar').val();
                                             splitvalue = value.split("\\");
                                             name = splitvalue[splitvalue.length-1];
@@ -208,10 +208,23 @@
                             <p class="lead">Интеграция с сайтами</p>
                             {% if vk_social_auth %}
                                 <p>
-                                    <img src="{% static 'images/icons/social/vk.png' %}" width="32"/> (id{{ vk_social_auth.uid }})
-                                    <a href="{% url 'users:social_auth_delete' 'vk' %}">Отключить</a>
+                                    <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
+                                    <a>(id{{ vk_social_auth.uid }})</a>
+                                    &nbsp;&nbsp;
+                                    <a href="{% url 'users:social_auth_deassociate' 'vk' %}">
+                                        Отключить
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a data-toggle="collapse" href="#collapseExample"
+                                       aria-expanded="false" aria-controls="collapseExample">
+                                        Информация о профиле
+                                    </a>
                                 </p>
-                                {{ vk_social_auth.extra_data }}
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-block">
+                                        {{ vk_social_auth.extra_data }}
+                                    </div>
+                                </div>
                             {% else %}
                                 <p>
                                     <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>

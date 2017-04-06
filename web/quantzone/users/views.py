@@ -171,8 +171,12 @@ def social_auth(request, backend):
 
 
 def get_vk_user_info(access_token):
-    api_url = "https://api.vk.com/method/users.get?fields=photo_id&access_token={}&v=5.62"
-    api_url = api_url.format(access_token)
+    api_url = "https://api.vk.com/method/users.get?fields={}&access_token={}&v=5.62"
+    # https://vk.com/dev/objects/user
+    fields = "about,activities,bdate,city,connections,contacts,country,education,first_name,followers_count," \
+             "has_photo,interests,last_name,occupation,personal,photo_id,photo_max_orig,quotes,schools,sex," \
+             "universities"
+    api_url = api_url.format(fields, access_token)
     context = ssl._create_unverified_context()
     api_response = urllib.request.urlopen(api_url, context=context)
     api_response = api_response.read().decode()
@@ -313,6 +317,8 @@ def social_auth_complete(request, backend):
             )
             new_social_auth.save()
 
+            # TODO: load extra data about user from vk
+
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
             return redirect('users:profile')
@@ -320,8 +326,7 @@ def social_auth_complete(request, backend):
 
 # Deassociate user email
 @login_required
-def social_auth_delete(request, backend):
-    # TODO: deactivate social auth, but still have in DB
+def social_auth_deassociate(request, backend):
     user = User.objects.get(pk=request.user.pk)
     if not user.has_usable_password() or not user.email or not user.profile.email_confirmed:
         messages.success(request, 'Невозможно отвязать социальный профиль, у вас не остается возможностей для входа!')

@@ -12,7 +12,7 @@ urlpatterns = [
 
     url(r'^social_auth/(?P<backend>[^/]+)$', views.social_auth, name='social_auth_begin'),
     url(r'^social_auth_complete/(?P<backend>[^/]+)$', views.social_auth_complete, name='social_auth_complete'),
-    url(r'^social_auth_delete/(?P<backend>[^/]+)$', views.social_auth_delete, name='social_auth_delete'),
+    url(r'^social_auth_deassociate/(?P<backend>[^/]+)$', views.social_auth_deassociate, name='social_auth_deassociate'),
 
     url(r'^send_activation/$', views.send_activation, name='send_activation'),
 
