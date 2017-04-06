@@ -6,13 +6,14 @@ from random import randint
 from django.contrib import messages
 from django.shortcuts import render, redirect, reverse, HttpResponse
 from django.conf import settings
+from django.contrib import auth
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth.forms import SetPasswordForm, AuthenticationForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.contrib.auth.forms import PasswordResetForm, PasswordChangeForm
+from django.contrib.auth.forms import PasswordResetForm
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -20,6 +21,36 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .forms import SignUpForm, UserForm, ProfileForm
 from .tokens import account_activation_token
 from .models import UserSocialAuth, EmailConfirmation
+
+
+# Login view
+def login(request):
+    # ready for login from any page on site
+    return_path = request.META.get('HTTP_REFERER', '/')
+    login_path = 'http://{}{}'.format(get_current_site(request), reverse('users:login'))
+    if return_path == login_path:
+        return_path = reverse('users:profile')
+
+    if request.user.is_authenticated():
+        return redirect(return_path)
+
+    if request.method == "POST":
+        form = AuthenticationForm(request.POST or None)
+        if form.is_valid:
+            username = request.POST.get('username', '')
+            password = request.POST.get('password', '')
+            user = auth.authenticate(username=username, password=password)
+            if user:
+                auth.login(request, user)
+                return redirect(return_path)
+            else:
+                messages.warning(request, "Введенные данные неверны!")
+        else:
+            messages.warning(request, "Введенные данные некорректны!")
+    else:
+        form = AuthenticationForm(request)
+
+    return render(request, 'users/login.html', {"form": form})
 
 
 # Profile view with forms
@@ -48,15 +79,22 @@ def profile(request):
     except UserSocialAuth.DoesNotExist:
         vk_social_auth = None
 
+    try:
+        fb_social_auth = UserSocialAuth.objects.get(user=request.user, provider='fb', is_active=True)
+    except UserSocialAuth.DoesNotExist:
+        fb_social_auth = None
+
     return render(request, 'users/profile.html', {
         'user_form': user_form,
         'profile_form': profile_form,
         'password_set_form': password_set_form,
-        'vk_social_auth': vk_social_auth
+        'vk_social_auth': vk_social_auth,
+        'fb_social_auth': fb_social_auth
     })
 
 
 # Change password in Profile view
+@login_required
 def change_password(request):
     if request.method == 'POST':
         form = SetPasswordForm(request.user, request.POST)
@@ -160,40 +198,71 @@ def account_activation_success(request):
 # Social auth starting point
 def social_auth(request, backend):
     if backend == 'vk':
-        appid = settings.VKONTAKTE['APPID']
+        app_id = settings.VKONTAKTE['APP_ID']
         current_site = get_current_site(request)
         redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
         scope = 'offline,email'
-        raw_link = 'https://oauth.vk.com/authorize?client_id={appid}&scope={scope}' \
+        raw_link = 'https://oauth.vk.com/authorize?client_id={app_id}&scope={scope}' \
                    '&display=popup&redirect_uri=http://{host}{redirect_url}&response_type=code&v=5.41'
-        link = raw_link.format(scope=scope, host=current_site.domain, redirect_url=redirect_url, appid=appid)
+        link = raw_link.format(scope=scope, host=current_site.domain, redirect_url=redirect_url, app_id=app_id)
+        return redirect(link)
+    elif backend == 'fb':
+        app_id = settings.FACEBOOK['APP_ID']
+        current_site = get_current_site(request)
+        redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
+        scope = 'email'
+        raw_link = "https://www.facebook.com/v2.8/dialog/oauth?client_id={app_id}&scope={scope}&" \
+                   "redirect_uri=http://{host}{redirect_url}&response_type=code"
+        link = raw_link.format(scope=scope, host=current_site.domain, redirect_url=redirect_url, app_id=app_id)
         return redirect(link)
 
 
-def get_vk_user_info(access_token):
-    api_url = "https://api.vk.com/method/users.get?fields={}&access_token={}&v=5.62"
-    # https://vk.com/dev/objects/user
-    fields = "about,activities,bdate,city,connections,contacts,country,education,first_name,followers_count," \
-             "has_photo,interests,last_name,occupation,personal,photo_id,photo_max_orig,quotes,schools,sex," \
-             "universities"
-    api_url = api_url.format(fields, access_token)
-    context = ssl._create_unverified_context()
-    api_response = urllib.request.urlopen(api_url, context=context)
-    api_response = api_response.read().decode()
-    json_response = json.loads(api_response)
-    response = json_response['response']
-    return response
+def get_social_user_info(access_token, backend):
+    if backend == 'vk':
+        api_url = "https://api.vk.com/method/users.get?fields={}&access_token={}&v=5.62"
+        # https://vk.com/dev/objects/user
+        fields = "about,activities,bdate,city,connections,contacts,country,education,first_name,followers_count," \
+                 "has_photo,interests,last_name,occupation,personal,photo_id,photo_max_orig,quotes,schools,sex," \
+                 "universities"
+        api_url = api_url.format(fields, access_token)
+        context = ssl._create_unverified_context()
+        api_response = urllib.request.urlopen(api_url, context=context)
+        api_response = api_response.read().decode()
+        json_response = json.loads(api_response)
+        response = json_response['response'][0]
+        return response['id'], response
+    elif backend == 'fb':
+        api_url = "https://graph.facebook.com/me?fields={}&access_token={}&debug=all"
+        # https://vk.com/dev/objects/user
+        fields = "id,email,first_name,gender,last_name,link,locale,name,timezone,updated_time,verified"
+        api_url = api_url.format(fields, access_token)
+        context = ssl._create_unverified_context()
+        api_response = urllib.request.urlopen(api_url, context=context)
+        api_response = api_response.read().decode()
+        json_response = json.loads(api_response)
+        response = json_response
+        return response['id'], response
 
 
-def build_vk_access_link(request, backend):
+def build_social_access_link(request, backend):
     if backend == 'vk':
         url = "https://oauth.vk.com/access_token?client_id={}&client_secret={}&code={}&redirect_uri=http://{}{}"
-        appid = settings.VKONTAKTE['APPID']
+        app_id = settings.VKONTAKTE['APP_ID']
         secret = settings.VKONTAKTE['SECRET']
         code = request.GET['code']
         current_site = get_current_site(request)
         redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
-        url = url.format(appid, secret, code, current_site.domain, redirect_url)
+        url = url.format(app_id, secret, code, current_site.domain, redirect_url)
+        return url
+    elif backend == 'fb':
+        url = "https://graph.facebook.com/v2.8/oauth/access_token?client_id={}&client_secret={}" \
+              "&code={}&redirect_uri=http://{}{}"
+        app_id = settings.FACEBOOK['APP_ID']
+        secret = settings.FACEBOOK['SECRET']
+        code = request.GET['code']
+        current_site = get_current_site(request)
+        redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
+        url = url.format(app_id, secret, code, current_site.domain, redirect_url)
         return url
     else:
         return HttpResponse(
@@ -210,17 +279,29 @@ def social_auth_complete(request, backend):
     # try to get access token
     try:
         context = ssl._create_unverified_context()
-        url = build_vk_access_link(request, backend)
+        url = build_social_access_link(request, backend)
         response = urllib.request.urlopen(url, context=context)
+        response = response.read().decode()
+        response = json.loads(response)
+
+        if 'error' in response:
+            return HttpResponse(
+                json.dumps({'error': 'Auth error, response with errors', 'description': response['error']}),
+                content_type="application/json")
+
+        access_token = response['access_token']
     except Exception as e:
         return HttpResponse(json.dumps({'error': 'Auth error, have not response', 'description': str(e)}), content_type="application/json")
-    response = response.read().decode()
-    response = json.loads(response)
 
-    access_token = response['access_token']
-    user_social_id = response['user_id']
+    # try to get user_id and extra data
+    social_user_id, extra_data = get_social_user_info(access_token, backend)
+
+    # try to det user email
     try:
-        email = response['email']
+        if backend == 'vk':
+            email = response['email']
+        elif backend == 'fb':
+            email = extra_data['email']
     except KeyError:
         email = None
 
@@ -231,26 +312,23 @@ def social_auth_complete(request, backend):
     if request.user.is_authenticated():
         # if this social profile is already connected - we can not connect it twice
         try:
-            existing_social_auth = UserSocialAuth.objects.get(provider=backend, uid=response['user_id'])
+            existing_social_auth = UserSocialAuth.objects.get(provider=backend, uid=social_user_id)
             if request.user != existing_social_auth.user:
                 messages.warning(request, 'Аккаунт уже прикреплен к другому профилю.')
                 return redirect('users:profile')
             else:
-                api_response = get_vk_user_info(access_token)
-                existing_social_auth.extra_data = api_response
+                existing_social_auth.extra_data = extra_data
                 existing_social_auth.is_active = True
                 existing_social_auth.save()
                 return redirect('users:profile')
         except UserSocialAuth.DoesNotExist:
-            api_response = get_vk_user_info(access_token)
-
             new_social_auth = UserSocialAuth.objects.create(
                 user=request.user,
                 provider=backend,
-                uid=user_social_id,
+                uid=social_user_id,
                 token=access_token,
                 email=email,
-                extra_data=api_response
+                extra_data=extra_data
             )
             new_social_auth.save()
             return redirect('users:profile')
@@ -258,17 +336,16 @@ def social_auth_complete(request, backend):
     else:
         # try to login by already existed connection
         try:
-            social_auth = UserSocialAuth.objects.get(provider=backend, uid=response['user_id'])
+            social_auth = UserSocialAuth.objects.get(provider=backend, uid=social_user_id)
 
             # renew extra data
-            api_response = get_vk_user_info(response['access_token'])
-            social_auth.extra_data = api_response
+            social_auth.extra_data = extra_data
             social_auth.is_active = True
             social_auth.save()
 
             user = social_auth.user
             user.backend = 'django.contrib.auth.backends.ModelBackend'
-            login(request, user)
+            auth.login(request, user)
             return redirect('users:profile')
         # if not login - try to associate by email
         except UserSocialAuth.DoesNotExist:
@@ -276,14 +353,13 @@ def social_auth_complete(request, backend):
                 try:
                     user = User.objects.get(email=email)
                     if user.profile.email_confirmed:
-                        api_response = get_vk_user_info(response['access_token'])
                         new_social_auth = UserSocialAuth.objects.create(
                             user=user,
                             provider=backend,
-                            uid=response['user_id'],
-                            token=response['access_token'],
+                            uid=social_user_id,
+                            token=access_token,
                             email=email,
-                            extra_data=api_response
+                            extra_data=extra_data
                         )
                         new_social_auth.save()
                         user.backend = 'django.contrib.auth.backends.ModelBackend'
@@ -293,7 +369,7 @@ def social_auth_complete(request, backend):
                     pass
 
             # if not associate to email - create profile and connection
-            generic_username = backend + str(user_social_id)
+            generic_username = backend + str(social_user_id)
 
             # if username conflict - add random string
             if User.objects.filter(username=generic_username).count():
@@ -306,21 +382,18 @@ def social_auth_complete(request, backend):
             )
             user.save()
 
-            api_response = get_vk_user_info(response['access_token'])
             new_social_auth = UserSocialAuth.objects.create(
                 user=user,
                 provider=backend,
-                uid=user_social_id,
+                uid=social_user_id,
                 token=access_token,
                 email=email,
-                extra_data=api_response
+                extra_data=extra_data
             )
             new_social_auth.save()
 
-            # TODO: load extra data about user from vk
-
             user.backend = 'django.contrib.auth.backends.ModelBackend'
-            login(request, user)
+            auth.login(request, user)
             return redirect('users:profile')
 
 
@@ -329,7 +402,7 @@ def social_auth_complete(request, backend):
 def social_auth_deassociate(request, backend):
     user = User.objects.get(pk=request.user.pk)
     if not user.has_usable_password() or not user.email or not user.profile.email_confirmed:
-        messages.success(request, 'Невозможно отвязать социальный профиль, у вас не остается возможностей для входа!')
+        messages.warning(request, 'Невозможно отвязать социальный профиль, у вас не остается возможностей для входа!')
         return redirect('users:profile')
     social_auth = UserSocialAuth.objects.get(provider=backend, user=request.user)
     social_auth.is_active = False
@@ -358,7 +431,7 @@ def password_reset(request):
                 'token': account_activation_token.make_token(user),
             })
             send_mail(subject, '', settings.EMAIL_HOST_USER, [user.email], html_message=message,
-                             fail_silently=True)
+                      fail_silently=True)
             return redirect('users:password_reset_done')
         else:
             messages.warning(request, 'Пожалуйста, исправьте ошибки.')

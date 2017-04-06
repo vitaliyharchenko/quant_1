@@ -16,7 +16,7 @@
                                     {% if user.profile.is_complete %}
                                         <span class="badge badge-success">Активирован</span>
                                     {% else %}
-                                        <span class="badge badge-danger">Не активирован</span>
+                                        <span class="badge badge-warning">Не активирован</span>
                                     {% endif %}
                                 </p>
 
@@ -215,12 +215,12 @@
                                         Отключить
                                     </a>
                                     &nbsp;&nbsp;
-                                    <a data-toggle="collapse" href="#collapseExample"
-                                       aria-expanded="false" aria-controls="collapseExample">
-                                        Информация о профиле
+                                    <a data-toggle="collapse" href="#collapseVk"
+                                       aria-expanded="false" aria-controls="collapseVk">
+                                        Инфо
                                     </a>
                                 </p>
-                                <div class="collapse" id="collapseExample">
+                                <div class="collapse" id="collapseVk">
                                     <div class="card card-block">
                                         {{ vk_social_auth.extra_data }}
                                     </div>
@@ -229,6 +229,32 @@
                                 <p>
                                     <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
                                     <a href="{% url 'users:social_auth_begin' 'vk' %}">Прикрепить</a>
+                                </p>
+                            {% endif %}
+
+                            {% if fb_social_auth %}
+                                <p>
+                                    <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
+                                    <a>(id{{ fb_social_auth.uid }})</a>
+                                    &nbsp;&nbsp;
+                                    <a href="{% url 'users:social_auth_deassociate' 'fb' %}">
+                                        Отключить
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a data-toggle="collapse" href="#collapseFb"
+                                       aria-expanded="false" aria-controls="collapseFb">
+                                        Инфо
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapseFb">
+                                    <div class="card card-block">
+                                        {{ fb_social_auth.extra_data }}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <p>
+                                    <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
+                                    <a href="{% url 'users:social_auth_begin' 'fb' %}">Прикрепить</a>
                                 </p>
                             {% endif %}
                         </div>

@@ -2,6 +2,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 
 
+# TODO: add phone authentication
 # Taken from
 # http://www.djangorocks.com/tutorials/creating-a-custom-authentication-backend/creating-a-simple-authentication-backend.html
 # Backend for login with email

@@ -102,7 +102,12 @@ LOGIN_REDIRECT_URL = 'users:profile'
 
 VKONTAKTE = {
     'SECRET': '1Hx5BmUCiSIWMhQVHsx6',
-    'APPID': '5876404'
+    'APP_ID': '5876404'
+}
+
+FACEBOOK = {
+    'SECRET': '4e6472c7ac4274c12384d41c729e6161',
+    'APP_ID': '712666222248627'
 }
 
 

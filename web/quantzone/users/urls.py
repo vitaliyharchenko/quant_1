@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
@@ -8,7 +7,7 @@ urlpatterns = [
 
     url(r'^signup/$', views.signup, name='signup'),
 
-    url(r'^login/$', auth_views.login, {'template_name': 'users/login.html'}, name='login'),
+    url(r'^login/$', views.login, name='login'),
 
     url(r'^social_auth/(?P<backend>[^/]+)$', views.social_auth, name='social_auth_begin'),
     url(r'^social_auth_complete/(?P<backend>[^/]+)$', views.social_auth_complete, name='social_auth_complete'),
