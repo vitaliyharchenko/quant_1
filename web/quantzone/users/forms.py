@@ -71,5 +71,8 @@ class ProfileForm(forms.ModelForm):
 
     def clean_phone(self):
         phone = self.cleaned_data.get("phone")
-        phone_number = phonenumbers.format_number(phone, phonenumbers.PhoneNumberFormat.E164)
-        return phone_number
+        if phone:
+            phone_number = phonenumbers.format_number(phone, phonenumbers.PhoneNumberFormat.E164)
+            return phone_number
+        else:
+            return None
