@@ -1,6 +1,11 @@
 {% extends "base_regular.html" %}
 {% load staticfiles %}
 
+{% block extra_styles %}
+    # For datepicker
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-12">
@@ -183,9 +188,9 @@
                                     </label>
                                     <input id="{{ profile_form.birth_date.id_for_label }}"
                                            name="{{ profile_form.birth_date.html_name }}"
-                                           class="form-control"
+                                           class="form-control datepicker"
                                            placeholder="Дата рождения"
-                                           type="date"
+                                           type="text"
                                            value="{% if profile_form.birth_date.value %}{{ profile_form.birth_date.value|date:"d.m.Y" }}{% endif %}">
                                     {% if profile_form.birth_date.errors %}
                                         <div class="form-control-feedback">
@@ -198,6 +203,28 @@
                                         <small class="form-text text-muted">{{ profile_form.birth_date.help_text|safe }}</small>
                                     {% endif %}
                                 </div>
+
+                                <script>
+                                    $(function () {
+                                        $("#{{ profile_form.birth_date.id_for_label }}").datepicker({
+                                            inline: true,
+                                            showOtherMonths: true,
+                                            showAnim: 'slide',
+{#                                          {# showButtonPanel: true,#}
+                                            changeMonth: true,
+                                            changeYear: true,
+                                            yearRange: "-90:+0",
+                                            numberOfYears: 3,
+                                            minDate: new Date(1900, 10 - 1, 25),
+                                            maxDate: new Date(),
+                                            dateFormat: 'dd.mm.yy',
+                                            dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                                            monthNamesShort: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                                                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                                            firstDay: 1
+                                        });
+                                    });
+                                </script>
 
                                 <button class="btn" type="submit">Сохранить изменения</button>
                             </form>
