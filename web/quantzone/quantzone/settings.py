@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users',
 
     # Third party
+    'phonenumber_field',
 
     # Dev
     'django_coverage',
@@ -159,3 +160,8 @@ EMAIL_HOST_USER = 'info@quant.zone'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = 'quantzone1'
 EMAIL_SUBJECT_PREFIX = '[Quant] '
+
+# Phonefield settings (https://github.com/stefanfoulis/django-phonenumber-field)
+
+PHONENUMBER_DB_FORMAT = 'E164'
+PHONENUMBER_DEFAULT_REGION = 'RU'

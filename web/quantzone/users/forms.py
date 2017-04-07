@@ -1,3 +1,4 @@
+import phonenumbers
 from random import randint
 
 from django import forms
@@ -66,4 +67,9 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('birth_date', 'email_confirmed', 'avatar')
+        fields = ('birth_date', 'email_confirmed', 'avatar', 'phone')
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get("phone")
+        phone_number = phonenumbers.format_number(phone, phonenumbers.PhoneNumberFormat.E164)
+        return phone_number

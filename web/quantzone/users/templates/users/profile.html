@@ -224,6 +224,30 @@
                                     });
                                 </script>
 
+                                <div class="form-group {% if profile_form.phone.errors %}has-danger{% endif %}">
+                                    <label class="form-control-label" for="{{ profile_form.phone.id_for_label }}">
+                                        <small>
+                                            {{ profile_form.phone.label }}
+                                        </small>
+                                    </label>
+                                    <input id="{{ profile_form.phone.id_for_label }}"
+                                           name="{{ profile_form.phone.html_name }}"
+                                           class="form-control"
+                                           placeholder="Укажите телефон"
+                                           type="text"
+                                           value="{% if profile_form.phone.value %}{{ profile_form.phone.value }}{% endif %}">
+                                    {% if profile_form.phone.errors %}
+                                        <div class="form-control-feedback">
+                                            {% for error in profile_form.phone.errors %}
+                                                <p>{{ error|escape }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% if profile_form.phone.help_text %}
+                                        <small class="form-text text-muted">{{ profile_form.phone.help_text|safe }}</small>
+                                    {% endif %}
+                                </div>
+
                                 <button class="btn" type="submit">Сохранить изменения</button>
                             </form>
                         </div>

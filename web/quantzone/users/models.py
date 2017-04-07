@@ -5,6 +5,8 @@ from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.utils import timezone
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 # https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html#sign-up-with-confirmation-mail
 # https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#onetoone
@@ -16,6 +18,7 @@ class Profile(models.Model):
     email_confirmed = models.BooleanField(default=False)
     is_complete = models.BooleanField(default=False)
     avatar = models.ImageField(u'Аватар профиля', upload_to='avatars', null=True, blank=True)
+    phone = PhoneNumberField(blank=True)
 
     class Meta:
         verbose_name = "данные пользователя"
