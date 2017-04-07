@@ -234,7 +234,8 @@ def get_social_user_info(access_token, backend):
     elif backend == 'fb':
         api_url = "https://graph.facebook.com/me?fields={}&access_token={}&debug=all"
         # https://vk.com/dev/objects/user
-        fields = "id,email,first_name,gender,last_name,link,locale,name,timezone,updated_time,verified"
+        fields = "id,email,first_name,gender,last_name,link,locale,name,timezone,updated_time,verified," \
+                 "picture.type(large)"
         api_url = api_url.format(fields, access_token)
         context = ssl._create_unverified_context()
         api_response = urllib.request.urlopen(api_url, context=context)
@@ -272,6 +273,19 @@ def build_social_access_link(request, backend):
             }),
             content_type="application/json"
         )
+
+
+# Method for getting avatar_url and set to profile
+def update_avatar_info(extra_data, user):
+    try:
+        avatar_url = extra_data['photo_max_orig']
+    except KeyError:
+        try:
+            avatar_url = extra_data['picture']['data']['url']
+        except KeyError:
+            avatar_url = None
+    user.profile.avatar_url = avatar_url
+    user.profile.save()
 
 
 # Success social auth point
@@ -320,6 +334,9 @@ def social_auth_complete(request, backend):
                 existing_social_auth.extra_data = extra_data
                 existing_social_auth.is_active = True
                 existing_social_auth.save()
+
+                update_avatar_info(extra_data, request.user)
+
                 return redirect('users:profile')
         except UserSocialAuth.DoesNotExist:
             new_social_auth = UserSocialAuth.objects.create(
@@ -331,6 +348,9 @@ def social_auth_complete(request, backend):
                 extra_data=extra_data
             )
             new_social_auth.save()
+
+            update_avatar_info(extra_data, request.user)
+
             return redirect('users:profile')
     # if not authenticated - it is request for login
     else:
@@ -344,6 +364,9 @@ def social_auth_complete(request, backend):
             social_auth.save()
 
             user = social_auth.user
+
+            update_avatar_info(extra_data, user)
+
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             auth.login(request, user)
             return redirect('users:profile')
@@ -381,6 +404,8 @@ def social_auth_complete(request, backend):
                 email=email
             )
             user.save()
+
+            update_avatar_info(extra_data, user)
 
             new_social_auth = UserSocialAuth.objects.create(
                 user=user,

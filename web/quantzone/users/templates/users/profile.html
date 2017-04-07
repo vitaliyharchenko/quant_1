@@ -34,6 +34,8 @@
                             <br>
                             {% if user.profile.avatar %}
                                 <img src="{{ user.profile.avatar.url }}" alt="" class="img-thumbnail avatar">
+                            {% elif user.profile.avatar_url %}
+                                <img src="{{ user.profile.avatar_url }}" alt="" class="img-thumbnail avatar">
                             {% endif %}
 
                             <label class="custom-file">
