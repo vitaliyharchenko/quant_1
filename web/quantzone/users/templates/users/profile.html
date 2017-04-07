@@ -178,8 +178,6 @@
 
                                 {{ profile_form.email_confirmed.as_hidden }}
 
-                                {# TODO: datepicker https://jqueryui.com/datepicker/ #}
-
                                 <div class="form-group {% if profile_form.birth_date.errors %}has-danger{% endif %}">
                                     <label class="form-control-label" for="{{ profile_form.birth_date.id_for_label }}">
                                         <small>
