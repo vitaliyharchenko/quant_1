@@ -95,7 +95,8 @@ DATABASES = {
 
 # Authentication
 AUTHENTICATION_BACKENDS = [
-    'users.backend.EmailAuth', # Login w/ email
+    'users.backend.EmailAuth',  # Login w/ email
+    'users.backend.PhoneAuth',  # Login w/ phone
     'django.contrib.auth.backends.ModelBackend',  # Login w/ username
 ]
 

@@ -18,7 +18,7 @@ class Profile(models.Model):
     email_confirmed = models.BooleanField(default=False)
     is_complete = models.BooleanField(default=False)
     avatar = models.ImageField(u'Аватар профиля', upload_to='avatars', null=True, blank=True)
-    phone = PhoneNumberField(blank=True)
+    phone = PhoneNumberField(blank=True, unique=True)
 
     class Meta:
         verbose_name = "данные пользователя"
