@@ -7,24 +7,30 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/">
-            <img src="{% static 'images/logo.png' %}" alt="brand" height="30">
+            <img src="{% static 'images/logo.png' %}" class="d-inline-block align-top" alt="brand" height="30">
         </a>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="nav navbar-nav">
-                {% if user.is_staff %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">Admin</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'pages:template' %}">Styleguide</a>
-                    </li>
-                {% endif %}
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:profile' %}">{{ user.username }}</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Моя страница</a>
+                            <a class="dropdown-item" href="{% url 'users:profile' %}">Настройки</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'pages:index' %}">Выйти</a>
+                            {% if user.is_staff %}
+                                <div role="separator" class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/admin">Админка</a>
+                                <a class="dropdown-item" href="{% url 'pages:template' %}">Styleguide</a>
+                            {% endif %}
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'auth:logout' %}?next=?next={% url 'pages:index' %}">Выйти</a>
+                        <a class="nav-link" href="{% url 'auth:logout' %}?next={% url 'pages:index' %}">Выйти</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
