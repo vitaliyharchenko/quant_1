@@ -6,7 +6,8 @@
     "bootstrap-sass": "^3.3.7",
     "gulp": "^3.9.1",
     "gulp-imagemin": "^3.1.1",
-    "jquery-ui-dist": "^1.12.1"
+    "jquery-ui-dist": "^1.12.1",
+    "tether": "^1.4.0"
   },
   "devDependencies": {
     "bootstrap": "^4.0.0-alpha.6",
