@@ -19,9 +19,9 @@
                         <p class="lead">
                             Личная информация
                             {% if user.profile.is_complete %}
-                                <span class="badge badge-success">Активирован</span>
+                                <span class="badge badge-success align-baseline">Активирован</span>
                             {% else %}
-                                <span class="badge badge-warning">Не активирован</span>
+                                <span class="badge badge-warning align-baseline">Не активирован</span>
                             {% endif %}
                         </p>
 
@@ -303,10 +303,8 @@
                             </div>
                         </div>
                     {% else %}
-                        <p>
-                            <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
-                            <a href="{% url 'users:social_auth_begin' 'fb' %}">Прикрепить</a>
-                        </p>
+                        <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
+                        <a href="{% url 'users:social_auth_begin' 'fb' %}">Прикрепить</a>
                     {% endif %}
                 </div>
             </div>
