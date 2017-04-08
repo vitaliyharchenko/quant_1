@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.utils import timezone
@@ -11,7 +12,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 # https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html#sign-up-with-confirmation-mail
 # https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#onetoone
 
-# Create your models here.
+# Model, contains extra info about user.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(u'Дата рождения', null=True, blank=True)
@@ -19,7 +20,22 @@ class Profile(models.Model):
     is_complete = models.BooleanField(default=False)
     avatar = models.ImageField(u'Аватар профиля', upload_to='avatars', null=True, blank=True)
     avatar_url = models.CharField(u'Ссылка на аватар профиля', max_length=255, null=True, blank=True)
-    phone = PhoneNumberField(u'Контактный телефон', blank=True, null=True, unique=True)
+    # phone = PhoneNumberField(u'Контактный телефон', blank=True, null=True, unique=True)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message="Телефон должен быть заполнен в формате: '+999999999'. Максимум 15 цифр.")
+    phone = models.CharField(validators=[phone_regex], blank=True, max_length=20)  # va
+
+    LEARNER = 'LR'
+    TEACHER = 'TH'
+    PARENT = 'PR'
+    PROFILE_TYPE_CHOICES = (
+        (LEARNER, 'Ученик'),
+        (TEACHER, 'Учитель'),
+        (PARENT, 'Родитель'),
+    )
+    profile_type = models.CharField(u'Тип пользователя', max_length=2, choices=PROFILE_TYPE_CHOICES, default=LEARNER)
+    # TODO: choice type field
+
     # TODO: add city field
     # TODO: add grade field
     # TODO: add school field

@@ -279,11 +279,16 @@ def build_social_access_link(request, backend):
 # Method for getting avatar_url and set to profile
 def update_avatar_info(extra_data, user):
     if not user.profile.avatar_url:
+        if extra_data.__class__.__name__ != 'dict':
+            dict_data = eval(extra_data)
+        else:
+            dict_data = extra_data
+
         try:
-            avatar_url = extra_data['photo_max_orig']
+            avatar_url = dict_data['photo_max_orig']
         except KeyError:
             try:
-                avatar_url = extra_data['picture']['data']['url']
+                avatar_url = dict_data['picture']['data']['url']
             except KeyError:
                 avatar_url = None
         user.profile.avatar_url = avatar_url
@@ -458,7 +463,7 @@ def social_auth_deassociate(request, backend):
         except KeyError:
             avatar_url = None
     if user.profile.avatar_url == avatar_url:
-        user.profile.avatar_url = False
+        user.profile.avatar_url = None
         user.profile.save()
 
     return redirect('users:profile')

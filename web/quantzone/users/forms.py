@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ValidationError
 
+from phonenumbers import geocoder, carrier
+
 from .models import Profile
 
 
@@ -71,8 +73,14 @@ class ProfileForm(forms.ModelForm):
 
     def clean_phone(self):
         phone = self.cleaned_data.get("phone")
+
         if phone:
-            phone_number = phonenumbers.format_number(phone, phonenumbers.PhoneNumberFormat.E164)
-            return phone_number
+            parsed_phone = phonenumbers.parse(phone, "RU")
+            phone_formated = phonenumbers.format_number(parsed_phone, phonenumbers.PhoneNumberFormat.E164)
+            phone_is_valid = phonenumbers.is_valid_number(parsed_phone)
+            if phone_is_valid:
+                return phone_formated
+            else:
+                raise ValidationError("Укажите корректный номер")
         else:
             return None

@@ -36,7 +36,7 @@
                                 {# TODO: blank images for users, both sex #}
                                 {% if user.profile.avatar %}
                                     <img src="{{ user.profile.avatar.url }}" alt="" class="card-img-top img-fluid">
-                                {% elif user.profile.avatar_url != 'False' %}
+                                {% elif user.profile.avatar_url %}
                                     <img src="{{ user.profile.avatar_url }}" alt="" class="card-img-top img-fluid">
                                 {% else %}
                                     <img src="https://dummyimage.com/400x400/000/fff.png&text=No avatar" alt="" class="card-img-top">
@@ -280,9 +280,9 @@
                     <p class="lead">Интеграция с сайтами</p>
                     {% if vk_social_auth %}
                         <p>
-                            <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
-                            <a>(id{{ vk_social_auth.uid }})</a>
-                            &nbsp;&nbsp;
+                            <a href="https://vk.com/id{{ vk_social_auth.uid }}" target="_blank">
+                                <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
+                            </a>
                             <a href="{% url 'users:social_auth_deassociate' 'vk' %}">
                                 Отключить
                             </a>
@@ -301,9 +301,9 @@
 
                     {% if fb_social_auth %}
                         <p>
-                            <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
-                            <a>(id{{ fb_social_auth.uid }})</a>
-                            &nbsp;&nbsp;
+                            <a href="https://www.facebook.com/{{ fb_social_auth.uid }}" target="_blank">
+                                <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
+                            </a>
                             <a href="{% url 'users:social_auth_deassociate' 'fb' %}">
                                 Отключить
                             </a>
