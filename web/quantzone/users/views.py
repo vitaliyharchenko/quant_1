@@ -278,15 +278,16 @@ def build_social_access_link(request, backend):
 
 # Method for getting avatar_url and set to profile
 def update_avatar_info(extra_data, user):
-    try:
-        avatar_url = extra_data['photo_max_orig']
-    except KeyError:
+    if not user.profile.avatar_url:
         try:
-            avatar_url = extra_data['picture']['data']['url']
+            avatar_url = extra_data['photo_max_orig']
         except KeyError:
-            avatar_url = None
-    user.profile.avatar_url = avatar_url
-    user.profile.save()
+            try:
+                avatar_url = extra_data['picture']['data']['url']
+            except KeyError:
+                avatar_url = None
+        user.profile.avatar_url = avatar_url
+        user.profile.save()
 
 
 # Success social auth point
