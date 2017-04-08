@@ -20,7 +20,7 @@ class Profile(models.Model):
     is_complete = models.BooleanField(default=False)
     avatar = models.ImageField(u'Аватар профиля', upload_to='avatars', null=True, blank=True)
     avatar_url = models.CharField(u'Ссылка на аватар профиля', max_length=255, null=True, blank=True)
-    # phone = PhoneNumberField(u'Контактный телефон', blank=True, null=True, unique=True)
+    # TODO: regex validator to another file and clear fields.py
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Телефон должен быть заполнен в формате: '+999999999'. Максимум 15 цифр.")
     phone = models.CharField(validators=[phone_regex], blank=True, max_length=20)  # va
