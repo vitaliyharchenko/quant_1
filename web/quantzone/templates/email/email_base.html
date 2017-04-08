@@ -1,6 +1,5 @@
 {% load staticfiles %}
 
-{# TODO: create design for email templates #}
 {# From http://emailframe.work/#supportedclients #}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -19,37 +18,53 @@
     </style>
 </head>
 <body style="margin:0; padding:0; background-color:#F2F2F2;">
-<center>
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F2F2F2">
-        <tr>
-            <td height="40" style="font-size:10px; line-height:10px;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td align="center" valign="top">
-                <table width="640" cellpadding="0" cellspacing="0" border="0" class="wrapper" bgcolor="#FFFFFF">
-                    <tr>
-                        <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td align="center" valign="top">
-
-                            <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
-                                <tr>
-                                    <td align="center" valign="top">
-                                        {% block content %}{% endblock %}
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-</center>
+    <center>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F2F2F2">
+            <tr>
+                <td height="40" style="font-size:10px; line-height:10px;">&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="center" valign="top">
+                    <table width="640" cellpadding="0" cellspacing="0" border="0" class="wrapper" bgcolor="#FFFFFF">
+                        {# Header #}
+                        <tr>
+                            <td height="20" style="font-size:10px; line-height:10px;" bgcolor="#DDDDDD">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td height="50" style="font-size:40px; line-height:30px;" align="center" valign="top" bgcolor="#DDDDDD">
+                                <img src="http://{{ domain }}{% static 'images/logo.png' %}" width="" height="30" style="margin:0; padding:0; border:none; display:block;" border="0" alt="Учебный центр Quant" />
+                            </td>
+                        </tr>
+                        {# Content #}
+                        <tr>
+                            <td height="20" style="font-size:10px; line-height:10px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {% block content %}{% endblock %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="font-size:10px; line-height:10px;">&nbsp;</td>
+                        </tr>
+                        {# Footer #}
+                        <tr>
+                            <td height="20" style="font-size:10px; line-height:10px;" bgcolor="#F2F2F2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="top"  bgcolor="#F2F2F2">
+                                <a href="http://vk.com/quantzone" target="_blank" style="color:#a9a3a6; text-decoration:underline;">VK</a>
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="http://quant.zone" target="_blank" style="color:#a9a3a6; text-decoration:underline;">quant.zone</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td height="40" style="font-size:10px; line-height:10px;">&nbsp;</td>
+            </tr>
+        </table>
+    </center>
 </body>
 </html>

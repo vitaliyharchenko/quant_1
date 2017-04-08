@@ -29,7 +29,8 @@
                             {% if user.is_staff %}
                                 <div role="separator" class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/admin">Админка</a>
-                                <a class="dropdown-item" href="{% url 'pages:template' %}">Styleguide</a>
+                                <a class="dropdown-item" href="{% url 'pages:styleguide' %}">Styleguide</a>
+                                <a class="dropdown-item" href="{% url 'pages:email_styleguide' %}">Email Styleguide</a>
                             {% endif %}
                         </div>
                     </li>
