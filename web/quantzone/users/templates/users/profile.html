@@ -33,6 +33,7 @@
                             </label>
                             <br>
                             <div class="card text-center" style="width: 15rem;">
+                                {# TODO: blank images for users, both sex #}
                                 {% if user.profile.avatar %}
                                     <img src="{{ user.profile.avatar.url }}" alt="" class="card-img-top img-fluid">
                                 {% elif user.profile.avatar_url != 'False' %}
