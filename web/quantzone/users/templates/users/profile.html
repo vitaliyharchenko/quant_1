@@ -287,11 +287,6 @@
                                 Отключить
                             </a>
                         </p>
-                        <div class="collapse" id="collapseVk">
-                            <div class="card card-block">
-                                {{ vk_social_auth.extra_data }}
-                            </div>
-                        </div>
                     {% else %}
                         <p>
                             <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
@@ -300,19 +295,12 @@
                     {% endif %}
 
                     {% if fb_social_auth %}
-                        <p>
-                            <a href="https://www.facebook.com/{{ fb_social_auth.uid }}" target="_blank">
-                                <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
-                            </a>
-                            <a href="{% url 'users:social_auth_deassociate' 'fb' %}">
-                                Отключить
-                            </a>
-                        </p>
-                        <div class="collapse" id="collapseFb">
-                            <div class="card card-block">
-                                {{ fb_social_auth.extra_data }}
-                            </div>
-                        </div>
+                        <a href="https://www.facebook.com/{{ fb_social_auth.uid }}" target="_blank">
+                            <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
+                        </a>
+                        <a href="{% url 'users:social_auth_deassociate' 'fb' %}">
+                            Отключить
+                        </a>
                     {% else %}
                         <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
                         <a href="{% url 'users:social_auth_begin' 'fb' %}">Прикрепить</a>
