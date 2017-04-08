@@ -1,3 +1,4 @@
+import pickle
 import ssl
 import urllib
 import json
@@ -337,6 +338,7 @@ def social_auth_complete(request, backend):
 
                 update_avatar_info(extra_data, request.user)
 
+                messages.success(request, 'Аккаунт успешно прикреплен.')
                 return redirect('users:profile')
         except UserSocialAuth.DoesNotExist:
             new_social_auth = UserSocialAuth.objects.create(
@@ -345,12 +347,13 @@ def social_auth_complete(request, backend):
                 uid=social_user_id,
                 token=access_token,
                 email=email,
-                extra_data=extra_data
+                extra_data=str(extra_data)
             )
             new_social_auth.save()
 
             update_avatar_info(extra_data, request.user)
 
+            messages.success(request, 'Аккаунт успешно прикреплен.')
             return redirect('users:profile')
     # if not authenticated - it is request for login
     else:
@@ -382,11 +385,14 @@ def social_auth_complete(request, backend):
                             uid=social_user_id,
                             token=access_token,
                             email=email,
-                            extra_data=extra_data
+                            extra_data=str(extra_data)
                         )
                         new_social_auth.save()
                         user.backend = 'django.contrib.auth.backends.ModelBackend'
                         login(request, user)
+
+                        messages.success(request,
+                                         'Ваш социальный аккаунт привязан на основании сответствия почтового адреса')
                         return redirect('users:profile')
                 except User.DoesNotExist:
                     pass
@@ -413,12 +419,14 @@ def social_auth_complete(request, backend):
                 uid=social_user_id,
                 token=access_token,
                 email=email,
-                extra_data=extra_data
+                extra_data=str(extra_data)
             )
             new_social_auth.save()
 
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             auth.login(request, user)
+
+            messages.success(request, 'Ваш аккаунт создан на основании данных соцсети.')
             return redirect('users:profile')
 
 
@@ -432,6 +440,26 @@ def social_auth_deassociate(request, backend):
     social_auth = UserSocialAuth.objects.get(provider=backend, user=request.user)
     social_auth.is_active = False
     social_auth.save()
+
+    # if disconnect - delete avatar
+    if backend == 'vk':
+        try:
+            extra_data = social_auth.extra_data
+            dict_data = eval(extra_data)
+            avatar_url = dict_data['photo_max_orig']
+        except KeyError:
+            avatar_url = None
+    elif backend == 'fb':
+        try:
+            extra_data = social_auth.extra_data
+            dict_data = eval(extra_data)
+            avatar_url = dict_data['picture']['data']['url']
+        except KeyError:
+            avatar_url = None
+    if user.profile.avatar_url == avatar_url:
+        user.profile.avatar_url = False
+        user.profile.save()
+
     return redirect('users:profile')
 
 

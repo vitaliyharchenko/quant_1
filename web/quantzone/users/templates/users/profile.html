@@ -32,13 +32,13 @@
                                 </small>
                             </label>
                             <br>
-                            <div class="card" style="width: 20rem;">
+                            <div class="card text-center" style="width: 15rem;">
                                 {% if user.profile.avatar %}
-                                    <img src="{{ user.profile.avatar.url }}" alt="" class="card-img-top">
-                                {% elif user.profile.avatar_url %}
-                                    <img src="{{ user.profile.avatar_url }}" alt="" class="card-img-top">
+                                    <img src="{{ user.profile.avatar.url }}" alt="" class="card-img-top img-fluid">
+                                {% elif user.profile.avatar_url != 'False' %}
+                                    <img src="{{ user.profile.avatar_url }}" alt="" class="card-img-top img-fluid">
                                 {% else %}
-                                    <img src="" alt="" class="card-img-top">
+                                    <img src="https://dummyimage.com/400x400/000/fff.png&text=No avatar" alt="" class="card-img-top">
                                 {% endif %}
                                 <div class="card-footer">
                                     <a class="card-link" data-toggle="collapse" href="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">Редактировать... </a>
@@ -46,6 +46,7 @@
                             </div>
 
                             <div class="collapse" id="collapseAvatar" aria-expanded="false" style="">
+                                <br>
                                 <label class="custom-file">
                                     <input type="file"
                                            accept="image"
@@ -55,6 +56,14 @@
                                     <span class="custom-file-control"
                                           data-content="{% if not user.profile.avatar %}Загрузите фотографию{% endif %}"></span>
                                 </label>
+                                {% if user.profile.avatar %}
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" id="{{ profile_form.avatar.html_name }}-clear_id" name="{{ profile_form.avatar.html_name }}-clear" class="form-check-input">
+                                            Очистить
+                                        </label>
+                                    </div>
+                                {% endif %}
                             </div>
 
                             <script>
@@ -69,7 +78,8 @@
                             </script>
                             <style>
                                 .avatar {
-                                    max-height: 200px;
+                                    height: 100%;
+                                    width: 100%;
                                 }
                                 .custom-file {
                                     width:100%;
