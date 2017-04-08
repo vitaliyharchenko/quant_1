@@ -32,21 +32,30 @@
                                 </small>
                             </label>
                             <br>
-                            {% if user.profile.avatar %}
-                                <img src="{{ user.profile.avatar.url }}" alt="" class="img-thumbnail avatar">
-                            {% elif user.profile.avatar_url %}
-                                <img src="{{ user.profile.avatar_url }}" alt="" class="img-thumbnail avatar">
-                            {% endif %}
+                            <div class="card" style="width: 20rem;">
+                                {% if user.profile.avatar %}
+                                    <img src="{{ user.profile.avatar.url }}" alt="" class="card-img-top">
+                                {% elif user.profile.avatar_url %}
+                                    <img src="{{ user.profile.avatar_url }}" alt="" class="card-img-top">
+                                {% else %}
+                                    <img src="" alt="" class="card-img-top">
+                                {% endif %}
+                                <div class="card-footer">
+                                    <a class="card-link" data-toggle="collapse" href="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">Редактировать...</a>
+                                </div>
+                            </div>
 
-                            <label class="custom-file">
-                                <input type="file"
-                                       accept="image"
-                                       class="custom-file-input"
-                                       id="{{ profile_form.avatar.id_for_label }}"
-                                       name="{{ profile_form.avatar.html_name }}">
-                                <span class="custom-file-control"
-                                      data-content="{% if not user.profile.avatar %}Загрузите фотографию{% endif %}"></span>
-                            </label>
+                            <div class="collapse" id="collapseAvatar" aria-expanded="false" style="">
+                                <label class="custom-file">
+                                    <input type="file"
+                                           accept="image"
+                                           class="custom-file-input"
+                                           id="{{ profile_form.avatar.id_for_label }}"
+                                           name="{{ profile_form.avatar.html_name }}">
+                                    <span class="custom-file-control"
+                                          data-content="{% if not user.profile.avatar %}Загрузите фотографию{% endif %}"></span>
+                                </label>
+                            </div>
 
                             <script>
                                 $('body').on('change', '.custom-file-input', function (ev) {
@@ -58,7 +67,6 @@
                                     console.log(name);
                                 });
                             </script>
-
                             <style>
                                 .avatar {
                                     max-height: 200px;
