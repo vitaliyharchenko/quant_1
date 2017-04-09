@@ -15,11 +15,11 @@ from .validators import phone_regex
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(u'Дата рождения', null=True, blank=True)
-    email_confirmed = models.BooleanField(default=False)
-    is_complete = models.BooleanField(default=False)
+    email_confirmed = models.BooleanField(u'Почта подтверждена', default=False)
+    is_complete = models.BooleanField(u'Профиль активен (имеется вся информация)', default=False)
     avatar = models.ImageField(u'Аватар профиля', upload_to='avatars', null=True, blank=True)
     avatar_url = models.CharField(u'Ссылка на аватар профиля', max_length=255, null=True, blank=True)
-    phone = models.CharField(validators=[phone_regex], blank=True, max_length=20)
+    phone = models.CharField(u'Контактный телефон', validators=[phone_regex], blank=True, max_length=20)
 
     LEARNER = 'LR'
     TEACHER = 'TH'
@@ -30,7 +30,6 @@ class Profile(models.Model):
         (PARENT, 'Родитель'),
     )
     profile_type = models.CharField(u'Тип пользователя', max_length=2, choices=PROFILE_TYPE_CHOICES, default=LEARNER)
-    # TODO: choice type field
 
     # TODO: add city field
     # TODO: add grade field
@@ -38,6 +37,8 @@ class Profile(models.Model):
 
     class Meta:
         verbose_name = "данные пользователя"
+        verbose_name_plural = "данные пользователя"
+        app_label = "users"
 
     def __str__(self):
         return "{}".format(self.pk)
@@ -53,6 +54,8 @@ class UserSocialAuth(models.Model):
     is_active = models.BooleanField(u'Активна', default=True)
 
     class Meta:
+        verbose_name = "Авторизация через соцсеть"
+        verbose_name_plural = "Авторизации через соцсеть"
         app_label = "users"
         unique_together = ('provider', 'uid')
 
@@ -66,6 +69,8 @@ class EmailConfirmation(models.Model):
     confirm_date = models.DateField(default=timezone.now)
 
     class Meta:
+        verbose_name = "Подтверждение почтового ящика"
+        verbose_name_plural = "Подтверждения почтового ящика"
         app_label = "users"
 
     def __str__(self):

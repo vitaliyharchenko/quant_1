@@ -8,6 +8,7 @@ from .models import Profile, UserSocialAuth, EmailConfirmation
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
+    extra = 0
 
 
 class CustomUserAdmin(UserAdmin):
