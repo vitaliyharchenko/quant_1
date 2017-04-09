@@ -1,12 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.utils import timezone
 
-from phonenumber_field.modelfields import PhoneNumberField
+from .validators import phone_regex
 
 
 # https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html#sign-up-with-confirmation-mail
@@ -20,10 +19,7 @@ class Profile(models.Model):
     is_complete = models.BooleanField(default=False)
     avatar = models.ImageField(u'Аватар профиля', upload_to='avatars', null=True, blank=True)
     avatar_url = models.CharField(u'Ссылка на аватар профиля', max_length=255, null=True, blank=True)
-    # TODO: regex validator to another file and clear fields.py
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
-                                 message="Телефон должен быть заполнен в формате: '+999999999'. Максимум 15 цифр.")
-    phone = models.CharField(validators=[phone_regex], blank=True, max_length=20)  # va
+    phone = models.CharField(validators=[phone_regex], blank=True, max_length=20)
 
     LEARNER = 'LR'
     TEACHER = 'TH'

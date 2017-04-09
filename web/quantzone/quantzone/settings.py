@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'users',
 
     # Third party
-    'phonenumber_field',
 
     # Dev
     'django_coverage',
