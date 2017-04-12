@@ -132,3 +132,24 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_HOST_USER = 'info@quant.zone'
 EMAIL_HOST_PASSWORD = 'physicum123456'
 EMAIL_SUBJECT_PREFIX = '[QUANT] '
+
+#logging
+
+import logging, logging.config
+import sys
+
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        }
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO'
+    }
+}
+
+logging.config.dictConfig(LOGGING)
