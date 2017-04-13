@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Custom apps
-    'users',
     'lms',
+    'nodes',
+    'users',
 
     # Third party
 
