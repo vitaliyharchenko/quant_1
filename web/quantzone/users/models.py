@@ -13,13 +13,6 @@ from .validators import phone_regex
 
 # Model, contains extra info about user.
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    birth_date = models.DateField(u'Дата рождения', null=True, blank=True)
-    email_confirmed = models.BooleanField(u'Почта подтверждена', default=False)
-    is_complete = models.BooleanField(u'Профиль активен (имеется вся информация)', default=False)
-    avatar = models.ImageField(u'Аватар профиля', upload_to='avatars', null=True, blank=True)
-    avatar_url = models.CharField(u'Ссылка на аватар профиля', max_length=255, null=True, blank=True)
-    phone = models.CharField(u'Контактный телефон', validators=[phone_regex], blank=True, max_length=20)
 
     LEARNER = 'LR'
     TEACHER = 'TH'
@@ -29,6 +22,14 @@ class Profile(models.Model):
         (TEACHER, 'Учитель'),
         (PARENT, 'Родитель'),
     )
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    birth_date = models.DateField(u'Дата рождения', null=True, blank=True)
+    email_confirmed = models.BooleanField(u'Почта подтверждена', default=False)
+    is_complete = models.BooleanField(u'Профиль активен (имеется вся информация)', default=False)
+    avatar = models.ImageField(u'Аватар профиля', upload_to='avatars', null=True, blank=True)
+    avatar_url = models.CharField(u'Ссылка на аватар профиля', max_length=255, null=True, blank=True)
+    phone = models.CharField(u'Контактный телефон', validators=[phone_regex], blank=True, max_length=20)
     profile_type = models.CharField(u'Тип пользователя', max_length=2, choices=PROFILE_TYPE_CHOICES, default=LEARNER)
 
     # TODO: add city field

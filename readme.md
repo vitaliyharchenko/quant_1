@@ -315,4 +315,8 @@ the web client <-> the web server <-> the socket <-> uWSGI <-> Python | works co
 
 1. Work in coding style: https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/
 
+```
+isort -rc .
+```
+
 2. 
