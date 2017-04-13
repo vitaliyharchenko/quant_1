@@ -1,0 +1,34 @@
+{% extends "base_regular.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-block">
+                    <h1>Мои группы</h1>
+                    <ul>
+                        {% for group in groups %}
+                            <li>{{ group }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseNewGroup" aria-expanded="true" aria-controls="collapseNewGroup">
+                        Создать группу
+                    </a>
+                    <div class="collapse" id="collapseNewGroup" aria-expanded="false" style="">
+                        <br>
+                        <div class="card card-outline-primary">
+                            <div class="card-block">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button class="btn" type="submit">Сохранить изменения</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
