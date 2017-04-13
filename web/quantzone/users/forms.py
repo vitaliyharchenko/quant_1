@@ -1,12 +1,11 @@
-import phonenumbers
 from random import randint
 
+import phonenumbers
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ValidationError
-
-from phonenumbers import geocoder, carrier
+from phonenumbers import carrier, geocoder
 
 from .models import Profile
 

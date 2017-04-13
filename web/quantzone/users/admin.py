@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Profile, UserSocialAuth, EmailConfirmation
+
+from .models import EmailConfirmation, Profile, UserSocialAuth
 
 
 # Adding Profile inline to default Django Admin

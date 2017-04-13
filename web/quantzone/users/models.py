@@ -1,7 +1,7 @@
-from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.db.models.signals import pre_save, post_save
+from django.db import models
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils import timezone
 
@@ -117,4 +117,3 @@ def user_profile(sender, instance, **kwargs):
             instance.profile.save()
     except User.profile.RelatedObjectDoesNotExist:
         pass
-

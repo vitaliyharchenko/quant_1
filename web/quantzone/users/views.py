@@ -1,27 +1,25 @@
-import pickle
+import json
 import ssl
 import urllib
-import json
 from random import randint
 
-from django.contrib import messages
-from django.shortcuts import render, redirect, reverse, HttpResponse
 from django.conf import settings
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm,
+                                       SetPasswordForm)
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import SetPasswordForm, AuthenticationForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.contrib.auth.forms import PasswordResetForm
+from django.shortcuts import HttpResponse, redirect, render, reverse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
-from .forms import SignUpForm, UserForm, ProfileForm
+from .forms import ProfileForm, SignUpForm, UserForm
+from .models import EmailConfirmation, UserSocialAuth
 from .tokens import account_activation_token
-from .models import UserSocialAuth, EmailConfirmation
 
 
 # Login view
