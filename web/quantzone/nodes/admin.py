@@ -1,7 +1,13 @@
 from django.contrib import admin
 
-from nodes.models import *
+from .models import *
+from .autocomplete import NodeRelationForm
+
+
+class NodeRelationAdmin(admin.ModelAdmin):
+    form = NodeRelationForm
+
 
 admin.site.register(Node)
-admin.site.register(NodeRelation)
+admin.site.register(NodeRelation, NodeRelationAdmin)
 admin.site.register(SubjectTag)
