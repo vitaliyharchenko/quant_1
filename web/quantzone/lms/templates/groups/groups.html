@@ -11,12 +11,14 @@
             <div class="card">
                 <div class="card-block">
                     <h1>Мои группы</h1>
-                    <ul>
+                    <div class="list-group">
                         {% for group in groups %}
-                            <li>
-                                <a href="{% url 'lms:group' group.pk %}">{{ group }}</a></li>
+                            <li class="list-group-item list-group-item-action">
+                                <a href="{% url 'lms:group' group.pk %}">{{ group }}</a>
+                            </li>
                         {% endfor %}
-                    </ul>
+                    </div>
+                    <br>
                     <a class="btn btn-primary" data-toggle="collapse" href="#collapseNewGroup" aria-expanded="true" aria-controls="collapseNewGroup">
                         Создать группу
                     </a>
