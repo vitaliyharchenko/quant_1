@@ -1,22 +1,37 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from .forms import GroupCreationForm
+from .forms import GroupForm
 from .models import Group
 
 
-# Create your views here.
+# All teacher groups
 def groups(request):
-    groups = Group.objects.filter(owner=request.user)
+    all_groups = Group.objects.filter(owner=request.user)
 
     if request.method == "POST":
-        form = GroupCreationForm(request.POST)
+        form = GroupForm(request.POST)
         if form.is_valid:
             form.save()
-            form = GroupCreationForm()
+            form = GroupForm()
         else:
             messages.warning(request, "Введенные данные некорректны!")
     else:
-        form = GroupCreationForm(instance=Group(owner=request.user))
+        form = GroupForm(instance=Group(owner=request.user))
 
     return render(request, 'groups/groups.html', {'form': form,
-                                                  'groups': groups})
+                                                  'groups': all_groups})
+
+
+def group(request, group_id):
+    instance = Group.objects.get(pk=group_id)
+
+    if request.method == "POST":
+        form = GroupForm(request.POST or None, instance=instance)
+        if form.is_valid:
+            form.save()
+        else:
+            messages.warning(request, "Введенные данные некорректны!")
+    else:
+        form = GroupForm(instance=instance)
+
+    return render(request, 'groups/group.html', {'group': instance, 'form': form})
