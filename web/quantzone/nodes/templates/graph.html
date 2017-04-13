@@ -1,0 +1,29 @@
+{% extends "base_regular.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="graph">
+                    <script src="https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.js"></script>
+                        {% if s %}
+
+                            <embed type="image/svg+xml" src="{{ s }}" id="my-embed"/>
+                            <script>
+                            document.getElementById('my-embed').addEventListener('load', function(){
+                            // Will get called after embed element was loaded
+                                svgPanZoom(document.getElementById('my-embed'));
+                            })
+                            </script>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block messages %}
+{% endblock %}
