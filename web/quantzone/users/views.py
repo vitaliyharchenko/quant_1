@@ -7,8 +7,7 @@ from django.conf import settings
 from django.contrib import auth, messages
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm,
-                                       SetPasswordForm)
+from django.contrib.auth.forms import (PasswordResetForm, SetPasswordForm)
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
@@ -17,7 +16,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
-from .forms import ProfileForm, SignUpForm, UserForm
+from .forms import ProfileForm, SignUpForm, UserForm, UserLoginForm
 from .models import EmailConfirmation, UserSocialAuth
 from .tokens import account_activation_token
 
@@ -25,16 +24,16 @@ from .tokens import account_activation_token
 # Login view
 def login(request):
     # ready for login from any page on site
-    # return_path = request.META.get('HTTP_REFERER', '/')
-    # login_path = 'http://{}{}'.format(get_current_site(request), reverse('users:login'))
-    # if return_path == login_path:
-    #     return_path = reverse('users:profile')
+    return_path = request.META.get('HTTP_REFERER', '/')
+    login_path = 'http://{}{}'.format(get_current_site(request), reverse('users:login'))
+    if return_path == login_path:
+        return_path = reverse('users:profile')
 
-    # if request.user.is_authenticated():
-    #     return redirect(return_path)
+    if request.user.is_authenticated():
+        return redirect(return_path)
 
     if request.method == "POST":
-        form = AuthenticationForm(request.POST or None)
+        form = UserLoginForm(request, request.POST)
         if form.is_valid():
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
@@ -47,7 +46,7 @@ def login(request):
         else:
             messages.warning(request, "Введенные данные некорректны!")
     else:
-        form = AuthenticationForm(request)
+        form = UserLoginForm(request)
 
     return render(request, 'users/login.html', {"form": form})
 
