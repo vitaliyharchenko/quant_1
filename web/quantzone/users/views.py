@@ -25,13 +25,13 @@ from .tokens import account_activation_token
 # Login view
 def login(request):
     # ready for login from any page on site
-    return_path = request.META.get('HTTP_REFERER', '/')
-    login_path = 'http://{}{}'.format(get_current_site(request), reverse('users:login'))
-    if return_path == login_path:
-        return_path = reverse('users:profile')
+    # return_path = request.META.get('HTTP_REFERER', '/')
+    # login_path = 'http://{}{}'.format(get_current_site(request), reverse('users:login'))
+    # if return_path == login_path:
+    #     return_path = reverse('users:profile')
 
-    if request.user.is_authenticated():
-        return redirect(return_path)
+    # if request.user.is_authenticated():
+    #     return redirect(return_path)
 
     if request.method == "POST":
         form = AuthenticationForm(request.POST or None)

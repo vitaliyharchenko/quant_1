@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     # Third party
 
     # Dev
-    'django_coverage',
 ]
 
 MIDDLEWARE = [
@@ -102,9 +101,10 @@ DATABASES = {
 
 # Authentication
 AUTHENTICATION_BACKENDS = [
-    'users.backend.EmailAuth',  # Login w/ email
-    'users.backend.PhoneAuth',  # Login w/ phone
     'django.contrib.auth.backends.ModelBackend',  # Login w/ username
+    'users.backend.EmailAuth',  # Login w/ email
+    # TODO: correct phone authentication
+    # 'users.backend.PhoneAuth',  # Login w/ phone
 ]
 
 LOGIN_REDIRECT_URL = 'users:profile'
