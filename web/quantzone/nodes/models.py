@@ -35,6 +35,7 @@ class Node(models.Model):
         return self.title
 
 
+# TODO: add autocomplete on admin
 # Relation between nodes. Directed graph structure
 class NodeRelation(models.Model):
     parent = models.ForeignKey(Node, verbose_name=u'Parent', related_name=u'parent_in_node_relation')
