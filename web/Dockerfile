@@ -8,6 +8,7 @@ COPY requirements.txt /data/web/
 # Setup
 RUN apk update
 RUN apk upgrade
+RUN echo "ipv6" >> /etc/modules
 RUN apk add --update python3 python3-dev postgresql-client postgresql-dev build-base gettext jpeg-dev zlib-dev build-base graphviz libgraphviz-dev pkg-config
 
 RUN pip3 install --upgrade pip
