@@ -25,7 +25,7 @@ SECRET_KEY = 'h+f**9+63qsqb%3+l0#_lz+2o@t^^ql&z@5ltv2tg59y+og11s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'test.quant.zone']
 
 
 # Application definition
