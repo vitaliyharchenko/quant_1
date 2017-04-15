@@ -6,6 +6,10 @@ from nodes.models import NodeRelation
 # Create svg for graph
 def svg_view(request):
 
+    def modify_title(title):
+        return title.replace(' ', '\n')
+
+
     def get_color(type_tag):
         if type_tag == 1:
             return "#33CC66"
@@ -24,8 +28,8 @@ def svg_view(request):
 
     for edge in NodeRelation.objects.all().order_by('pk'):
         if str(edge.parent.subject_tag) == 'Математика' and str(edge.child.subject_tag) == 'Математика':
-            dot.node(edge.parent.title, edge.parent.title, color=get_color(edge.parent.type_tag))
-            dot.node(edge.child.title, edge.child.title, color=get_color(edge.child.type_tag))
+            dot.node(edge.parent.title, modify_title(edge.parent.title), color=get_color(edge.parent.type_tag))
+            dot.node(edge.child.title, modify_title(edge.child.title), color=get_color(edge.child.type_tag))
             dot.edge(edge.parent.title, edge.child.title)
 
     dot.format = 'svg'
