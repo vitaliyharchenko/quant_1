@@ -1,6 +1,6 @@
 import json
 import ssl
-import urllib
+import urllib.request
 from random import randint
 
 from django.conf import settings
