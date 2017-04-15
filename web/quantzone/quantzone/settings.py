@@ -62,8 +62,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_COOKIE_SECURE = True
-
 ROOT_URLCONF = 'quantzone.urls'
 
 TEMPLATES = [
