@@ -12,8 +12,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
-                    <li class="nav-item dropdown show">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenu1"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {% if user.first_name %}
                                 {{ user.get_full_name }}
@@ -21,7 +21,7 @@
                                 {{ user.username }}
                             {% endif %}
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu1">
                             <a class="dropdown-item" href="#">Моя страница</a>
                             <a class="dropdown-item" href="{% url 'users:profile' %}">Настройки</a>
                             <div role="separator" class="dropdown-divider"></div>
