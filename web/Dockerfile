@@ -8,11 +8,11 @@ COPY requirements.txt /data/web/
 # Setup
 RUN apk update
 RUN apk upgrade
-RUN apk add --update python3 python3-dev postgresql-client postgresql-dev build-base gettext jpeg-dev zlib-dev build-base graphviz
+RUN apk add --update python3 python3-dev postgresql-client postgresql-dev build-base gettext jpeg-dev zlib-dev build-base pkg-config graphviz
 
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
-RUN pip3 install git+git://github.com/pygraphviz/pygraphviz.git
+#RUN pip3 install git+git://github.com/pygraphviz/pygraphviz.git
 
 # Clean
 RUN apk del -r python3-dev postgresql
