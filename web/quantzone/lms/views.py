@@ -24,39 +24,7 @@ def groups(request):
                                                   'groups': all_groups})
 
 
-# https://medium.com/@adandan01/django-inline-formsets-example-mybook-420cc4b6225d
-# Did not work
 def group(request, group_id):
-    instance = Group.objects.get(pk=group_id)
-
-    if request.method == "POST":
-        form = GroupForm(request.POST or None, instance=instance)
-        if form.is_valid:
-            form.save()
-        else:
-            messages.warning(request, "Введенные данные некорректны!")
-    else:
-        form = GroupForm(instance=instance)
-
-    formset = StudentGroupRelationFormSet(instance=instance)
-
-    return render(request, 'groups/group.html', {'group': instance, 'form': form, 'formset': formset})
-
-
-def student_group_change(request, group_id):
-    instance = Group.objects.get(pk=group_id)
-
-    if request.method == "POST":
-        formset = StudentGroupRelationFormSet(request.POST or None, instance=instance)
-        if formset.is_valid():
-            formset.save()
-            return redirect('lms:group', group_id)
-        else:
-            messages.warning(request, "Введенные данные некорректны!")
-    return redirect('lms:group', group_id)
-
-
-def test_group(request, group_id):
     instance = Group.objects.get(pk=group_id)
 
     # Get existing list of students
@@ -88,10 +56,10 @@ def test_group(request, group_id):
                     StudentGroupRelation.objects.bulk_create(new_students)
                     print(new_students)
 
-                    messages.success(request, 'Успешно добавленные студентишки')
+                    messages.success(request, 'Изменения успешно сохранены!')
             except IntegrityError:
-                messages.error(request, 'Студенты не добавлены')
-                return redirect('lms:group1', group_id)
+                messages.error(request, 'Изменения не сохранены')
+                return redirect('lms:group', group_id)
     else:
         group_form = GroupForm(instance=instance)
         students_formset = StudentsFormSet(initial=students_data)
@@ -102,4 +70,4 @@ def test_group(request, group_id):
         'students_formset': students_formset
     }
 
-    return render(request, 'groups/group1.html', context)
+    return render(request, 'groups/group.html', context)

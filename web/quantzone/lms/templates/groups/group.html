@@ -13,37 +13,76 @@
                 <div class="card-block">
                     <h1>{{ group }}</h1>
                     <p>{{ group.about }}</p>
-                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseNewGroup" aria-expanded="true" aria-controls="collapseNewGroup">
+                    <a data-toggle="collapse" href="#collapseEdit" aria-expanded="false"
+                       aria-controls="collapseEdit">
                         Редактировать описание группы
                     </a>
-                    <div class="collapse" id="collapseNewGroup" aria-expanded="false" style="">
-                        <br>
-                        <div class="card card-outline-primary">
-                            <div class="card-block">
-                                <form method="post">
-                                    {% csrf_token %}
-                                    {{ form.as_p }}
-                                    <button class="btn" type="submit">Сохранить изменения</button>
-                                </form>
+                    <hr>
+                    <script src="{% static 'js/django-dynamic-formset.js' %}"></script>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="collapse" id="collapseEdit" aria-expanded="false" style="">
+                            <div class="card card-block">
+                                {{ group_form.as_p }}
+                                <button class="btn" type="submit">Сохранить изменения</button>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <p class="lead">Список учащихся</p>
-                    <form method="post" action="{% url 'lms:student_group_change' group.pk %}">
-                        {% csrf_token %}
-                        {{ formset.management_form }}
-                        <div class="list-group">
-                            {% for form in formset.forms %}
-                                <li class="list-group-item list-group-item-action">
-                                    {# TODO: student href #}
-                                    <a>{{ form }}</a>
-                                </li>
-                            {% endfor %}
-                        </div>
+
+                        {{ students_formset.management_form }}
+
+                        {% if students_formset.non_form_errors %}
+                            <div class="alert alert-warning alert-dismissable fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <ul class="mb-0">
+                                    {% for error in students_formset.non_form_errors %}
+                                        <li>{{ error|escape }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        <table class="table table-striped table-bordered table-hover table-sm
+                                      {% if students_formset.non_form_errors %}table-warning{% endif %}">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Ученик</th>
+                                    <th>Статус</th>
+                                    <th>Del?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student_form in students_formset.forms %}
+                                    <tr class="link-formset">
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ student_form.student }}</td>
+                                        <td>{{ student_form.status }}</td>
+                                        <td>
+                                            {{ student_form.DELETE }}
+                                            {% if student_form.student.errors %}
+                                                {% for error in student_form.student.errors %}
+                                                    {{ error|escape }}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                         <br>
-                        <button class="btn" type="submit">Сохранить список</button>
+                        <button class="btn btn-default" type="submit">Сохранить изменения</button>
                     </form>
+                    {# TODO: WTF with delete row function? #}
+                    <script>
+                        $(function() {
+                            $('.link-formset').formset({
+                                addText: '+ Добавить ученика',
+                                deleteText: 'Удалить'
+                            });
+                        })
+                    </script>
                 </div>
             </div>
         </div>

@@ -50,7 +50,7 @@ class BaseStudentsFormSet(BaseFormSet):
                         code='duplicate_links'
                     )
 
-StudentsFormSet = formset_factory(StudentGroupRelationForm, formset=BaseStudentsFormSet, extra=0, can_delete=True)
+StudentsFormSet = formset_factory(StudentGroupRelationForm, formset=BaseStudentsFormSet, can_delete=True)
 
 StudentGroupRelationFormSet = inlineformset_factory(Group, StudentGroupRelation, form=StudentGroupRelationForm,
                                                     extra=1)
