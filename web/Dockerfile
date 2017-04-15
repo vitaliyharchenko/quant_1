@@ -12,6 +12,7 @@ RUN apk add --update python3 python3-dev postgresql-client postgresql-dev build-
 
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
+RUN pip3 install git+git://github.com/pygraphviz/pygraphviz.git
 
 # Clean
 RUN apk del -r python3-dev postgresql
