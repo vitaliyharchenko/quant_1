@@ -11,7 +11,7 @@ RUN apk upgrade
 RUN apk add --update python3 python3-dev postgresql-client postgresql-dev build-base gettext jpeg-dev zlib-dev build-base
 
 RUN pip3 install --upgrade pip
-RUN pip3 install --trusted-host -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Clean
 RUN apk del -r python3-dev postgresql
