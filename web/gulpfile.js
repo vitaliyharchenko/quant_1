@@ -42,7 +42,7 @@ var scss = {
 
 // Our js source folder: .js files
 var js = {
-    in: source + 'js/main.js',
+    in: source + 'js/*.js',
     out: dest + 'js/',
     watch: source + 'js/**/*',
     clean: dest + 'js/'

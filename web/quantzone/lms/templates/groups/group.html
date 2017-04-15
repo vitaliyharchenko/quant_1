@@ -14,7 +14,7 @@
                     <h1>{{ group }}</h1>
                     <p>{{ group.about }}</p>
                     <a class="btn btn-primary" data-toggle="collapse" href="#collapseNewGroup" aria-expanded="true" aria-controls="collapseNewGroup">
-                        Редактировать группу
+                        Редактировать описание группы
                     </a>
                     <div class="collapse" id="collapseNewGroup" aria-expanded="false" style="">
                         <br>
@@ -28,6 +28,22 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <p class="lead">Список учащихся</p>
+                    <form method="post" action="{% url 'lms:student_group_change' group.pk %}">
+                        {% csrf_token %}
+                        {{ formset.management_form }}
+                        <div class="list-group">
+                            {% for form in formset.forms %}
+                                <li class="list-group-item list-group-item-action">
+                                    {# TODO: student href #}
+                                    <a>{{ form }}</a>
+                                </li>
+                            {% endfor %}
+                        </div>
+                        <br>
+                        <button class="btn" type="submit">Сохранить список</button>
+                    </form>
                 </div>
             </div>
         </div>

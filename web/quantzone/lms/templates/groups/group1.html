@@ -1,0 +1,81 @@
+{% extends "base_regular.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'lms:groups' %}">Мои группы</a></li>
+                <li class="breadcrumb-item active">{{ group }}</li>
+            </ol>
+
+            <div class="card">
+                <div class="card-block">
+                    <h1>{{ group }}</h1>
+                    <p>{{ group.about }}</p>
+                    <a data-toggle="collapse" href="#collapseEdit" aria-expanded="false"
+                       aria-controls="collapseEdit">
+                        Редактировать описание группы
+                    </a>
+                    <hr>
+                    <script src="{% static 'js/django-dynamic-formset.js' %}"></script>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="collapse" id="collapseEdit" aria-expanded="false" style="">
+                            <div class="card card-block">
+                                {{ group_form.as_p }}
+                                <button class="btn" type="submit">Сохранить изменения</button>
+                            </div>
+                        </div>
+
+                        {{ students_formset.management_form }}
+                        <table class="table table-striped table-bordered table-hover table-sm">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Ученик</th>
+                                    <th>Статус</th>
+                                    <th>Del?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student_form in students_formset.forms %}
+                                    <tr class="link-formset">
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ student_form.student }}</td>
+                                        <td>{{ student_form.status }}</td>
+                                        <td>
+                                            {{ student_form.DELETE }}
+                                            {% if student_form.student.errors %}
+                                                {% for error in student_form.student.errors %}
+                                                    {{ error|escape }}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+
+                            {% if students_formset.non_form_errors %}
+                                {% for error in students_formset.non_form_errors %}
+                                    {{ error|escape }}
+                                {% endfor %}
+                            {% endif %}
+                        </table>
+                        <br>
+                        <button class="btn btn-default" type="submit">Сохранить изменения</button>
+                    </form>
+                    {# TODO: WTF with delete row function? #}
+                    <script>
+                        $(function() {
+                            $('.link-formset').formset({
+                                addText: '+ Добавить ученика',
+                                deleteText: 'Удалить'
+                            });
+                        })
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
