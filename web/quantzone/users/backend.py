@@ -1,6 +1,8 @@
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 
+from .models import Profile
+
 
 # Taken from
 # http://www.djangorocks.com/tutorials/creating-a-custom-authentication-backend/creating-a-simple-authentication-backend.html
@@ -29,8 +31,9 @@ class EmailAuth:
 
 class PhoneAuth:
     @staticmethod
-    def authenticate(username="", password="", **kwargs):
+    def authenticate(username=None, password=None, **kwargs):
         try:
+            profile = Profile.objects.get(phone__iexact=username)
             user = User.objects.get(profile__phone=username)
             if check_password(password, user.password):
                 return user
