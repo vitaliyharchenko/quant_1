@@ -1,0 +1,45 @@
+{% extends "base_regular.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% for user in users %}
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    {% if user.profile.avatar %}
+                                        <img src="{{ user.profile.avatar.url }}" alt="" class="card-img-top img-fluid">
+                                    {% elif user.profile.avatar_url %}
+                                        <img src="{{ user.profile.avatar_url }}" alt="" class="card-img-top img-fluid">
+                                    {% else %}
+                                        <img src="https://dummyimage.com/400x400/000/fff.png&text=No avatar" alt=""
+                                             class="card-img-top">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-10">
+                                    <h3 class="pt-2">{{ user.get_full_name }}</h3>
+                                    <p>{{ user.username }}</p>
+                                    {% for social_auth in user.profile.social_auths %}
+                                        {% if social_auth.provider == 'vk' %}
+                                            <a href="https://vk.com/id{{ social_auth.uid }}" target="_blank">
+                                                <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
+                                            </a>
+                                        {% elif social_auth.provider == 'fb' %}
+                                            <a href="https://www.facebook.com/{{ social_auth.uid }}" target="_blank">
+                                                <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

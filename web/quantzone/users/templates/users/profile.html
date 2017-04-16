@@ -1,376 +1,41 @@
 {% extends "base_regular.html" %}
 {% load staticfiles %}
 
-{% block extra_styles %}
-    {# For datepicker #}
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-{% endblock %}
-
 {% block content %}
-    <h1>Настройки профиля</h1>
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-block">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-
-                        <p class="lead">
-                            Личная информация
-                            {% if user.profile.is_complete %}
-                                <span class="badge badge-success align-baseline">Активирован</span>
-                            {% else %}
-                                <span class="badge badge-warning align-baseline">Не активирован</span>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-block">
+                        {% if instance.profile.avatar %}
+                            <img src="{{ instance.profile.avatar.url }}" alt="" class="card-img-top img-fluid">
+                        {% elif instance.profile.avatar_url %}
+                            <img src="{{ instance.profile.avatar_url }}" alt="" class="card-img-top img-fluid">
+                        {% else %}
+                            <img src="https://dummyimage.com/400x400/000/fff.png&text=No avatar" alt=""
+                                 class="card-img-top">
+                        {% endif %}
+                        <h3 class="pt-2">{{ instance.get_full_name }}</h3>
+                        <p>{{ instance.username }}</p>
+                        {% for social_auth in instance.profile.social_auths %}
+                            {% if social_auth.provider == 'vk' %}
+                                <a href="https://vk.com/id{{ social_auth.uid }}" target="_blank">
+                                    <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
+                                </a>
+                            {% elif social_auth.provider == 'fb' %}
+                                <a href="https://www.facebook.com/{{ social_auth.uid }}" target="_blank">
+                                    <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
+                                </a>
                             {% endif %}
-                        </p>
-
-                        {# TODO: user type badge #}
-
-                        <div class="form-group {% if profile_form.avatar.errors %}has-danger{% endif %}">
-                            <label class="form-control-label" for="{{ profile_form.avatar.id_for_label }}">
-                                <small>
-                                    {{ profile_form.avatar.label }}
-                                </small>
-                            </label>
-                            <br>
-                            <div class="card text-center" style="width: 15rem;">
-                                {# TODO: blank images for users, both sex #}
-                                {% if user.profile.avatar %}
-                                    <img src="{{ user.profile.avatar.url }}" alt="" class="card-img-top img-fluid">
-                                {% elif user.profile.avatar_url %}
-                                    <img src="{{ user.profile.avatar_url }}" alt="" class="card-img-top img-fluid">
-                                {% else %}
-                                    <img src="https://dummyimage.com/400x400/000/fff.png&text=No avatar" alt="" class="card-img-top">
-                                {% endif %}
-                                <div class="card-footer">
-                                    <a class="card-link" data-toggle="collapse" href="#collapseAvatar" aria-expanded="false" aria-controls="collapseAvatar">Редактировать... </a>
-                                </div>
-                            </div>
-
-                            <div class="collapse" id="collapseAvatar" aria-expanded="false" style="">
-                                <br>
-                                <label class="custom-file">
-                                    <input type="file"
-                                           accept="image"
-                                           class="custom-file-input"
-                                           id="{{ profile_form.avatar.id_for_label }}"
-                                           name="{{ profile_form.avatar.html_name }}">
-                                    <span class="custom-file-control"
-                                          data-content="{% if not user.profile.avatar %}Загрузите фотографию{% endif %}"></span>
-                                </label>
-                                {% if user.profile.avatar %}
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" id="{{ profile_form.avatar.html_name }}-clear_id" name="{{ profile_form.avatar.html_name }}-clear" class="form-check-input">
-                                            Очистить
-                                        </label>
-                                    </div>
-                                {% endif %}
-                            </div>
-
-                            <script>
-                                $('body').on('change', '.custom-file-input', function (ev) {
-                                    value = $('#id_avatar').val();
-                                    splitvalue = value.split("\\");
-                                    name = splitvalue[splitvalue.length-1];
-
-                                    $('.custom-file-control').attr('data-content', name);
-                                    console.log(name);
-                                });
-                            </script>
-                            <style>
-                                .avatar {
-                                    height: 100%;
-                                    width: 100%;
-                                }
-                                .custom-file {
-                                    width:100%;
-                                }
-                                .custom-file-control {
-                                    overflow: hidden;
-                                }
-                                .custom-file-control::after {
-                                    content: attr(data-content) !important;
-                                    white-space: nowrap;
-                                }
-                                .custom-file-control::before{
-                                    content: "{% if user.profile.avatar %}Сменить аватар...{% else %}Выбрать...{% endif %}";
-                                }
-                            </style>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-control-label">
-                                <small>
-                                     Никнейм
-                                </small>
-                            </label>
-                            <input class="form-control"
-                                   type="text"
-                                   value="{% if user.username %}{{ user.username }}{% endif %}"
-                                   readonly>
-                        </div>
-
-                        {{ user_form.username.as_hidden }}
-
-                        <div class="form-group {% if user_form.first_name.errors %}has-danger{% endif %}">
-                            <label class="form-control-label" for="{{ user_form.first_name.id_for_label }}">
-                                <small>
-                                    {{ user_form.first_name.label }}
-                                </small>
-                            </label>
-                            <input id="{{ user_form.first_name.id_for_label }}"
-                                   name="{{ user_form.first_name.html_name }}"
-                                   class="form-control"
-                                   placeholder="Имя"
-                                   type="text"
-                                   value="{% if user_form.first_name.value %}{{ user_form.first_name.value }}{% endif %}">
-                            {% if user_form.first_name.errors %}
-                                <div class="form-control-feedback">
-                                    {% for error in user_form.first_name.errors %}
-                                        <p>{{ error|escape }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if user_form.first_name.help_text %}
-                                <small class="form-text text-muted">{{ user_form.first_name.help_text|safe }}</small>
-                            {% endif %}
-                        </div>
-
-                        <div class="form-group {% if user_form.last_name.errors %}has-danger{% endif %}">
-                            <label class="form-control-label" for="{{ user_form.last_name.id_for_label }}">
-                                <small>
-                                    {{ user_form.last_name.label }}
-                                </small>
-                            </label>
-                            <input id="{{ user_form.last_name.id_for_label }}"
-                                   name="{{ user_form.last_name.html_name }}"
-                                   class="form-control"
-                                   placeholder="Фамилия"
-                                   type="text"
-                                   value="{% if user_form.last_name.value %}{{ user_form.last_name.value }}{% endif %}">
-                            {% if user_form.last_name.errors %}
-                                <div class="form-control-feedback">
-                                    {% for error in user_form.last_name.errors %}
-                                        <p>{{ error|escape }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if user_form.last_name.help_text %}
-                                <small class="form-text text-muted">{{ user_form.last_name.help_text|safe }}</small>
-                            {% endif %}
-                        </div>
-
-                        <div class="form-group {% if user_form.email.errors %}has-danger{% endif %} {% if not profile_form.email_confirmed.value or not user_form.email.value %}has-warning{% endif %}">
-                            <label class="form-control-label" for="{{ user_form.email.id_for_label }}">
-                                <small>
-                                    {{ user_form.email.label }}
-                                </small>
-                            </label>
-                            <input id="{{ user_form.email.id_for_label }}"
-                                   name="{{ user_form.email.html_name }}"
-                                   class="form-control {% if not profile_form.email_confirmed.value or not user_form.email.value %}form-control-warning{% endif %}"
-                                   placeholder="Email"
-                                   type="email"
-                                   value="{% if user_form.email.value %}{{ user_form.email.value }}{% endif %}">
-                            {% if not user_form.email.value %}
-                                <div class="form-control-feedback">
-                                    Укажите актуальный почтовый адрес
-                                </div>
-                            {% elif not profile_form.email_confirmed.value %}
-                                <div class="form-control-feedback">
-                                    <a class="text-muted text-truncate" href="{% url 'users:send_activation' %}">
-                                        <u>Подтвердите</u>
-                                    </a>
-                                    &nbsp;свой почтовый адрес
-                                </div>
-                            {% endif %}
-                            {% if user_form.email.errors %}
-                                <div class="form-control-feedback">
-                                    {% for error in user_form.email.errors %}
-                                        <p>{{ error|escape }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if user_form.email.help_text %}
-                                <small class="form-text text-muted">{{ user_form.email.help_text|safe }}</small>
-                            {% endif %}
-                        </div>
-
-                        {{ profile_form.email_confirmed.as_hidden }}
-
-                        <div class="form-group {% if profile_form.birth_date.errors %}has-danger{% endif %}">
-                            <label class="form-control-label" for="{{ profile_form.birth_date.id_for_label }}">
-                                <small>
-                                    {{ profile_form.birth_date.label }}
-                                </small>
-                            </label>
-                            <input id="{{ profile_form.birth_date.id_for_label }}"
-                                   name="{{ profile_form.birth_date.html_name }}"
-                                   class="form-control datepicker"
-                                   placeholder="Дата рождения"
-                                   type="text"
-                                   value="{% if profile_form.birth_date.value %}{{ profile_form.birth_date.value|date:"d.m.Y" }}{% endif %}">
-                            {% if profile_form.birth_date.errors %}
-                                <div class="form-control-feedback">
-                                    {% for error in profile_form.birth_date.errors %}
-                                        <p>{{ error|escape }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if profile_form.birth_date.help_text %}
-                                <small class="form-text text-muted">{{ profile_form.birth_date.help_text|safe }}</small>
-                            {% endif %}
-                        </div>
-
-                        <script>
-                            $(function () {
-                                $("#{{ profile_form.birth_date.id_for_label }}").datepicker({
-                                    inline: true,
-                                    showOtherMonths: true,
-                                    showAnim: 'slide',
-{#                                          {# showButtonPanel: true,#}
-                                    changeMonth: true,
-                                    changeYear: true,
-                                    yearRange: "-90:+0",
-                                    numberOfYears: 3,
-                                    minDate: new Date(1900, 10 - 1, 25),
-                                    maxDate: new Date(),
-                                    dateFormat: 'dd.mm.yy',
-                                    dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                                    monthNamesShort: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                                        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                                    firstDay: 1
-                                });
-                            });
-                        </script>
-
-                        <div class="form-group {% if profile_form.phone.errors %}has-danger{% endif %}">
-                            <label class="form-control-label" for="{{ profile_form.phone.id_for_label }}">
-                                <small>
-                                    {{ profile_form.phone.label }}
-                                </small>
-                            </label>
-                            <input id="{{ profile_form.phone.id_for_label }}"
-                                   name="{{ profile_form.phone.html_name }}"
-                                   class="form-control"
-                                   placeholder="Укажите телефон"
-                                   type="text"
-                                   value="{% if profile_form.phone.value %}{{ profile_form.phone.value }}{% endif %}">
-                            {% if profile_form.phone.errors %}
-                                <div class="form-control-feedback">
-                                    {% for error in profile_form.phone.errors %}
-                                        <p>{{ error|escape }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if profile_form.phone.help_text %}
-                                <small class="form-text text-muted">{{ profile_form.phone.help_text|safe }}</small>
-                            {% endif %}
-                        </div>
-
-                        <button class="btn" type="submit">Сохранить изменения</button>
-                    </form>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-block">
-                    <p class="lead">Интеграция с сайтами</p>
-                    {% if vk_social_auth %}
-                        <p>
-                            <a href="https://vk.com/id{{ vk_social_auth.uid }}" target="_blank">
-                                <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
-                            </a>
-                            <a href="{% url 'users:social_auth_deassociate' 'vk' %}">
-                                Отключить
-                            </a>
-                        </p>
-                    {% else %}
-                        <p>
-                            <img src="{% static 'images/icons/social/vk.png' %}" width="32"/>
-                            <a href="{% url 'users:social_auth_begin' 'vk' %}">Прикрепить</a>
-                        </p>
-                    {% endif %}
-
-                    {% if fb_social_auth %}
-                        <a href="https://www.facebook.com/{{ fb_social_auth.uid }}" target="_blank">
-                            <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
-                        </a>
-                        <a href="{% url 'users:social_auth_deassociate' 'fb' %}">
-                            Отключить
-                        </a>
-                    {% else %}
-                        <img src="{% static 'images/icons/social/facebook.png' %}" width="32"/>
-                        <a href="{% url 'users:social_auth_begin' 'fb' %}">Прикрепить</a>
-                    {% endif %}
-                </div>
-            </div>
-
-            <br>
-
-            <div class="card">
-                <div class="card-block">
-                    <form method="post" action="{% url 'users:change_password' %}">
-                        {% csrf_token %}
-                        <p class="lead">Смена пароля</p>
-
-                        <div class="form-group {% if password_set_form.new_password1.errors %}has-danger{% endif %} {% if not user.has_usable_password %}has-warning{% endif %}">
-                            <label class="form-control-label" for="{{ password_set_form.new_password1.id_for_label }}">
-                                <small>
-                                    {{ password_set_form.new_password1.label }}
-                                </small>
-                            </label>
-                            <input id="{{ password_set_form.new_password1.id_for_label }}"
-                                   name="{{ password_set_form.new_password1.html_name }}"
-                                   class="form-control {% if not user.has_usable_password %}form-control-warning{% endif %}"
-                                   placeholder="Новый пароль"
-                                   type="password"
-                                   value="{% if password_set_form.new_password1.value %}{{ password_set_form.new_password1.value }}{% endif %}">
-                            {% if not user.has_usable_password %}
-                                <div class="form-control-feedback">Задайте пароль для своего аккаунта для активации</div>
-                            {% endif %}
-                            {% if password_set_form.new_password1.errors %}
-                                <div class="form-control-feedback">
-                                    {% for error in password_set_form.new_password1.errors %}
-                                        <p>{{ error|escape }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if password_set_form.new_password1.help_text %}
-                                <small class="form-text text-muted">{{ password_set_form.new_password1.help_text|safe }}</small>
-                            {% endif %}
-                        </div>
-
-                        <div class="form-group {% if password_set_form.new_password2.errors %}has-danger{% endif %}">
-                            <label class="form-control-label" for="{{ password_set_form.new_password2.id_for_label }}">
-                                <small>
-                                    {{ password_set_form.new_password2.label }}
-                                </small>
-                            </label>
-                            <input id="{{ password_set_form.new_password2.id_for_label }}"
-                                   name="{{ password_set_form.new_password2.html_name }}"
-                                   class="form-control"
-                                   placeholder="Подтверждение нового пароля"
-                                   type="password"
-                                   value="{% if password_set_form.new_password2.value %}{{ password_set_form.new_password2.value }}{% endif %}">
-                            {% if password_set_form.new_password2.errors %}
-                                <div class="form-control-feedback">
-                                    {% for error in password_set_form.new_password2.errors %}
-                                        <p>{{ error|escape }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if password_set_form.new_password2.help_text %}
-                                <small class="form-text text-muted">{{ password_set_form.new_password2.help_text|safe }}</small>
-                            {% endif %}
-                        </div>
-
-                        <button class="btn" type="submit">Сохранить изменения</button>
-                    </form>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-block">
+                        Other stuff
+                    </div>
                 </div>
             </div>
         </div>

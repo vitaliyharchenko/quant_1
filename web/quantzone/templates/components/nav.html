@@ -11,6 +11,9 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:users' %}">Пользователи</a>
+                </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenu1"
@@ -22,8 +25,8 @@
                             {% endif %}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu1">
-                            <a class="dropdown-item" href="#">Моя страница</a>
-                            <a class="dropdown-item" href="{% url 'users:profile' %}">Настройки</a>
+                            <a class="dropdown-item" href="{% url 'users:profile' user.pk %}">Моя страница</a>
+                            <a class="dropdown-item" href="{% url 'users:settings' %}">Настройки</a>
                             <div role="separator" class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'pages:index' %}">Выйти</a>
                             {% if user.is_staff %}

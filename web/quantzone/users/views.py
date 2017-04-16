@@ -15,6 +15,7 @@ from django.shortcuts import HttpResponse, redirect, render, reverse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.views.generic import DetailView, ListView
 
 from .forms import ProfileForm, SignUpForm, UserForm, UserLoginForm
 from .models import EmailConfirmation, UserSocialAuth
@@ -51,9 +52,27 @@ def login(request):
     return render(request, 'users/login.html', {"form": form})
 
 
-# Profile view with forms
+# Profiles view
+@login_required()
+def users(request):
+    context = {
+        'users': User.objects.all()
+    }
+    return render(request, 'users/users.html', context)
+
+
+# Profile view
+@login_required()
+def user(request, user_id):
+    context = {
+        'instance': User.objects.get(pk=user_id)
+    }
+    return render(request, 'users/profile.html', context)
+
+
+# Profile settings view with forms
 @login_required
-def profile(request):
+def settings(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
@@ -64,7 +83,7 @@ def profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Изменения успешно сохранены!')
-            return redirect('users:profile')
+            return redirect('users:settings')
         else:
             messages.warning(request, 'Пожалуйста, исправьте ошибки.')
     else:
@@ -82,7 +101,7 @@ def profile(request):
     except UserSocialAuth.DoesNotExist:
         fb_social_auth = None
 
-    return render(request, 'users/profile.html', {
+    return render(request, 'users/settings.html', {
         'user_form': user_form,
         'profile_form': profile_form,
         'password_set_form': password_set_form,
@@ -100,10 +119,10 @@ def change_password(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Пароль успешно изменен!')
-            return redirect('users:profile')
+            return redirect('users:settings')
         else:
             messages.warning(request, 'Пожалуйста, исправьте ошибки.')
-    return redirect('users:profile')
+    return redirect('users:settings')
 
 
 # Registration starting point
@@ -333,7 +352,7 @@ def social_auth_complete(request, backend):
             existing_social_auth = UserSocialAuth.objects.get(provider=backend, uid=social_user_id)
             if request.user != existing_social_auth.user:
                 messages.warning(request, 'Аккаунт уже прикреплен к другому профилю.')
-                return redirect('users:profile')
+                return redirect('users:settings')
             else:
                 existing_social_auth.extra_data = extra_data
                 existing_social_auth.is_active = True
@@ -342,7 +361,7 @@ def social_auth_complete(request, backend):
                 update_avatar_info(extra_data, request.user)
 
                 messages.success(request, 'Аккаунт успешно прикреплен.')
-                return redirect('users:profile')
+                return redirect('users:settings')
         except UserSocialAuth.DoesNotExist:
             new_social_auth = UserSocialAuth.objects.create(
                 user=request.user,
@@ -357,7 +376,7 @@ def social_auth_complete(request, backend):
             update_avatar_info(extra_data, request.user)
 
             messages.success(request, 'Аккаунт успешно прикреплен.')
-            return redirect('users:profile')
+            return redirect('users:settings')
     # if not authenticated - it is request for login
     else:
         # try to login by already existed connection
@@ -375,7 +394,7 @@ def social_auth_complete(request, backend):
 
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             auth.login(request, user)
-            return redirect('users:profile')
+            return redirect('users:settings')
         # if not login - try to associate by email
         except UserSocialAuth.DoesNotExist:
             if email:
@@ -396,7 +415,7 @@ def social_auth_complete(request, backend):
 
                         messages.success(request,
                                          'Ваш социальный аккаунт привязан на основании сответствия почтового адреса')
-                        return redirect('users:profile')
+                        return redirect('users:settings')
                 except User.DoesNotExist:
                     pass
 
@@ -430,7 +449,7 @@ def social_auth_complete(request, backend):
             auth.login(request, user)
 
             messages.success(request, 'Ваш аккаунт создан на основании данных соцсети.')
-            return redirect('users:profile')
+            return redirect('users:settings')
 
 
 # Deassociate user email
@@ -439,7 +458,7 @@ def social_auth_deassociate(request, backend):
     user = User.objects.get(pk=request.user.pk)
     if not user.has_usable_password() or not user.email or not user.profile.email_confirmed:
         messages.warning(request, 'Невозможно отвязать социальный профиль, у вас не остается возможностей для входа!')
-        return redirect('users:profile')
+        return redirect('users:settings')
     social_auth = UserSocialAuth.objects.get(provider=backend, user=request.user)
     social_auth.is_active = False
     social_auth.save()
@@ -463,7 +482,7 @@ def social_auth_deassociate(request, backend):
         user.profile.avatar_url = None
         user.profile.save()
 
-    return redirect('users:profile')
+    return redirect('users:settings')
 
 
 # Reset password starting point

@@ -4,7 +4,10 @@ from django.contrib.auth.views import login as login_view
 from . import views
 
 urlpatterns = [
-    url(r'^profile$', views.profile, name='profile'),
+    url(r'^users$', views.users, name='users'),
+
+    url(r'^profile/(?P<user_id>[0-9]+)$', views.user, name='profile'),
+    url(r'^settings$', views.settings, name='settings'),
     url(r'^changepass$', views.change_password, name='change_password'),
 
     url(r'^signup/$', views.signup, name='signup'),

@@ -44,6 +44,11 @@ class Profile(models.Model):
     def __str__(self):
         return "{}".format(self.pk)
 
+    @property
+    def social_auths(self):
+        social_auths = UserSocialAuth.objects.filter(user=self.user)
+        return social_auths
+
 
 class UserSocialAuth(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
