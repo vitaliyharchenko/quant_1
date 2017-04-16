@@ -1,5 +1,6 @@
 {% extends "base_regular.html" %}
 {% load staticfiles %}
+{% load form_extras %}
 
 {% block content %}
     <div class="container">
@@ -15,48 +16,14 @@
                         <form method="post">
                             {% csrf_token %}
 
-                            <div class="form-group {% if form.email.errors %}has-danger{% endif %}">
-                                <input id="{{ form.email.id_for_label }}"
-                                       name="{{ form.email.html_name }}"
-                                       class="form-control"
-                                       placeholder="Email"
-                                       type="email"
-                                       value="{% if form.email.value %}{{ form.email.value }}{% endif %}">
-                                <div class="form-control-feedback">{{ form.email.errors }}</div>
-                                {% if form.email.help_text %}
-                                    <small class="form-text text-muted">{{ form.email.help_text|safe }}</small>
-                                {% endif %}
-                            </div>
+                            {% text_input field=form.email placeholder='Email' no_label=True %}
 
                             <hr>
 
-                            <div class="form-group {% if form.password1.errors %}has-danger{% endif %}">
-                                <input id="{{ form.password1.id_for_label }}"
-                                       name="{{ form.password1.html_name }}"
-                                       class="form-control"
-                                       placeholder="Пароль"
-                                       type="password"
-                                       value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}">
-                                <div class="form-control-feedback">{{ form.password1.errors }}</div>
-                                {% if form.password1.help_text %}
-                                    <small class="form-text text-muted">{{ form.password1.help_text|safe }}</small>
-                                {% endif %}
-                            </div>
+                            {% text_input field=form.password1 placeholder='Пароль' type='password' no_label=True %}
+                            {% text_input field=form.password2 placeholder='Пароль еще раз' type='password' no_label=True %}
 
-                            <div class="form-group {% if form.password2.errors %}has-danger{% endif %}">
-                                <input id="{{ form.password2.id_for_label }}"
-                                       name="{{ form.password2.html_name }}"
-                                       class="form-control"
-                                       placeholder="Пароль еще раз"
-                                       type="password"
-                                       value="{% if form.password2.value %}{{ form.password2.value }}{% endif %}">
-                                <div class="form-control-feedback">{{ form.password2.errors }}</div>
-                                {% if form.password2.help_text %}
-                                    <small class="form-text text-muted">{{ form.password2.help_text|safe }}</small>
-                                {% endif %}
-                            </div>
-
-                            <button class="btn" type="submit">Sign up</button>
+                            <button class="btn btn-outline-primary" type="submit">Sign up</button>
                         </form>
                     </div>
                 </div>
