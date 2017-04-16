@@ -1,9 +1,11 @@
 <div class="form-group {% if field.errors %}has-danger{% endif %}">
-    <label class="form-control-label" for="{{ field.id_for_label }}">
-        <small>
-            {{ field.label }}
-        </small>
-    </label>
+    {% if not no_label %}
+        <label class="form-control-label" for="{{ field.id_for_label }}">
+            <small>
+                {{ field.label }}
+            </small>
+        </label>
+    {% endif %}
     <input id="{{ field.id_for_label }}"
            name="{{ field.html_name }}"
            class="form-control"

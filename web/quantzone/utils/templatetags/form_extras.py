@@ -17,10 +17,16 @@ def text_input(field, *args, **kwargs):
     except KeyError:
         placeholder = None
 
+    try:
+        no_label = kwargs['no_label']
+    except KeyError:
+        no_label = None
+
     return {
         'field': field,
         'placeholder': placeholder,
-        'input_type': input_type
+        'input_type': input_type,
+        'no_label': no_label
     }
 
 
