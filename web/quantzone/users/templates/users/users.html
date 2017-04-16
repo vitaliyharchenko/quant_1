@@ -20,7 +20,9 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-10">
-                                    <h3 class="pt-2">{{ user.get_full_name }}</h3>
+                                    <a href="{% url 'users:profile' user.pk %}">
+                                        <h3 class="pt-2">{{ user.get_full_name }}</h3>
+                                    </a>
                                     <p>{{ user.username }}</p>
                                     {% for social_auth in user.profile.social_auths %}
                                         {% if social_auth.provider == 'vk' %}

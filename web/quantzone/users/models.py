@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.shortcuts import reverse
 from django.utils import timezone
 
 from .validators import phone_regex
@@ -43,6 +44,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return "{}".format(self.pk)
+
+    @staticmethod
+    def get_absolute_url(self):
+        return reverse('users:profile', self.pk)
 
     @property
     def social_auths(self):
