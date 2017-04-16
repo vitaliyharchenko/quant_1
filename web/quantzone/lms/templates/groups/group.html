@@ -1,6 +1,7 @@
 {% extends "base_regular.html" %}
 {% load staticfiles %}
 {% load form_extras %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <div class="row">
@@ -24,9 +25,10 @@
                         <div class="collapse" id="collapseEdit" aria-expanded="false" style="">
                             <br>
                             <div class="card card-block" style="width: 30rem;">
-                                {% text_input field=group_form.title placeholder='Название группы' %}
-                                {% select_input field=group_form.owner %}
-                                {% text_input field=group_form.about placeholder='Описание группы' %}
+                                {# {% text_input field=group_form.title placeholder='Название группы' %}#}
+                                {# {% select_input field=group_form.owner %}#}
+                                {# {% text_input field=group_form.about placeholder='Описание группы' %}#}
+                                {% crispy group_form %}
                                 <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
                             </div>
                         </div>

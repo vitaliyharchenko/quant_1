@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'utils',
 
     # Third party
+    'crispy_forms',
 
     # Dev
 ]
@@ -174,3 +175,6 @@ EMAIL_SUBJECT_PREFIX = '[Quant] '
 
 PHONENUMBER_DB_FORMAT = 'E164'
 PHONENUMBER_DEFAULT_REGION = 'RU'
+
+# https://django-crispy-forms.readthedocs.io/en/latest/install.html#installing-django-crispy-forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
