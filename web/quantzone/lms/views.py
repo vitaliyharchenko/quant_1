@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.db import transaction, IntegrityError
 from django.shortcuts import render, redirect
-from .forms import GroupForm, StudentGroupRelationFormSet, StudentsFormSet
+from .forms import GroupForm, StudentsFormSet
 from .models import Group, StudentGroupRelation
 
 
@@ -38,7 +38,6 @@ def group(request, group_id):
         if group_form.is_valid() and students_formset.is_valid():
             # Save group info
             group_form.save()
-            print(students_formset.cleaned_data)
 
             new_students = []
 
@@ -57,9 +56,19 @@ def group(request, group_id):
                     print(new_students)
 
                     messages.success(request, 'Изменения успешно сохранены!')
+                    return redirect('lms:group', group_id)
             except IntegrityError:
                 messages.error(request, 'Изменения не сохранены')
                 return redirect('lms:group', group_id)
+        else:
+            students_data = []
+
+            for student_form in students_formset:
+                student = student_form.cleaned_data.get('student')
+                status = student_form.cleaned_data.get('status')
+
+                if student:
+                    students_data.append({'student': student, 'status': status})
     else:
         group_form = GroupForm(instance=instance)
         students_formset = StudentsFormSet(initial=students_data)

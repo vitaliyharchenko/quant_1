@@ -1,0 +1,32 @@
+<div class="form-group {% if field.errors %}has-danger{% endif %} {{ extra_class }}">
+    {% if not no_label %}
+        <label class="form-control-label" for="{{ field.id_for_label }}">
+            <small>
+                {{ field.label }}
+            </small>
+        </label>
+    {% endif %}
+    <select id="{{ field.id_for_label }}"
+           name="{{ field.html_name }}"
+           class="form-control custom-select"
+           placeholder="{{ placeholder }}"
+           type="{{ input_type }}"
+           value="{% if field.value %}{{ field.value }}{% endif %}">
+        {% for choice in field.field.choices %}
+            <option value="{{ choice.0 }}"
+                    {% if choice.0 == field.value or choice.0 in field.value or choice.0|stringformat:"s" in field.value %}selected{% endif %}>
+                {{ choice.1 }}
+            </option>
+        {% endfor %}
+    </select>
+    {% if field.errors %}
+        <div class="form-control-feedback">
+            {% for error in field.errors %}
+                <p>{{ error|escape }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+    {% endif %}
+</div>

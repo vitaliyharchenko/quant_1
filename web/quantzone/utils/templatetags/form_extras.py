@@ -32,9 +32,29 @@ def text_input(field, *args, **kwargs):
 
 @register.inclusion_tag('forms/date_input_snippet.html')
 def date_input(field, *args, **kwargs):
+
+    return {
+        'field': field
+    }
+
+
+@register.inclusion_tag('forms/select_snippet.html')
+def select_input(field, *args, **kwargs):
+
+    try:
+        no_label = kwargs['no_label']
+    except KeyError:
+        no_label = None
+
+    try:
+        extra_class = kwargs['extra_class']
+    except KeyError:
+        extra_class = None
+
     return {
         'field': field,
-        'placeholder': kwargs['placeholder']
+        'no_label': no_label,
+        'extra_class': extra_class
     }
 
 

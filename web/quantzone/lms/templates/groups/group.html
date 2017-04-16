@@ -1,5 +1,6 @@
 {% extends "base_regular.html" %}
 {% load staticfiles %}
+{% load form_extras %}
 
 {% block content %}
     <div class="row">
@@ -23,7 +24,9 @@
                         <div class="collapse" id="collapseEdit" aria-expanded="false" style="">
                             <br>
                             <div class="card card-block" style="width: 30rem;">
-                                {{ group_form.as_p }}
+                                {% text_input field=group_form.title placeholder='Название группы' %}
+                                {% select_input field=group_form.owner %}
+                                {% text_input field=group_form.about placeholder='Описание группы' %}
                                 <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
                             </div>
                         </div>
@@ -59,8 +62,8 @@
                                 {% for student_form in students_formset.forms %}
                                     <tr class="link-formset">
                                         <th scope="row">{{ forloop.counter }}</th>
-                                        <td>{{ student_form.student }}</td>
-                                        <td>{{ student_form.status }}</td>
+                                        <td>{% select_input field=student_form.student no_label=True extra_class='mb-0' %}</td>
+                                        <td>{% select_input field=student_form.status no_label=True extra_class='mb-0' %}</td>
                                         <td>
                                             {{ student_form.DELETE }}
                                             {% if student_form.student.errors %}
