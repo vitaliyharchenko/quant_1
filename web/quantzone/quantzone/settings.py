@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'lms',
     'nodes',
     'users',
+    'utils',
 
     # Third party
 
@@ -107,7 +108,7 @@ AUTHENTICATION_BACKENDS = [
     # 'users.backend.PhoneAuth',  # Login w/ phone
 ]
 
-LOGIN_REDIRECT_URL = 'users:profile'
+LOGIN_REDIRECT_URL = 'users:settings'
 
 VKONTAKTE = {
     'SECRET': '1Hx5BmUCiSIWMhQVHsx6',

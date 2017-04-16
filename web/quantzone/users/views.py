@@ -3,7 +3,7 @@ import ssl
 import urllib.request
 from random import randint
 
-from django.conf import settings
+from django.conf import settings as django_settings
 from django.contrib import auth, messages
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -15,7 +15,6 @@ from django.shortcuts import HttpResponse, redirect, render, reverse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.views.generic import DetailView, ListView
 
 from .forms import ProfileForm, SignUpForm, UserForm, UserLoginForm
 from .models import EmailConfirmation, UserSocialAuth
@@ -28,7 +27,7 @@ def login(request):
     return_path = request.META.get('HTTP_REFERER', '/')
     login_path = 'http://{}{}'.format(get_current_site(request), reverse('users:login'))
     if return_path == login_path:
-        return_path = reverse('users:profile')
+        return_path = reverse('users:settings')
 
     if request.user.is_authenticated():
         return redirect(return_path)
@@ -153,7 +152,7 @@ def send_activation_email(request, user):
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': account_activation_token.make_token(user),
     })
-    return send_mail(subject, '', settings.EMAIL_HOST_USER, [user.email], html_message=message,
+    return send_mail(subject, '', django_settings.EMAIL_HOST_USER, [user.email], html_message=message,
                      fail_silently=True)
 
 
@@ -215,7 +214,7 @@ def account_activation_success(request):
 # Social auth starting point
 def social_auth(request, backend):
     if backend == 'vk':
-        app_id = settings.VKONTAKTE['APP_ID']
+        app_id = django_settings.VKONTAKTE['APP_ID']
         current_site = get_current_site(request)
         redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
         scope = 'offline,email'
@@ -224,7 +223,7 @@ def social_auth(request, backend):
         link = raw_link.format(scope=scope, host=current_site.domain, redirect_url=redirect_url, app_id=app_id)
         return redirect(link)
     elif backend == 'fb':
-        app_id = settings.FACEBOOK['APP_ID']
+        app_id = django_settings.FACEBOOK['APP_ID']
         current_site = get_current_site(request)
         redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
         scope = 'email'
@@ -265,8 +264,8 @@ def get_social_user_info(access_token, backend):
 def build_social_access_link(request, backend):
     if backend == 'vk':
         url = "https://oauth.vk.com/access_token?client_id={}&client_secret={}&code={}&redirect_uri=http://{}{}"
-        app_id = settings.VKONTAKTE['APP_ID']
-        secret = settings.VKONTAKTE['SECRET']
+        app_id = django_settings.VKONTAKTE['APP_ID']
+        secret = django_settings.VKONTAKTE['SECRET']
         code = request.GET['code']
         current_site = get_current_site(request)
         redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
@@ -275,8 +274,8 @@ def build_social_access_link(request, backend):
     elif backend == 'fb':
         url = "https://graph.facebook.com/v2.8/oauth/access_token?client_id={}&client_secret={}" \
               "&code={}&redirect_uri=http://{}{}"
-        app_id = settings.FACEBOOK['APP_ID']
-        secret = settings.FACEBOOK['SECRET']
+        app_id = django_settings.FACEBOOK['APP_ID']
+        secret = django_settings.FACEBOOK['SECRET']
         code = request.GET['code']
         current_site = get_current_site(request)
         redirect_url = reverse('users:social_auth_complete', kwargs={'backend': backend})
@@ -505,7 +504,7 @@ def password_reset(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            send_mail(subject, '', settings.EMAIL_HOST_USER, [user.email], html_message=message,
+            send_mail(subject, '', django_settings.EMAIL_HOST_USER, [user.email], html_message=message,
                       fail_silently=True)
             return redirect('users:password_reset_done')
         else:

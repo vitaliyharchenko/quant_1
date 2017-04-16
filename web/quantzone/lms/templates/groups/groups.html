@@ -19,7 +19,7 @@
                         {% endfor %}
                     </div>
                     <br>
-                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseNewGroup" aria-expanded="true" aria-controls="collapseNewGroup">
+                    <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseNewGroup" aria-expanded="true" aria-controls="collapseNewGroup">
                         Создать группу
                     </a>
                     <div class="collapse" id="collapseNewGroup" aria-expanded="false" style="">
@@ -29,7 +29,7 @@
                                 <form method="post">
                                     {% csrf_token %}
                                     {{ form.as_p }}
-                                    <button class="btn" type="submit">Сохранить изменения</button>
+                                    <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
                                 </form>
                             </div>
                         </div>

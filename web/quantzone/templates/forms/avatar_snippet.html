@@ -1,0 +1,74 @@
+<div class="form-group {% if field.errors %}has-danger{% endif %}">
+    <label class="form-control-label" for="{{ field.id_for_label }}">
+        <small>
+            {{ field.label }}
+        </small>
+    </label>
+    <br>
+    <div class="card text-center" style="width: 15rem;">
+        {# TODO: blank images for users, both sex #}
+        {% if user.profile.avatar %}
+            <img src="{{ user.profile.avatar.url }}" alt="" class="card-img-top img-fluid">
+        {% elif user.profile.avatar_url %}
+            <img src="{{ user.profile.avatar_url }}" alt="" class="card-img-top img-fluid">
+        {% else %}
+            <img src="https://dummyimage.com/400x400/000/fff.png&text=No avatar" alt="" class="card-img-top">
+        {% endif %}
+        <div class="card-footer">
+            <a class="card-link" data-toggle="collapse" href="#collapseAvatar" aria-expanded="false"
+               aria-controls="collapseAvatar">Редактировать... </a>
+        </div>
+    </div>
+
+    <div class="collapse" id="collapseAvatar" aria-expanded="false" style="">
+        <br>
+        <label class="custom-file">
+            <input type="file"
+                   accept="image"
+                   class="custom-file-input"
+                   id="{{ field.id_for_label }}"
+                   name="{{ field.html_name }}">
+            <span class="custom-file-control"
+                  data-content="{% if not field.avatar %}Загрузите фотографию{% endif %}"></span>
+        </label>
+        {% if user.profile.avatar %}
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="checkbox" id="{{ field.html_name }}-clear_id"
+                           name="{{ field.html_name }}-clear" class="form-check-input">
+                    Очистить
+                </label>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        $('body').on('change', '.custom-file-input', function (ev) {
+            value = $('#id_avatar').val();
+            splitvalue = value.split("\\");
+            name = splitvalue[splitvalue.length - 1];
+
+            $('.custom-file-control').attr('data-content', name);
+            console.log(name);
+        });
+    </script>
+    <style>
+        .custom-file {
+            width: 100%;
+        }
+
+        .custom-file-control {
+            overflow: hidden;
+        }
+
+        .custom-file-control::after {
+            content: attr(data-content) !important;
+            white-space: nowrap;
+        }
+
+        .custom-file-control::before {
+            content: "{% if user.profile.avatar %}Сменить аватар...{% else %}Выбрать...{% endif %}";
+        }
+    </style>
+
+</div>

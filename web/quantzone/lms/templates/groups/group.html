@@ -13,20 +13,22 @@
                 <div class="card-block">
                     <h1>{{ group }}</h1>
                     <p>{{ group.about }}</p>
-                    <a data-toggle="collapse" href="#collapseEdit" aria-expanded="false"
+                    <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseEdit" aria-expanded="false"
                        aria-controls="collapseEdit">
                         Редактировать описание группы
                     </a>
-                    <hr>
                     <script src="{% static 'js/django-dynamic-formset.js' %}"></script>
                     <form method="post">
                         {% csrf_token %}
                         <div class="collapse" id="collapseEdit" aria-expanded="false" style="">
-                            <div class="card card-block">
+                            <br>
+                            <div class="card card-block" style="width: 30rem;">
                                 {{ group_form.as_p }}
-                                <button class="btn" type="submit">Сохранить изменения</button>
+                                <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
                             </div>
                         </div>
+
+                        <hr>
 
                         {{ students_formset.management_form }}
 
@@ -72,7 +74,7 @@
                             </tbody>
                         </table>
                         <br>
-                        <button class="btn btn-default" type="submit">Сохранить изменения</button>
+                        <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
                     </form>
                     {# TODO: WTF with delete row function? #}
                     <script>

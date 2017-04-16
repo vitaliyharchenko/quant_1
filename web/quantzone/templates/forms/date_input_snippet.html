@@ -1,0 +1,44 @@
+<div class="form-group {% if field.errors %}has-danger{% endif %}">
+    <label class="form-control-label" for="{{ field.id_for_label }}">
+        <small>
+            {{ field.label }}
+        </small>
+    </label>
+    <input id="{{ field.id_for_label }}"
+           name="{{ field.html_name }}"
+           class="form-control datepicker"
+           placeholder="{{ placeholder }}"
+           type="text"
+           value="{% if field.value %}{{ field.value|date:"d.m.Y" }}{% endif %}">
+    {% if field.errors %}
+        <div class="form-control-feedback">
+            {% for error in field.errors %}
+                <p>{{ error|escape }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+    {% endif %}
+</div>
+
+<script>
+    $(function () {
+        $("#{{ field.id_for_label }}").datepicker({
+            inline: true,
+            showOtherMonths: true,
+            showAnim: 'slide',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-90:+0",
+            numberOfYears: 3,
+            minDate: new Date(1900, 10 - 1, 25),
+            maxDate: new Date(),
+            dateFormat: 'dd.mm.yy',
+            dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+            monthNamesShort: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            firstDay: 1
+        });
+    });
+</script>
