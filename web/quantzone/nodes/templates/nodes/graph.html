@@ -1,0 +1,130 @@
+{% extends "base_regular.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="graph embed-responsive embed-responsive-16by9">
+                        <script src="https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.js"></script>
+                        <script src="http://ariutta.github.io/svg-pan-zoom/demo/hammer.js"></script>
+                        {% if svg_url %}
+
+                            <embed class="embed-responsive-item" type="image/svg+xml" src="{{ svg_url }}{% if picked %}?picked={{ picked }}{% endif %}" id="my-embed-svg"/>
+                            <script>
+                                var eventsHandler;
+
+                                eventsHandler = {
+                                    haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
+                                    init: function (options) {
+                                        var instance = options.instance,
+                                            initialScale = 1,
+                                            pannedX = 0,
+                                            pannedY = 0
+
+                                        // Init Hammer
+                                        // Listen only for pointer and touch events
+                                        this.hammer = Hammer(options.svgElement, {
+                                            inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
+                                        })
+
+                                        // Enable pinch
+                                        this.hammer.get('pinch').set({enable: true})
+
+                                        // Handle pan
+                                        this.hammer.on('panstart panmove', function (ev) {
+                                            // On pan start reset panned variables
+                                            if (ev.type === 'panstart') {
+                                                pannedX = 0
+                                                pannedY = 0
+                                            }
+
+                                            // Pan only the difference
+                                            instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY})
+                                            pannedX = ev.deltaX
+                                            pannedY = ev.deltaY
+                                        })
+
+                                        // Handle pinch
+                                        this.hammer.on('pinchstart pinchmove', function (ev) {
+                                            // On pinch start remember initial zoom
+                                            if (ev.type === 'pinchstart') {
+                                                initialScale = instance.getZoom()
+                                                instance.zoom(initialScale * ev.scale)
+                                            }
+
+                                            instance.zoom(initialScale * ev.scale)
+
+                                        })
+
+                                        // Prevent moving the page on some devices when panning over SVG
+                                        options.svgElement.addEventListener('touchmove', function (e) {
+                                            e.preventDefault();
+                                        });
+                                    },
+                                    destroy: function () {
+                                        this.hammer.destroy()
+                                    }
+                                };
+
+                                document.getElementById('my-embed-svg').addEventListener('load', function () {
+                                    // Will get called after embed element was loaded
+                                    svgPanZoom(
+                                        document.getElementById('my-embed-svg'),
+                                        {
+                                            zoomEnabled: true,
+                                            controlIconsEnabled: true,
+                                            customEventsHandler: eventsHandler
+                                        }
+                                    );
+                                })
+                            </script>
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ subject_form|crispy }}
+                        <button class="btn btn-outline-primary" type="submit">Применить фильтр</button>
+                    </form>
+                    <hr>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+
+                                <label class="form-control-label">
+                                    <small>Фильтр узлов</small>
+                                </label>
+                                <input class="form-control" placeholder="Фильтр по названию" id="query" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="node_list list-group">
+                        {% for node in node_list %}
+                            <li class="list-group-item">{{ node }}</li>
+                        {% endfor %}
+                    </ul>
+                    <script>
+                        $('#query').keyup(function () {
+                            var valThis = this.value.toLowerCase(),
+                                length = this.value.length;
+
+                            $('.node_list>li').each(function () {
+                                var text = $(this).text(),
+                                    textL = text.toLowerCase(),
+                                    htmlR = '<b>' + text.substr(0, length) + '</b>' + text.substr(length);
+                                (textL.indexOf(valThis) != -1) ? $(this).show() : $(this).hide();
+                            });
+
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block messages %}
+{% endblock %}

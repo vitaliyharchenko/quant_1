@@ -2,7 +2,7 @@ import colorsys
 
 from django.shortcuts import render, reverse, HttpResponse
 from graphviz import Digraph
-from nodes.models import NodeRelation, SubjectTag
+from nodes.models import NodeRelation, SubjectTag, Node
 
 from .forms import SubjectsSelectForm
 
@@ -14,7 +14,10 @@ def svg_view(request):
     try:
         picked = request.GET['picked']
         picked = picked.split(',')
-        subjects_list = SubjectTag.objects.filter(id__in=picked)
+        if picked[0]:
+            subjects_list = SubjectTag.objects.filter(id__in=picked)
+        else:
+            subjects_list = SubjectTag.objects.all()
     except KeyError:
         subjects_list = SubjectTag.objects.all()
 
@@ -47,25 +50,31 @@ def svg_view(request):
     return HttpResponse(dot.pipe(), 'image/svg+xml')
 
 
+# General view for graph
 def graph_view(request):
 
-    all_subjects = SubjectTag.objects.all()
+    node_list = Node.objects.all()
 
     if request.method == "POST":
         subjects_form = SubjectsSelectForm(request.POST or None)
         if subjects_form.is_valid():
             picked = subjects_form.cleaned_data.get('choices')
-            print(picked)
+            if len(picked) != 0:
+                node_list = node_list.filter(subject_tag__in=picked)
             picked_str = ','.join(picked)
+            svg_url = '{url}?picked={picked}'.format(url=reverse('nodes:svg_view'), picked=picked_str)
     else:
         subjects_form = SubjectsSelectForm()
-        picked_str = ''
+        svg_url = reverse('nodes:svg_view')
 
     context = {
-        'all_subjects': all_subjects,
-        'svg_url': reverse('nodes:svg_view'),
+        'svg_url': svg_url,
         'subject_form': subjects_form,
-        'picked': picked_str
+        'node_list': node_list
     }
 
-    return render(request, 'graph.html', context)
+    return render(request, 'nodes/graph.html', context)
+
+
+def create_nodes(request):
+    return render(request, 'nodes/create.html')
