@@ -9,6 +9,7 @@
                 <div class="card-block">
                     <div class="graph embed-responsive embed-responsive-16by9">
                         <script src="https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.js"></script>
+                        <script src="http://ariutta.github.io/svg-pan-zoom/demo/hammer.js"></script>
                         {% if svg_url %}
 
                             <embed class="embed-responsive-item" type="image/svg+xml" src="{{ svg_url }}{% if picked %}?picked={{ picked }}{% endif %}" id="my-embed-svg"/>
@@ -74,7 +75,8 @@
                                         document.getElementById('my-embed-svg'),
                                         {
                                             zoomEnabled: true,
-                                            controlIconsEnabled: true
+                                            controlIconsEnabled: true,
+                                            customEventsHandler: eventsHandler
                                         }
                                     );
                                 })
