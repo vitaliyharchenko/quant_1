@@ -15,7 +15,12 @@
                             <script>
                                 document.getElementById('my-embed').addEventListener('load', function(){
                                 // Will get called after embed element was loaded
-                                    svgPanZoom(document.getElementById('my-embed'));
+                                    svgPanZoom(
+                                        document.getElementById('my-embed'),
+                                        {
+                                            zoomEnabled: true
+                                        }
+                                    );
                                 })
                             </script>
                         {% endif %}
