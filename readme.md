@@ -82,4 +82,7 @@ https://oauth.vk.com/access_token?client_id=5551024&client_secret=8C6BjXZii7PDzr
 isort -rc .
 ```
 
-2. 
+2.
+```
+scp root@188.127.249.128:quantzone/web/quantzone/db.sqlite3 /Dev
+```
