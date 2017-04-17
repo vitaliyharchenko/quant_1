@@ -29,7 +29,7 @@
                             <div class="card-block">
                                 <form method="post">
                                     {% csrf_token %}
-                                    {% crispy form %}
+                                    {{ form|crispy }}
                                     <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
                                 </form>
                             </div>

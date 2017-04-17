@@ -1,24 +1,31 @@
 {% extends "base_regular.html" %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-block">
-                    <div class="graph">
-                    <script src="https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.js"></script>
-                        {% if s %}
+                    <div class="graph embed-responsive embed-responsive-16by9">
+                        <script src="https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.js"></script>
+                        {% if svg_url %}
 
-                            <embed type="image/svg+xml" src="{{ s }}" id="my-embed"/>
+                            <embed class="embed-responsive-item" type="image/svg+xml" src="{{ svg_url }}{% if picked %}?picked={{ picked }}{% endif %}" id="my-embed"/>
                             <script>
-                            document.getElementById('my-embed').addEventListener('load', function(){
-                            // Will get called after embed element was loaded
-                                svgPanZoom(document.getElementById('my-embed'));
-                            })
+                                document.getElementById('my-embed').addEventListener('load', function(){
+                                // Will get called after embed element was loaded
+                                    svgPanZoom(document.getElementById('my-embed'));
+                                })
                             </script>
                         {% endif %}
                     </div>
+                    <hr>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ subject_form|crispy }}
+                        <button class="btn btn-outline-primary" type="submit">Применить фильтр</button>
+                    </form>
                 </div>
             </div>
         </div>
