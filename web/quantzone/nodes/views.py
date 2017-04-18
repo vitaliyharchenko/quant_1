@@ -62,6 +62,7 @@ def graph_view(request):
             picked = subjects_form.cleaned_data.get('choices')
             if len(picked) != 0:
                 node_list = node_list.filter(subject_tag__in=picked)
+                edge_list = edge_list.filter(parent__subject_tag__in=picked)
             picked_str = ','.join(picked)
             svg_url = '{url}?picked={picked}'.format(url=reverse('nodes:svg_view'), picked=picked_str)
     else:
