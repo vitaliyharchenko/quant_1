@@ -91,35 +91,71 @@
                     </form>
                     <hr>
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-6">
+                            <h3>Список узлов</h3>
                             <div class="form-group">
-
-                                <label class="form-control-label">
-                                    <small>Фильтр узлов</small>
-                                </label>
-                                <input class="form-control" placeholder="Фильтр по названию" id="query" type="text" />
+                                <input class="form-control" placeholder="Фильтр по названию" id="node_query"
+                                       type="text"/>
                             </div>
+                            <ul class="node_list list-group">
+                                {% for node in node_list %}
+                                    <li class="list-group-item">
+                                        {{ node }}
+                                        &nbsp;&nbsp;
+                                        <a href="{% url 'admin:nodes_node_change' node.id %}" target="_blank">
+                                            Ред.
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <script>
+                                $('#node_query').keyup(function () {
+                                    var valThis = this.value.toLowerCase(),
+                                        length = this.value.length;
+
+                                    $('.node_list>li').each(function () {
+                                        var text = $(this).text(),
+                                            textL = text.toLowerCase(),
+                                            htmlR = '<b>' + text.substr(0, length) + '</b>' + text.substr(length);
+                                        (textL.indexOf(valThis) != -1) ? $(this).show() : $(this).hide();
+                                    });
+
+                                });
+                            </script>
+                        </div>
+                        <div class="col-6">
+                            <h3>Список связей</h3>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Фильтр по названию" id="edge_query"
+                                       type="text"/>
+                            </div>
+                            <ul class="edge_list list-group">
+                                {% for edge in edge_list %}
+                                    <li class="list-group-item">
+                                        {{ edge }}
+                                        &nbsp;&nbsp;
+                                        <a href="{% url 'admin:nodes_noderelation_change' edge.id %}" target="_blank">
+                                            Ред.
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <script>
+                                $('#edge_query').keyup(function () {
+                                    var valThis = this.value.toLowerCase(),
+                                        length = this.value.length;
+
+                                    $('.edge_list>li').each(function () {
+                                        var text = $(this).text(),
+                                            textL = text.toLowerCase(),
+                                            htmlR = '<b>' + text.substr(0, length) + '</b>' + text.substr(length);
+                                        (textL.indexOf(valThis) != -1) ? $(this).show() : $(this).hide();
+                                    });
+
+                                });
+                            </script>
                         </div>
                     </div>
-                    <ul class="node_list list-group">
-                        {% for node in node_list %}
-                            <li class="list-group-item">{{ node }}</li>
-                        {% endfor %}
-                    </ul>
-                    <script>
-                        $('#query').keyup(function () {
-                            var valThis = this.value.toLowerCase(),
-                                length = this.value.length;
-
-                            $('.node_list>li').each(function () {
-                                var text = $(this).text(),
-                                    textL = text.toLowerCase(),
-                                    htmlR = '<b>' + text.substr(0, length) + '</b>' + text.substr(length);
-                                (textL.indexOf(valThis) != -1) ? $(this).show() : $(this).hide();
-                            });
-
-                        });
-                    </script>
                 </div>
             </div>
         </div>

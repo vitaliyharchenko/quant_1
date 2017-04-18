@@ -10,11 +10,10 @@ class NodeAutocomplete(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated():
             return Node.objects.none()
 
-        qs = Node.objects.all()
+        qs = Node.objects.all().order_by('pk')
 
         if self.q:
             qs = qs.filter(title__icontains=self.q)
-        print(qs)
         return qs
 
 

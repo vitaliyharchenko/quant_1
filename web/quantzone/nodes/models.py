@@ -24,8 +24,8 @@ class Node(models.Model):
     )
 
     title = models.CharField('Название объекта', max_length=300)
-    subject_tag = models.ForeignKey(SubjectTag)
-    type_tag = models.PositiveSmallIntegerField(choices=CHOICES)
+    subject_tag = models.ForeignKey(SubjectTag, verbose_name='Предмет')
+    type_tag = models.PositiveSmallIntegerField(choices=CHOICES, verbose_name='Тип узла')
 
     class Meta:
         verbose_name = 'Узел'
@@ -45,4 +45,4 @@ class NodeRelation(models.Model):
         verbose_name_plural = 'Связи между узлами'
 
     def __str__(self):
-        return "{} in {}".format(self.child, self.parent)
+        return "от '{}' к '{}'".format(self.child, self.parent)

@@ -54,6 +54,7 @@ def svg_view(request):
 def graph_view(request):
 
     node_list = Node.objects.all()
+    edge_list = NodeRelation.objects.all()
 
     if request.method == "POST":
         subjects_form = SubjectsSelectForm(request.POST or None)
@@ -70,7 +71,8 @@ def graph_view(request):
     context = {
         'svg_url': svg_url,
         'subject_form': subjects_form,
-        'node_list': node_list
+        'node_list': node_list,
+        'edge_list': edge_list
     }
 
     return render(request, 'nodes/graph.html', context)
