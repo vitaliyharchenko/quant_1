@@ -1,10 +1,10 @@
 import colorsys
 
-from django.shortcuts import render, reverse, HttpResponse
+from django.shortcuts import render, reverse, HttpResponse, redirect
 from graphviz import Digraph
 from nodes.models import NodeRelation, SubjectTag, Node
 
-from .forms import SubjectsSelectForm
+from .forms import SubjectsSelectForm, NodeCreateForm, NodeRelationCreateForm
 
 
 # Create svg for graph
@@ -55,6 +55,8 @@ def graph_view(request):
 
     node_list = Node.objects.all()
     edge_list = NodeRelation.objects.all()
+    node_form = NodeCreateForm()
+    edge_form = NodeRelationCreateForm()
 
     if request.method == "POST":
         subjects_form = SubjectsSelectForm(request.POST or None)
@@ -72,6 +74,8 @@ def graph_view(request):
     context = {
         'svg_url': svg_url,
         'subject_form': subjects_form,
+        'node_form': node_form,
+        'edge_form': edge_form,
         'node_list': node_list,
         'edge_list': edge_list
     }
@@ -79,5 +83,17 @@ def graph_view(request):
     return render(request, 'nodes/graph.html', context)
 
 
-def create_nodes(request):
-    return render(request, 'nodes/create.html')
+def create_node(request):
+    if request.method == "POST":
+        node_form = NodeCreateForm(request.POST or None)
+        if node_form.is_valid():
+            node_form.save()
+            return redirect('nodes:graph')
+
+
+def create_edge(request):
+    if request.method == "POST":
+        edge_form = NodeRelationCreateForm(request.POST or None)
+        if edge_form.is_valid():
+            edge_form.save()
+            return redirect('nodes:graph')
