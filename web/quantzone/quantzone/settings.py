@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Custom apps
+    'blocks',
     'lms',
     'nodes',
     'users',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 
     # Third party
     'crispy_forms',
+    'markdownx',
 
     # Dev
 ]

@@ -55,7 +55,7 @@ def login(request):
 @login_required()
 def users(request):
     context = {
-        'users': User.objects.all()
+        'users': User.objects.all().select_related('profile')
     }
     return render(request, 'users/users.html', context)
 
