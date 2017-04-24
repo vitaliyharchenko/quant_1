@@ -1,5 +1,6 @@
 import colorsys
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, reverse, HttpResponse, redirect
 from graphviz import Digraph
 from nodes.models import NodeRelation, SubjectTag, Node
@@ -8,6 +9,7 @@ from .forms import SubjectsSelectForm, NodeCreateForm, NodeRelationCreateForm
 
 
 # Create svg for graph
+@login_required()
 def svg_view(request):
 
     # get info abut what subjects to draw
@@ -51,6 +53,7 @@ def svg_view(request):
 
 
 # General view for graph
+@login_required()
 def graph_view(request):
 
     node_list = Node.objects.all()
@@ -82,7 +85,7 @@ def graph_view(request):
 
     return render(request, 'nodes/graph.html', context)
 
-
+@login_required()
 def create_node(request):
     if request.method == "POST":
         node_form = NodeCreateForm(request.POST or None)
@@ -91,6 +94,7 @@ def create_node(request):
             return redirect('nodes:graph')
 
 
+@login_required()
 def create_edge(request):
     if request.method == "POST":
         edge_form = NodeRelationCreateForm(request.POST or None)
