@@ -10,9 +10,9 @@ class Block(models.Model):
 
 
 class TextBlock(Block):
-    title = models.CharField(max_length=200, unique=True)
-    # TODO: waiting form markdownx v2.0
-    body = models.TextField()
+    title = MarkdownxField()
+    # TODO: add custom view for creating lectures
+    body = MarkdownxField()
 
     class Meta:
         verbose_name = 'текстовая статья'
@@ -23,7 +23,7 @@ class TextBlock(Block):
 
 
 class ChoiceBlock(Block):
-    question_text = models.TextField()
+    question_text = MarkdownxField()
     image = models.ImageField('Картинка', upload_to='choice_blocks/', null=True, blank=True)
 
     class Meta:
