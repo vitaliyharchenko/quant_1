@@ -1,0 +1,16 @@
+{% extends 'base_regular.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+            <div class="card">
+                <div class="card-block">
+                    {% block block-content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

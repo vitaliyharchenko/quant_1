@@ -7,7 +7,16 @@ from .models import Block
 # Block view for testing
 @login_required()
 def block(request, block_id):
-    context = {
-        'instance': Block.objects.get(pk=block_id)
-    }
-    return render(request, 'blocks/block.html', context)
+    instance = Block.objects.get_subclass(pk=block_id)
+    if instance.class_name() == 'TextBlock':
+        context = {
+            'instance': instance
+        }
+        return render(request, 'blocks/text_block.html', context)
+    elif instance.class_name() == 'ChoiceBlock':
+        context = {
+            'instance': instance
+        }
+        return render(request, 'blocks/choice_block.html', context)
+    else:
+        return

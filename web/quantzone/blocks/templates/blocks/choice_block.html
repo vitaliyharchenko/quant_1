@@ -1,0 +1,7 @@
+{% extends "blocks/block_base.html" %}
+{% load staticfiles %}
+
+{% block block-content %}
+    <p>Тестовый вопрос #{{ instance.pk }}</p>
+    <p>{{ instance.question_text }}</p>
+{% endblock %}

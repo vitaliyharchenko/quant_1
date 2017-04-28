@@ -85,6 +85,7 @@ def graph_view(request):
 
     return render(request, 'nodes/graph.html', context)
 
+
 @login_required()
 def create_node(request):
     if request.method == "POST":

@@ -1,0 +1,8 @@
+{% extends "blocks/block_base.html" %}
+{% load staticfiles %}
+
+{% block block-content %}
+    <h2>{{ instance.title }}</h2>
+    <h4>{{ instance.class_name }}</h4>
+    <p>{{ instance.body }}</p>
+{% endblock %}
